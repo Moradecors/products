@@ -1,0 +1,1587 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MORA — Objects for the considered interior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-soft: #111111;
+  --text: #ffffff;
+  --text-soft: #dadada;
+  --text-mute: rgba(255,255,255,0.45);
+  
+  /* Brand Accent (Green) */
+  --accent: #39FF14;
+  --accent-soft: rgba(57, 255, 20, 0.25);
+  
+  /* Interaction Accent (Blue) */
+  --accent-2: #0040FF;
+  --accent-2-soft: rgba(0, 64, 255, 0.25);
+  
+  --line: rgba(255,255,255,0.10);
+  --line-soft: rgba(255,255,255,0.06);
+  --ease-quiet: cubic-bezier(.22,1,.36,1);
+  --ease-precise: cubic-bezier(.4,0,.2,1);
+  --ease-emphasis: cubic-bezier(.16,1,.3,1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; }
+
+
+/* ---- Typography ---- */
+.eyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+.eyebrow.no-rule::after { display: none; }
+
+
+/* ---- Nav ---- */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  height: 19.2px;
+}
+.nav-logo img {
+  height: 100%;
+  width: auto;
+  display: block;
+  mix-blend-mode: screen;
+}
+.nav-links { display: flex; gap: 2.5rem; }
+.nav-links a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  position: relative;
+  padding: 0.25rem 0;
+  transition: color 400ms var(--ease-quiet);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent-2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease-quiet);
+}
+.nav-links a:hover { color: var(--accent-2); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.is-active::after { transform: scaleX(1); background: var(--accent); }
+.nav-links a.is-active { color: var(--accent); }
+
+
+.nav-contact {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  transition: color 400ms var(--ease-quiet);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-contact:hover { color: var(--accent-2); }
+.nav-contact::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--accent-2);
+  border-radius: 50%;
+  transition: background 400ms var(--ease-quiet);
+}
+.nav-contact:hover::before { background: var(--accent-2); }
+
+
+/* ---- View switching ---- */
+main { display: none; }
+body[data-active-view="home"] #view-home { display: block; }
+body[data-active-view="collection"] #view-collection { display: block; }
+body[data-active-view="object"] #view-object { display: block; }
+
+
+/* ---- Hero slider ---- */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 720px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.hero-slider { position: absolute; inset: 0; }
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1200ms var(--ease-quiet);
+}
+.slide.is-active { opacity: 1; pointer-events: auto; }
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  transition: transform 8000ms var(--ease-quiet);
+}
+.slide.is-active .slide-bg { transform: scale(1); }
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0.15) 35%, rgba(10,10,10,0.85) 100%),
+    linear-gradient(90deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 50%);
+}
+.slide-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 11rem;
+}
+.slide-eyebrow, .slide-title, .slide-sub {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.slide-eyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.slide-eyebrow::after {
+  content: '';
+  width: 3rem;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.7;
+}
+.slide-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.75rem;
+  max-width: 900px;
+}
+.slide-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 300;
+}
+.slide-sub {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.7;
+  color: var(--text-soft);
+  max-width: 560px;
+  margin-bottom: 2.75rem;
+}
+
+
+.hero-controls {
+  position: absolute;
+  bottom: 3rem;
+  left: 0; right: 0;
+  z-index: 5;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hero-counter {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--text-mute);
+}
+.hero-counter strong { color: var(--accent); font-weight: 600; }
+.hero-dots { display: flex; gap: 0.85rem; align-items: center; }
+.hero-dot {
+  width: 32px;
+  height: 1px;
+  background: rgba(255,255,255,0.18);
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  transition: background 400ms var(--ease-quiet);
+}
+.hero-dot.is-active { background: var(--accent); }
+.hero-dot.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0; top: -1px;
+  height: 3px;
+  background: var(--accent);
+  width: 100%;
+}
+.hero-arrows { display: flex; gap: 0.5rem; }
+.hero-arrow {
+  width: 42px; height: 42px;
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 400ms var(--ease-quiet), background 400ms var(--ease-quiet);
+}
+.hero-arrow:hover {
+  border-color: var(--accent-2);
+  background: rgba(0, 64, 255, 0.08);
+}
+.hero-arrow svg { width: 14px; height: 14px; stroke: var(--text-soft); }
+
+
+/* ---- Featured objects horizontal pin ---- */
+.featured {
+  background: var(--bg);
+  padding-top: 10rem;
+}
+.featured-header {
+  max-width: 1400px;
+  margin: 0 auto 4rem;
+  padding: 0 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.featured-header .eyebrow { margin-bottom: 1.25rem; }
+.featured-header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  max-width: 540px;
+}
+.featured-header h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.featured-header-link {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 0.35rem;
+  transition: color 400ms var(--ease-quiet);
+}
+.featured-header-link:hover { color: var(--accent-2); }
+
+
+.pin-viewport { position: relative; }
+.pin-track-wrap {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.pin-track {
+  display: flex;
+  gap: 2.5rem;
+  padding: 0 6rem;
+  will-change: transform;
+  transition: transform 200ms var(--ease-quiet);
+}
+.obj-card {
+  flex: 0 0 auto;
+  width: 360px;
+  cursor: pointer;
+  transition: transform 200ms var(--ease-quiet);
+}
+.obj-card-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: var(--bg-soft);
+  overflow: hidden;
+  position: relative;
+}
+.obj-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 800ms var(--ease-quiet), filter 800ms var(--ease-quiet);
+  filter: grayscale(0.2);
+}
+.obj-card:hover .obj-card-img img {
+  transform: scale(1.04);
+  filter: grayscale(0);
+}
+.obj-card-info {
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  border-top: 1px solid var(--line);
+  margin-top: 1.5rem;
+  position: relative;
+}
+.obj-card-info::before {
+  content: '';
+  position: absolute;
+  left: 0; top: -1px;
+  width: 0;
+  height: 1px;
+  background: var(--accent-2);
+  transition: width 600ms var(--ease-quiet);
+}
+.obj-card:hover .obj-card-info::before { width: 100%; }
+.obj-card-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+}
+.obj-card-meta {
+  text-align: right;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+.obj-card-meta .price { color: var(--accent); display: block; margin-bottom: 0.35rem; }
+
+
+.pin-progress {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12rem;
+  height: 1px;
+  background: var(--line);
+  z-index: 5;
+}
+.pin-progress-fill {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 100ms linear;
+}
+
+
+/* ---- CTA banner ---- */
+.cta-banner {
+  padding: 10rem 2.5rem;
+  text-align: center;
+  border-top: 1px solid var(--line-soft);
+}
+.cta-banner .eyebrow { margin-bottom: 2rem; }
+.cta-banner h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+}
+.cta-banner h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.cta-banner p {
+  max-width: 540px;
+  margin: 0 auto 3rem;
+  color: var(--text-soft);
+  font-size: 16px;
+  font-weight: 300;
+}
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  align-self: flex-start;
+  padding: 1.1rem 1.75rem;
+  border: 1px solid var(--line);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text);
+  transition: border-color 400ms var(--ease-quiet), background 400ms var(--ease-quiet), color 400ms var(--ease-quiet);
+}
+.cta-banner .slide-cta { margin: 0 auto; }
+.slide-cta:hover {
+  border-color: var(--accent-2);
+  background: var(--accent-2);
+  color: #ffffff;
+}
+.slide-cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+
+/* ---- Collection view ---- */
+.collection-header {
+  padding: 12rem 2.5rem 5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--line-soft);
+}
+.collection-header .eyebrow { margin-bottom: 2rem; }
+.collection-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 2.5rem;
+  max-width: 900px;
+}
+.collection-header h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.collection-header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.collection-header-meta p {
+  max-width: 480px;
+  color: var(--text-soft);
+  font-size: 15px;
+  font-weight: 300;
+}
+.collection-filters { display: flex; gap: 1.75rem; flex-wrap: wrap; }
+.collection-filter {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 400ms var(--ease-quiet);
+}
+.collection-filter::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease-quiet);
+}
+.collection-filter:hover { color: var(--text-soft); }
+.collection-filter.is-active { color: var(--accent); }
+.collection-filter.is-active::after { transform: scaleX(1); }
+
+
+.product-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem 8rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 2rem;
+}
+.product-card {
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 800ms var(--ease-quiet), transform 800ms var(--ease-quiet);
+}
+.product-card.is-revealed { opacity: 1; transform: none; }
+.product-card-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: var(--bg-soft);
+  overflow: hidden;
+  position: relative;
+}
+.product-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1000ms var(--ease-quiet), filter 1000ms var(--ease-quiet);
+  filter: grayscale(0.15);
+}
+.product-card:hover .product-card-img img {
+  transform: scale(1.04);
+  filter: grayscale(0);
+}
+.product-card-num {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  background: rgba(10,10,10,0.6);
+  padding: 0.35rem 0.65rem;
+  backdrop-filter: blur(4px);
+}
+.product-card-info {
+  padding-top: 1.25rem;
+  position: relative;
+}
+.product-card-info::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-2);
+  transition: width 600ms var(--ease-quiet);
+}
+.product-card:hover .product-card-info::before { width: 100%; }
+.product-card-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.005em;
+}
+.product-card-material {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 0.85rem;
+  font-weight: 300;
+}
+.product-card-price {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+
+/* ---- Object detail view ---- */
+.breadcrumb {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8rem 2.5rem 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+.breadcrumb a { transition: color 400ms var(--ease-quiet); }
+.breadcrumb a:hover { color: var(--accent-2); }
+.breadcrumb span { color: var(--text-mute); }
+
+
+.product-detail {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem 8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.product-gallery {
+  position: sticky;
+  top: 6rem;
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.gallery-thumbs { display: flex; flex-direction: column; gap: 1rem; }
+.gallery-thumb {
+  width: 88px;
+  height: 110px;
+  background: var(--bg-soft);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid transparent;
+  transition: border-color 400ms var(--ease-quiet);
+}
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.4);
+  transition: filter 400ms var(--ease-quiet);
+}
+.gallery-thumb.is-active { border-color: var(--accent); }
+.gallery-thumb.is-active img { filter: grayscale(0); }
+.gallery-thumb:hover img { filter: grayscale(0); }
+.gallery-main {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: var(--bg-soft);
+  overflow: hidden;
+  position: relative;
+}
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 600ms var(--ease-quiet);
+}
+.gallery-main.changing img { opacity: 0; }
+.gallery-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--text);
+  background: rgba(10,10,10,0.7);
+  padding: 0.4rem 0.75rem;
+  backdrop-filter: blur(6px);
+}
+.gallery-counter strong { color: var(--accent-2); font-weight: 600; }
+
+
+.product-info { padding-top: 1rem; }
+.product-info .eyebrow { margin-bottom: 1.5rem; }
+.product-info h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.25rem;
+}
+.product-info h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.product-price {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 1.65rem;
+  letter-spacing: -0.005em;
+  margin-bottom: 0.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.product-price .currency { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; color: var(--text-mute); letter-spacing: 0.15em; text-transform: uppercase; }
+.product-price .amount { color: var(--accent); }
+.price-subtext {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-top: -1.5rem;
+  margin-bottom: 2.5rem;
+}
+.product-lede {
+  font-size: 16px;
+  color: var(--text-soft);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+
+.quantity-row {
+  display: flex;
+  align-items: stretch;
+  margin: 2rem 0;
+  border: 1px solid var(--line);
+}
+.quantity-btn {
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--text-soft);
+  transition: color 400ms var(--ease-quiet), background 400ms var(--ease-quiet);
+}
+.quantity-btn:hover { color: var(--accent-2); background: rgba(0, 64, 255, 0.06); }
+.quantity-display {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: var(--text);
+}
+.add-to-order {
+  width: 100%;
+  padding: 1.25rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 400ms var(--ease-quiet), color 400ms var(--ease-quiet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+}
+.add-to-order:hover { background: var(--accent-2); color: #ffffff; }
+.enquire-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  transition: border-color 400ms var(--ease-quiet), color 400ms var(--ease-quiet);
+}
+.enquire-link:hover { border-color: var(--accent); color: var(--accent); }
+
+
+.product-specs { margin-top: 3.5rem; }
+.product-specs h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.specs-list { border-top: 1px solid var(--line); }
+.spec-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  position: relative;
+  transition: padding-left 500ms var(--ease-quiet);
+}
+.spec-row::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: var(--accent);
+  transition: height 600ms var(--ease-quiet);
+}
+.spec-row:hover { padding-left: 1rem; }
+.spec-row:hover::before { height: 100%; }
+.spec-label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  transition: color 500ms var(--ease-quiet);
+}
+.spec-row:hover .spec-label { color: var(--accent); }
+.spec-value {
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 300;
+}
+
+
+/* ---- Footer ---- */
+.footer {
+  padding: 6rem 2.5rem 3rem;
+  border-top: 1px solid var(--line-soft);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.footer-brand .brand-logo-footer {
+  height: 26.4px;
+  width: auto;
+  margin-bottom: 1.5rem;
+  display: block;
+  mix-blend-mode: screen;
+}
+.footer-brand p {
+  color: var(--text-soft);
+  max-width: 380px;
+  font-size: 14px;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+.footer-col h4 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.75rem; }
+.footer-col a {
+  font-size: 14px;
+  color: var(--text-soft);
+  transition: color 400ms var(--ease-quiet);
+  font-weight: 300;
+}
+.footer-col a:hover { color: var(--accent-2); }
+.footer-contact li { margin-bottom: 0.9rem; }
+.footer-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.footer-contact svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--text-soft);
+  transition: stroke 400ms var(--ease-quiet);
+  flex-shrink: 0;
+}
+.footer-contact a:hover svg { stroke: var(--accent-2); }
+.footer-bottom {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+
+/* ---- Reveal animation ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1000ms var(--ease-quiet), transform 1000ms var(--ease-quiet);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+@media (max-width: 900px) {
+  .nav { padding: 1.25rem 1.5rem; }
+  .nav-logo { height: 16.8px; }
+  .nav-links { gap: 1.5rem; }
+  .featured-header { padding: 0 1.5rem; flex-direction: column; align-items: flex-start; gap: 2rem; }
+  .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
+  .pin-track { padding: 0 1.5rem; transform: none !important; }
+  .obj-card { scroll-snap-align: start; }
+  .pin-progress { display: none; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; padding: 3rem 1.5rem 6rem; }
+  .collection-header { padding: 9rem 1.5rem 4rem; }
+  .cta-banner { padding: 6rem 1.5rem; }
+  .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1.5rem 6rem; }
+  .product-gallery { position: static; grid-template-columns: 1fr; }
+  .gallery-thumbs { flex-direction: row; overflow-x: auto; }
+  .gallery-thumb { width: 80px; height: 100px; flex-shrink: 0; }
+  .footer { padding: 4rem 1.5rem 2rem; }
+  .breadcrumb { padding: 7rem 1.5rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .slide-content { padding: 0 1.5rem 9rem 1.5rem; }
+  .hero-controls { padding: 0 1.5rem; bottom: 2rem; }
+  .hero-counter { display: none; }
+  .hero-dot { width: 24px; }
+  .product-grid { grid-template-columns: 1fr; }
+  .spec-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .nav-links { display: none; }
+  .slide-title { font-size: clamp(2.2rem, 9vw, 3.4rem); }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .slide-bg { transform: none !important; }
+  .reveal, .product-card, .slide-eyebrow, .slide-title, .slide-sub, .slide-cta { opacity: 1 !important; transform: none !important; }
+}
+@media (pointer: coarse) {
+  .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .pin-track { transform: none !important; }
+  .obj-card { transform: none !important; }
+  .pin-progress { display: none; }
+}
+</style>
+</head>
+<body data-active-view="home">
+
+
+<header class="nav">
+  <a href="#" class="nav-logo" data-view-link="home">
+    <img src="https://z-cdn-media.chatglm.cn/files/c45b9cfe-0d41-448e-839e-508ff5e65aec.png?auth_key=1888425504-55f5580c33d94561b9089eacc8775d4a-0-c1dc69a53f25331f0b2f059b40dbc34d" alt="MORA">
+  </a>
+  <nav class="nav-links">
+    <a href="#" data-view-link="home">Home</a>
+    <a href="#" data-view-link="collection" class="is-active">Products</a>
+  </nav>
+  <a href="#contact" class="nav-contact">Contact us</a>
+</header>
+
+
+<!-- ============ VIEW: HOME ============ -->
+<main id="view-home">
+  <section class="hero">
+    <div class="hero-slider" id="heroSlider">
+      <div class="slide is-active" data-slide="0">
+        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/42ff0d90-f09f-49a3-a92f-3d66c08005e8.png?auth_key=1888501082-1377e97d630c4d9b84dfd76231738ae6-0-4f1d0a35b0a22bfa7320ea21f7f72900')"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-eyebrow">ABOUT MORA</div>
+          <h1 class="slide-title">Four Generations of <em>Craftsmanship</em></h1>
+          <p class="slide-sub">Since 1972, MORA has preserved four generations of rare Indian craftsmanship, creating sculptural pieces where heritage meets refined luxury.</p>
+        </div>
+      </div>
+      <div class="slide" data-slide="1">
+        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a')"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-eyebrow">OUR LEGACY</div>
+          <h1 class="slide-title">The Attukal <em>Legacy</em></h1>
+          <p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p>
+        </div>
+      </div>
+      <div class="slide" data-slide="2">
+        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046')"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-eyebrow">MATERIAL</div>
+          <h1 class="slide-title">Pieces of <em>Rare Character</em></h1>
+          <p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p>
+        </div>
+      </div>
+      <div class="slide" data-slide="3">
+        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353')"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-eyebrow">DESIGNER PRODUCTS</div>
+          <h1 class="slide-title">Born from <em>Heritage</em></h1>
+          <p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p>
+        </div>
+      </div>
+      <div class="slide" data-slide="4">
+        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/1a134b4b-82a1-471a-918a-da0dde6abce4.jpeg?auth_key=1888508696-61bbe2b7fc014ee7962ddb83608b59eb-0-67bc3da828b1471391b911cb4fd898e9')"></div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-eyebrow">CASH ON DELIVERY</div>
+          <h1 class="slide-title">Delivered with <em>Care</em></h1>
+          <p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on Delivery.</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-controls">
+      <div class="hero-counter"><strong id="heroCurrent">01</strong> &nbsp;/&nbsp; 05</div>
+      <div class="hero-dots" id="heroDots">
+        <button class="hero-dot is-active" data-dot="0"></button>
+        <button class="hero-dot" data-dot="1"></button>
+        <button class="hero-dot" data-dot="2"></button>
+        <button class="hero-dot" data-dot="3"></button>
+        <button class="hero-dot" data-dot="4"></button>
+      </div>
+      <div class="hero-arrows">
+        <button class="hero-arrow" id="heroPrev" aria-label="Previous slide">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="hero-arrow" id="heroNext" aria-label="Next slide">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="featured">
+    <div class="featured-header">
+      <div>
+        <div class="eyebrow reveal">Featured · Spring release</div>
+        <h2 class="reveal">Eight objects, <em>chosen by the workshop</em>.</h2>
+      </div>
+      <a href="#" class="featured-header-link reveal" data-view-link="collection">View all 50 objects →</a>
+    </div>
+    <div class="pin-viewport" id="pinViewport">
+      <div class="pin-track-wrap">
+        <div class="pin-track" id="pinTrack"></div>
+        <div class="pin-progress"><div class="pin-progress-fill" id="pinFill"></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="cta-banner">
+    <div class="eyebrow reveal">Visit · Request · Subscribe</div>
+    <h2 class="reveal">Begin a slow correspondence with the <em>workshop</em>.</h2>
+    <p class="reveal">A short letter four times a year, written by the makers themselves. New objects, restoration notes, and the occasional drawing. No promotions, no urgency.</p>
+    <a href="#contact" class="slide-cta reveal">Contact the workshop
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </section>
+</main>
+
+
+<!-- ============ VIEW: COLLECTION ============ -->
+<main id="view-collection">
+  <header class="collection-header">
+    <div class="eyebrow reveal">Catalogue · MMXXV / I</div>
+    <h1 class="reveal">Fifty objects, <em>arranged by hand</em>.</h1>
+    <div class="collection-header-meta">
+      <p class="reveal">The full spring release. Each piece is photographed in unaltered north light, against the same plaster wall, by the same pair of hands. Filter by collection to narrow the view.</p>
+      <div class="collection-filters reveal">
+        <button class="collection-filter is-active" data-filter="all">All / 50</button>
+        <button class="collection-filter" data-filter="Seating">Seating / 12</button>
+        <button class="collection-filter" data-filter="Tables">Tables / 10</button>
+        <button class="collection-filter" data-filter="Lighting">Lighting / 10</button>
+        <button class="collection-filter" data-filter="Objects">Objects / 10</button>
+        <button class="collection-filter" data-filter="Textiles">Textiles / 08</button>
+      </div>
+    </div>
+  </header>
+  <section class="product-grid" id="productGrid"></section>
+</main>
+
+
+<!-- ============ VIEW: OBJECT ============ -->
+<main id="view-object">
+  <div class="breadcrumb">
+    <a href="#" data-view-link="home">Home</a>
+    <span>/</span>
+    <a href="#" data-view-link="collection">Products</a>
+    <span>/</span>
+    <a href="#">Lighting</a>
+    <span>/</span>
+    <span>Rudram</span>
+  </div>
+  <div class="product-detail">
+    <div class="product-gallery">
+      <div class="gallery-thumbs" id="galleryThumbs">
+        <button class="gallery-thumb is-active" data-idx="0">
+          <img src="https://picsum.photos/seed/mora-rudram-1/200/250" alt="View 1">
+        </button>
+        <button class="gallery-thumb" data-idx="1">
+          <img src="https://picsum.photos/seed/mora-rudram-2/200/250" alt="View 2">
+        </button>
+        <button class="gallery-thumb" data-idx="2">
+          <img src="https://picsum.photos/seed/mora-rudram-3/200/250" alt="View 3">
+        </button>
+      </div>
+      <div class="gallery-main" id="galleryMain">
+        <img id="galleryMainImg" src="https://picsum.photos/seed/mora-rudram-1/1000/1250" alt="Rudram Lamp">
+        <div class="gallery-counter"><strong id="galleryCurrent">01</strong>&nbsp;/&nbsp;<span id="galleryTotal">03</span></div>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="eyebrow">Lighting · RUD-001</div>
+      <h1>Rudram <em>Lamp</em></h1>
+      <div class="product-price">
+        <span class="currency">INR</span>
+        <span class="amount">36,993.00</span>
+      </div>
+      <div class="price-subtext">Tax included.</div>
+      <p class="product-lede">The Rudram lamp is born from agricultural waste — banana fibers crushed and dyed with coffee to achieve its deep, earthy texture. Hand-stretched over a solid wooden base, the shade diffuses light warmly, creating a grounding, sculptural presence.</p>
+      <div class="quantity-row">
+        <button class="quantity-btn" id="qtyDown">–</button>
+        <div class="quantity-display" id="qtyDisplay">01</div>
+        <button class="quantity-btn" id="qtyUp">+</button>
+      </div>
+      <a href="https://wa.me/919999999999?text=I%20would%20like%20to%20order%20the%20Rudram%20Lamp%20(₹%2036,993.00)" target="_blank" class="add-to-order">
+        Order on Whatsapp
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#contact" class="enquire-link">Cash On Delivery</a>
+      <div class="product-specs">
+        <h3>Product Details</h3>
+        <div class="specs-list">
+          <div class="spec-row"><div class="spec-label">Dimension</div><div class="spec-value">H - 36" L - 22"</div></div>
+          <div class="spec-row"><div class="spec-label">Material</div><div class="spec-value">Banana Crushed Paper Coffee dyed, Wooden Base</div></div>
+          <div class="spec-row"><div class="spec-label">Electrical fitting</div><div class="spec-value">E27 holder thread Bulb : E27 5W (5 pcs)</div></div>
+          <div class="spec-row"><div class="spec-label">Wire Length</div><div class="spec-value">1.5 M (foot switch)</div></div>
+          <div class="spec-row"><div class="spec-label">Delivery</div><div class="spec-value">Free delivery within Bangalore, with orders delivered within 3 days of booking. Additional delivery charges apply for locations outside Bangalore.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<footer class="footer" id="contact">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="https://z-cdn-media.chatglm.cn/files/c45b9cfe-0d41-448e-839e-508ff5e65aec.png?auth_key=1888425504-55f5580c33d94561b9089eacc8775d4a-0-c1dc69a53f25331f0b2f059b40dbc34d" alt="MORA" class="brand-logo-footer">
+      <p>Objects for the considered interior. Made slowly in small numbers, in a 1908 granary north of Arvika, Sweden. Repaired in perpetuity.</p>
+      <p style="font-family:'Poppins',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.2em; color:var(--text-mute); text-transform:uppercase;">Workshop · 59°39'N 12°24'E</p>
+    </div>
+    <div class="footer-col">
+      <h4>Catalogue</h4>
+      <ul>
+        <li><a href="#" data-view-link="collection">All objects</a></li>
+        <li><a href="#" data-view-link="collection">Seating</a></li>
+        <li><a href="#" data-view-link="collection">Tables</a></li>
+        <li><a href="#" data-view-link="collection">Lighting</a></li>
+        <li><a href="#" data-view-link="collection">Textiles</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-contact">
+      <h4>Contact</h4>
+      <ul>
+        <li>
+          <a href="https://wa.me/46123456789" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21l1.65-3.9a9 9 0 1 1 3.25 3.25L3 21"/>
+              <path d="M9 10a3 3 0 0 0 5 5"/>
+            </svg>
+            WhatsApp
+          </a>
+        </li>
+        <li>
+          <a href="https://instagram.com/mora.atelier" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+            </svg>
+            Instagram
+          </a>
+        </li>
+        <li>
+          <a href="mailto:studio@mora-atelier.se">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="M3 7l9 6 9-6"/>
+            </svg>
+            studio@mora-atelier.se
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© MMXXV · MORA · Arvika</span>
+    <span>Catalogue 01 / Spring · Edition of 600</span>
+    <span>Site built in the workshop</span>
+  </div>
+</footer>
+
+
+<script>
+/* ================================================================
+   VIEW SWITCHING
+   ================================================================ */
+function setView(name) {
+  document.body.dataset.activeView = name;
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('is-active', a.dataset.viewLink === name);
+  });
+  window.scrollTo(0, 0);
+  if (name === 'collection') {
+    revealProductCards();
+  }
+  if (name === 'object') {
+    initRudramGallery();
+  }
+  if (name === 'home') {
+    setTimeout(() => {
+      if (pinScrollTrigger) pinScrollTrigger.refresh();
+      setupPinScroll();
+    }, 50);
+  }
+}
+
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('[data-view-link]');
+  if (link) {
+    e.preventDefault();
+    setView(link.dataset.viewLink);
+  }
+  const card = e.target.closest('.product-card, .obj-card');
+  if (card) {
+    e.preventDefault();
+    setView('object');
+  }
+});
+
+
+/* ================================================================
+   HERO SLIDER
+   ================================================================ */
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.hero-dot');
+const heroCurrentEl = document.getElementById('heroCurrent');
+let currentSlide = 0;
+let slideTimer = null;
+const SLIDE_DURATION = 7200;
+
+
+function activateSlide(idx) {
+  if (idx === currentSlide && slides[idx].classList.contains('is-active')) return;
+  slides.forEach(s => {
+    s.classList.remove('is-active');
+    gsap.set(s.querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub'), {
+      opacity: 0, y: 40, clearProps: 'transition'
+    });
+  });
+  const next = slides[idx];
+  next.classList.add('is-active');
+  const beats = next.querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub');
+  gsap.killTweensOf(beats);
+  gsap.timeline({ delay: 0.3 })
+    .to(beats[0], { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+    .to(beats[1], { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.45')
+    .to(beats[2], { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
+  currentSlide = idx;
+  dots.forEach((d, di) => d.classList.toggle('is-active', di === idx));
+  heroCurrentEl.textContent = String(idx + 1).padStart(2, '0');
+}
+
+
+function nextSlide() { activateSlide((currentSlide + 1) % slides.length); }
+function prevSlide() { activateSlide((currentSlide - 1 + slides.length) % slides.length); }
+function startTimer() { stopTimer(); slideTimer = setInterval(nextSlide, SLIDE_DURATION); }
+function stopTimer() { if (slideTimer) clearInterval(slideTimer); }
+
+
+dots.forEach((d, di) => d.addEventListener('click', () => { activateSlide(di); startTimer(); }));
+document.getElementById('heroNext').addEventListener('click', () => { nextSlide(); startTimer(); });
+document.getElementById('heroPrev').addEventListener('click', () => { prevSlide(); startTimer(); });
+
+
+const heroEl = document.querySelector('.hero');
+heroEl.addEventListener('mouseenter', stopTimer);
+heroEl.addEventListener('mouseleave', startTimer);
+
+
+/* ================================================================
+   FEATURED — horizontal pin scroll
+   ================================================================ */
+const featuredIds = [0, 1, 2, 3, 4, 5, 6, 7];
+const pinTrack = document.getElementById('pinTrack');
+const pinViewport = document.getElementById('pinViewport');
+const pinFill = document.getElementById('pinFill');
+
+
+function renderFeatured() {
+  pinTrack.innerHTML = featuredIds.map(id => {
+    const price = 10250 + id * 250; 
+    return `
+      <article class="obj-card" data-product-id="${id}">
+        <div class="obj-card-img"><img src="https://picsum.photos/seed/mora-feat-${id}/600/750" alt="Featured Object" loading="lazy"></div>
+        <div class="obj-card-info">
+          <div>
+            <div class="obj-card-cat" style="font-family:'Poppins',sans-serif;font-weight:300;font-size:13px;color:var(--text-soft);margin-bottom:0.4rem;text-transform:none;">Materials - Banana paper &amp; teak</div>
+            <div class="obj-card-name">Handcrafted Object</div>
+          </div>
+          <div class="obj-card-meta">
+            <span class="price">₹ ${price.toLocaleString('en-IN')}</span>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+
+let pinScrollTrigger = null;
+function setupPinScroll() {
+  if (window.innerWidth < 900 || window.matchMedia('(pointer: coarse)').matches) {
+    pinViewport.style.height = '';
+    if (pinScrollTrigger) { pinScrollTrigger.kill(); pinScrollTrigger = null; }
+    gsap.set(pinTrack, { x: 0 });
+    return;
+  }
+  if (pinScrollTrigger) pinScrollTrigger.kill();
+  const trackWidth = () => pinTrack.scrollWidth - window.innerWidth + 48;
+  pinViewport.style.height = (trackWidth() + window.innerHeight) + 'px';
+  let skewTimeout = null;
+  pinScrollTrigger = gsap.to(pinTrack, {
+    x: () => -trackWidth(),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: pinViewport,
+      start: 'top top',
+      end: () => `+=${trackWidth()}`,
+      scrub: 1,
+      onUpdate: (self) => {
+        const p = self.progress;
+        pinFill.style.width = (p * 100) + '%';
+        const v = self.getVelocity();
+        const skew = Math.max(-10, Math.min(10, v * 0.002));
+        pinTrack.querySelectorAll('.obj-card').forEach(c => {
+          c.style.transform = `skewX(${skew}deg)`;
+        });
+        clearTimeout(skewTimeout);
+        skewTimeout = setTimeout(() => {
+          pinTrack.querySelectorAll('.obj-card').forEach(c => {
+            c.style.transform = 'skewX(0deg)';
+          });
+        }, 200);
+      },
+      onLeaveBack: () => {
+        gsap.set(pinTrack, { x: 0 });
+        pinFill.style.width = '0%';
+      }
+    }
+  });
+}
+
+
+/* ================================================================
+   COLLECTION — 50 product cards
+   ================================================================ */
+const productGrid = document.getElementById('productGrid');
+const collectionImages = [
+  "https://z-cdn-media.chatglm.cn/files/a7319e08-240e-4a3a-8b95-6837d9400383.jpg?auth_key=1888501082-910d8b12845643dbbd2bedcccdcaef04-0-964d2698b9d84947e5b50888bf4fa731",
+  "https://z-cdn-media.chatglm.cn/files/6bc70ff1-0472-4038-848c-84d4a8c19077.jpg?auth_key=1888501082-20291cb7151241b38883df4c76031395-0-21ee061f34e235ff849b050fb4e6767c",
+  "https://z-cdn-media.chatglm.cn/files/a0f401cd-3ed1-4f18-b39d-8968d2c2ae53.jpg?auth_key=1888501082-35c2befc9e6b46db98ca23073279a852-0-7febdffd2b412890637b1cacc5d853f9"
+];
+
+
+function renderCollection() {
+  let html = '';
+  for (let i = 1; i <= 50; i++) {
+    const num = String(i).padStart(3, '0');
+    const imgIndex = (i - 1) % 3;
+    const currentImg = collectionImages[imgIndex];
+    html += `
+      <article class="product-card" data-product-id="${i}">
+        <div class="product-card-img">
+          <span class="product-card-num">CAT-${num}</span>
+          <img src="${currentImg}" alt="MORA Object ${num}" loading="lazy">
+        </div>
+        <div class="product-card-info">
+          <h3 class="product-card-name">Handcrafted Object</h3>
+          <div class="product-card-material">Materials - Banana paper & teak</div>
+          <div class="product-card-price">₹ ${(10000 + i * 250).toLocaleString('en-IN')}</div>
+        </div>
+      </article>
+    `;
+  }
+  productGrid.innerHTML = html;
+}
+
+
+function revealProductCards() {
+  const cards = productGrid.querySelectorAll('.product-card');
+  cards.forEach((c, i) => {
+    c.classList.remove('is-revealed');
+    setTimeout(() => c.classList.add('is-revealed'), 40 + i * 35);
+  });
+}
+
+
+document.querySelectorAll('.collection-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.collection-filter').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+  });
+});
+
+
+/* ================================================================
+   RUDRAM PRODUCT DETAIL GALLERY
+   ================================================================ */
+let qty = 1;
+
+
+function initRudramGallery() {
+  const thumbs = document.querySelectorAll('#view-object .gallery-thumb');
+  const mainImg = document.getElementById('galleryMainImg');
+  const main = document.getElementById('galleryMain');
+  const currentEl = document.getElementById('galleryCurrent');
+  const seeds = ['mora-rudram-1', 'mora-rudram-2', 'mora-rudram-3'];
+
+
+  thumbs.forEach(th => th.classList.remove('is-active'));
+  thumbs[0].classList.add('is-active');
+  mainImg.src = `https://picsum.photos/seed/${seeds[0]}/1000/1250`;
+  currentEl.textContent = '01';
+  document.getElementById('galleryTotal').textContent = '03';
+
+
+  thumbs.forEach(t => {
+    t.onclick = () => {
+      const idx = parseInt(t.dataset.idx, 10);
+      thumbs.forEach(th => th.classList.remove('is-active'));
+      t.classList.add('is-active');
+      main.classList.add('changing');
+      setTimeout(() => {
+        mainImg.src = `https://picsum.photos/seed/${seeds[idx]}/1000/1250`;
+        main.classList.remove('changing');
+      }, 300);
+      currentEl.textContent = String(idx + 1).padStart(2, '0');
+    };
+  });
+  qty = 1;
+  document.getElementById('qtyDisplay').textContent = '01';
+}
+
+
+document.getElementById('qtyUp').addEventListener('click', () => {
+  if (qty < 12) qty++;
+  document.getElementById('qtyDisplay').textContent = String(qty).padStart(2, '0');
+});
+document.getElementById('qtyDown').addEventListener('click', () => {
+  if (qty > 1) qty--;
+  document.getElementById('qtyDisplay').textContent = String(qty).padStart(2, '0');
+});
+
+
+/* ================================================================
+   REVEAL ON SCROLL
+   ================================================================ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('is-in');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+
+
+function observeReveals() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (!el.classList.contains('is-in')) revealObserver.observe(el);
+  });
+}
+
+
+/* ================================================================
+   INIT
+   ================================================================ */
+function init() {
+  gsap.set(slides[0].querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub'), { opacity: 0, y: 40 });
+  gsap.timeline({ delay: 0.4 })
+    .to(slides[0].querySelector('.slide-eyebrow'), { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+    .to(slides[0].querySelector('.slide-title'), { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.45')
+    .to(slides[0].querySelector('.slide-sub'), { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
+
+
+  startTimer();
+  renderFeatured();
+  renderCollection();
+  observeReveals();
+  setTimeout(setupPinScroll, 100);
+
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (pinScrollTrigger) pinScrollTrigger.refresh();
+      setupPinScroll();
+    }, 200);
+  });
+}
+
+
+if (document.readyState === 'complete') init();
+else window.addEventListener('load', init);
+</script>
+
+
+</body>
+</html>
+```
