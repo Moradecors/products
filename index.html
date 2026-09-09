@@ -282,7 +282,6 @@ body[data-active-view="object"] #view-object { display: block; }
 .gallery-counter strong { color: var(--accent-2); font-weight: 600; }
 
 
-/* NEW: Zoom Hint */
 .zoom-hint {
   position: absolute;
   bottom: 1rem; left: 1rem;
@@ -305,7 +304,6 @@ body[data-active-view="object"] #view-object { display: block; }
 .gallery-main:hover .zoom-hint { opacity: 1; }
 
 
-/* NEW: Lightbox Styles */
 .lightbox {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -439,28 +437,28 @@ body[data-active-view="object"] #view-object { display: block; }
   .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 @media (max-width: 900px) {
-  .nav { padding: 1.25rem 1.5rem; }
+  .nav { padding: 1.25rem 1rem; } /* 16px margin */
   .nav-logo { height: 16.8px; }
   .nav-links { gap: 1.5rem; }
-  .featured-header { padding: 0 1.5rem; flex-direction: column; align-items: flex-start; gap: 2rem; }
+  .featured-header { padding: 0 1rem; flex-direction: column; align-items: flex-start; gap: 2rem; } /* 16px margin */
   .featured-header-link { margin-left: 0; }
   .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
-  .pin-track { padding: 0 1.5rem; transform: none !important; }
+  .pin-track { padding: 0 1rem; transform: none !important; } /* 16px margin */
   .obj-card { scroll-snap-align: start; }
   .pin-progress { display: none; }
-  .collection-tabs { padding: 7rem 1.5rem 2rem; gap: 1.5rem; }
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; padding: 3rem 1.5rem 6rem; }
-  .cta-banner { padding: 6rem 1.5rem; }
-  .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1.5rem 6rem; }
+  .collection-tabs { padding: 7rem 1rem 2rem; gap: 1.5rem; } /* 16px margin */
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; padding: 3rem 1rem 6rem; } /* 16px margin */
+  .cta-banner { padding: 6rem 1rem; } /* 16px margin */
+  .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1rem 6rem; } /* 16px margin */
   .product-gallery { position: static; grid-template-columns: 1fr; }
   .gallery-thumbs { flex-direction: row; overflow-x: auto; }
   .gallery-thumb { width: 80px; height: 100px; flex-shrink: 0; }
-  .footer { padding: 4rem 1.5rem 2rem; }
-  .breadcrumb { padding: 7rem 1.5rem 1.5rem; }
+  .footer { padding: 4rem 1rem 2rem; } /* 16px margin */
+  .breadcrumb { padding: 7rem 1rem 1.5rem; } /* 16px margin */
 }
 @media (max-width: 600px) {
-  .slide-content { padding: 0 1.5rem 9rem 1.5rem; }
-  .hero-controls { padding: 0 1.5rem; bottom: 2rem; }
+  .slide-content { padding: 0 1rem 9rem 1rem; } /* 16px margin */
+  .hero-controls { padding: 0 1rem; bottom: 2rem; } /* 16px margin */
   .hero-counter { display: none; }
   .hero-dot { width: 24px; }
   .product-grid { grid-template-columns: 1fr; }
@@ -720,7 +718,7 @@ const DELIVERY_TEXT = "Free delivery within Bangalore, with orders delivered wit
 
 const PRODUCTS = [
   { 
-    id: 1, name: "Suvarna", cat: "Designer", material: "Coconut paper, Coffee wood, White wood", price: 4800, originalPrice: 1200,
+    id: 1, name: "Suvarna", cat: "Designer", material: "Coconut paper, Coffee wood, White wood", price: 4800, originalPrice: 12000,
     imgs: ["https://i.ibb.co/SX358TQC/Suvarna-1.jpg", "https://i.ibb.co/ZpnYqbkg/Suvarna-2.jpg", "https://i.ibb.co/jkQCQT13/Suvarna-3.jpg"], desc: "",
     specs: { Dimension: "H-20 inches, W-10 inches", Material: "Coconut paper, Coffee wood, White wood", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
   },
