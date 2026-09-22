@@ -246,8 +246,9 @@ body[data-active-view="object"] #view-object { display: block; }
   grid-template-columns: repeat(4, 1fr);
   gap: 3rem 2rem;
 }
-.product-card { cursor: pointer; opacity: 0; transform: translateY(30px); transition: opacity 800ms var(--ease-quiet), transform 800ms var(--ease-quiet); }
+.product-card { cursor: pointer; opacity: 0; transform: translateY(30px); transition: opacity 800ms var(--ease-quiet), transform 800ms var(--ease-quiet), outline 0.3s ease; outline: 2px solid transparent; outline-offset: 4px; }
 .product-card.is-revealed { opacity: 1; transform: none; }
+.product-card.is-highlighted { outline: 2px solid var(--accent); }
 .product-card-img { width: 100%; aspect-ratio: 4/5; background: var(--bg-soft); overflow: hidden; position: relative; }
 .product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1000ms var(--ease-quiet), filter 1000ms var(--ease-quiet); filter: grayscale(0.15); }
 .product-card:hover .product-card-img img { transform: scale(1.04); filter: grayscale(0); }
@@ -1149,7 +1150,7 @@ const PRODUCTS = [
 
 
 // Pure view switching logic (doesn't touch browser history)
-function switchView(name, productId) {
+function switchView(name, productId, filter = 'all', scrollId = null) {
   document.body.dataset.activeView = name;
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('is-active', a.dataset.viewLink === name);
@@ -1157,6 +1158,14 @@ function switchView(name, productId) {
   window.scrollTo(0, 0);
   
   if (name === 'collection') {
+    // Apply filter
+    document.querySelectorAll('.collection-tab').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.filter === filter);
+    });
+    productGrid.querySelectorAll('.product-card').forEach(c => {
+      const show = filter === 'all' || c.dataset.category === filter;
+      c.style.display = show ? '' : 'none';
+    });
     revealProductCards();
   }
   if (name === 'object' && productId) {
@@ -1172,11 +1181,12 @@ function switchView(name, productId) {
 
 
 // Active view change triggered by clicking links
-function setView(name, productId) {
-  switchView(name, productId);
+function setView(name, productId = null, filter = 'all') {
+  switchView(name, productId, filter);
   // Push state to browser history so the back button works
-  const state = { view: name, productId: productId };
-  const url = `#${name}`;
+  const state = { view: name, productId: productId, filter: filter };
+  // Include product ID in URL if applicable
+  const url = productId ? `#object-${productId}` : `#${name}`;
   try {
     history.pushState(state, "", url);
   } catch (e) {
@@ -1189,19 +1199,38 @@ function setView(name, productId) {
 window.addEventListener('popstate', (event) => {
   if (event.state) {
     // Revert to the previous view without pushing a new history entry
-    switchView(event.state.view, event.state.productId);
+    switchView(event.state.view, event.state.productId, event.state.filter || 'all');
   } else {
     // Fallback if state is lost (e.g., initial entry)
-    switchView('home', null);
+    switchView('home', null, 'all');
   }
 });
 
 
 // Initialize baseline history state on load
 try {
-  history.replaceState({ view: 'home', productId: null }, "", "#home");
+  // Check if URL has a specific hash to load the correct view directly
+  const hash = window.location.hash;
+  if (hash.startsWith('#object-')) {
+    const id = parseInt(hash.replace('#object-', ''));
+    const p = PRODUCTS.find(x => x.id === id);
+    if (p) {
+      switchView('object', id);
+      history.replaceState({ view: 'object', productId: id, filter: 'all' }, "", hash);
+    } else {
+      switchView('home', null, 'all');
+      history.replaceState({ view: 'home', productId: null, filter: 'all' }, "", "#home");
+    }
+  } else if (hash === '#collection') {
+    switchView('collection', null, 'all');
+    history.replaceState({ view: 'collection', productId: null, filter: 'all' }, "", "#collection");
+  } else {
+    switchView('home', null, 'all');
+    history.replaceState({ view: 'home', productId: null, filter: 'all' }, "", "#home");
+  }
 } catch (e) {
   console.warn("History replaceState failed, continuing without URL update.");
+  switchView('home', null, 'all');
 }
 
 
@@ -1211,10 +1240,41 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('#termsModal') || e.target.closest('#lightbox')) return;
 
 
-  // Handle UI Back Button click
+  // Handle UI Back Button click deterministically
   if (e.target.closest('#backBtn')) {
     e.preventDefault();
-    history.back(); // Triggers the 'popstate' listener above
+    const currentView = document.body.dataset.activeView;
+    if (currentView === 'object') {
+        const hash = window.location.hash;
+        const productId = hash.startsWith('#object-') ? parseInt(hash.replace('#object-', '')) : null;
+        
+        // fallback if hash is missing for some reason
+        const currentName = document.getElementById('crumbName').textContent;
+        const p = productId ? PRODUCTS.find(x => x.id === productId) : PRODUCTS.find(x => x.name === currentName);
+        
+        const cat = p ? p.cat : 'all';
+        setView('collection', null, cat);
+        
+        // Scroll to the exact same product
+        setTimeout(() => {
+            if (p) {
+                const card = document.querySelector(`.product-card[data-product-id="${p.id}"]`);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.classList.add('is-highlighted');
+                    setTimeout(() => { 
+                        card.classList.remove('is-highlighted'); 
+                    }, 2000);
+                }
+            }
+        }, 600); // Wait for cards to render and reveal
+    } else if (currentView === 'collection') {
+        // If on collection, go to home
+        setView('home');
+    } else {
+        // Fallback
+        setView('home');
+    }
     return;
   }
 
@@ -1400,13 +1460,8 @@ function revealProductCards() {
 
 document.querySelectorAll('.collection-tab').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.collection-tab').forEach(b => b.classList.remove('is-active'));
-    btn.classList.add('is-active');
     const f = btn.dataset.filter;
-    productGrid.querySelectorAll('.product-card').forEach(c => {
-      const show = f === 'all' || c.dataset.category === f;
-      c.style.display = show ? '' : 'none';
-    });
+    setView('collection', null, f);
   });
 });
 
@@ -1685,18 +1740,6 @@ function init() {
   renderCollection();
   observeReveals();
   setTimeout(setupPinScroll, 100);
-
-
-  // Handle initial URL hash (e.g., if user loads #collection directly)
-  const initialHash = window.location.hash.replace('#', '');
-  if (initialHash === 'collection') {
-    switchView('collection');
-  } else if (initialHash === 'object') {
-    // Without the ID in the URL, we can't load the specific object, so go home
-    switchView('home');
-  } else {
-    switchView('home');
-  }
 
 
   let resizeTimeout;
