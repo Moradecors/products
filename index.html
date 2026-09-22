@@ -1,106 +1,100 @@
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MORA — Heritage Handcrafted</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<style>
+@import "tailwindcss";
+
+
 :root {
-  --bg: #0a0a0a;
-  --bg-soft: #111111;
-  --text: #ffffff;
-  --text-soft: #dadada;
-  --text-mute: rgba(255,255,255,0.45);
-  --accent: #39FF14;
-  --accent-soft: rgba(57, 255, 20, 0.25);
-  --accent-2: #0040FF;
-  --accent-2-soft: rgba(0, 64, 255, 0.25);
-  --line: rgba(255,255,255,0.10);
-  --line-soft: rgba(255,255,255,0.06);
-  --ease-quiet: cubic-bezier(.22,1,.36,1);
-  --ease-precise: cubic-bezier(.4,0,.2,1);
-  --ease-emphasis: cubic-bezier(.16,1,.3,1);
+ --bg: #0a0a0a;
+ --bg-soft: #111111;
+ --text: #ffffff;
+ --text-soft: #dadada;
+ --text-mute: rgba(255,255,255,0.45);
+ --accent: #39FF14;
+ --accent-soft: rgba(57, 255, 20, 0.25);
+ --accent-2: #0040FF;
+ --accent-2-soft: rgba(0, 64, 255, 0.25);
+ --line: rgba(255,255,255,0.10);
+ --line-soft: rgba(255,255,255,0.06);
+ --ease-quiet: cubic-bezier(.22,1,.36,1);
+ --ease-precise: cubic-bezier(.4,0,.2,1);
+ --ease-emphasis: cubic-bezier(.16,1,.3,1);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: auto; }
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 300;
-  line-height: 1.75;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+ background: var(--bg);
+ color: var(--text);
+ font-family: 'Poppins', sans-serif;
+ font-weight: 300;
+ line-height: 1.75;
+ -webkit-font-smoothing: antialiased;
+ overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; }
 
 
+
+
 .eyebrow {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.85rem;
+ font-family: 'Poppins', sans-serif;
+ font-weight: 600;
+ font-size: 11px;
+ letter-spacing: 0.25em;
+ text-transform: uppercase;
+ color: var(--accent);
+ display: inline-flex;
+ align-items: center;
+ gap: 0.85rem;
 }
 .eyebrow::after {
-  content: '';
-  display: inline-block;
-  width: 2rem;
-  height: 1px;
-  background: var(--accent);
-  opacity: 0.6;
+ content: '';
+ display: inline-block;
+ width: 2rem;
+ height: 1px;
+ background: var(--accent);
+ opacity: 0.6;
 }
+
+
 
 
 .nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.25rem 2.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(10,10,10,0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line-soft);
+ position: fixed;
+ top: 0; left: 0; right: 0;
+ z-index: 100;
+ padding: 1.25rem 2.5rem;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ background: rgba(10,10,10,0.7);
+ backdrop-filter: blur(12px);
+ -webkit-backdrop-filter: blur(12px);
+ border-bottom: 1px solid var(--line-soft);
 }
 .nav-logo { display: flex; align-items: center; height: 19.2px; }
 .nav-logo img { height: 100%; width: auto; display: block; mix-blend-mode: screen; }
 .nav-links { display: flex; gap: 2.5rem; }
 .nav-links a {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-  position: relative;
-  padding: 0.25rem 0;
-  transition: color 400ms var(--ease-quiet);
+ font-family: 'Poppins', sans-serif;
+ font-weight: 500;
+ font-size: 11px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--text-soft);
+ position: relative;
+ padding: 0.25rem 0;
+ transition: color 400ms var(--ease-quiet);
 }
 .nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: var(--accent-2);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 500ms var(--ease-quiet);
+ content: '';
+ position: absolute;
+ left: 0; bottom: 0;
+ width: 100%;
+ height: 1px;
+ background: var(--accent-2);
+ transform: scaleX(0);
+ transform-origin: left;
+ transition: transform 500ms var(--ease-quiet);
 }
 .nav-links a:hover { color: var(--accent-2); }
 .nav-links a:hover::after { transform: scaleX(1); }
@@ -108,34 +102,248 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .nav-links a.is-active { color: var(--accent); }
 
 
+
+
 .nav-contact {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-  transition: color 400ms var(--ease-quiet);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+ font-family: 'Poppins', sans-serif;
+ font-weight: 500;
+ font-size: 11px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--text-soft);
+ transition: color 400ms var(--ease-quiet);
+ display: inline-flex;
+ align-items: center;
+ gap: 0.5rem;
 }
 .nav-contact:hover { color: var(--accent-2); }
 .nav-contact::before {
-  content: '';
-  display: inline-block;
-  width: 6px; height: 6px;
-  border: 1px solid var(--accent-2);
-  border-radius: 50%;
-  transition: background 400ms var(--ease-quiet);
+ content: '';
+ display: inline-block;
+ width: 6px; height: 6px;
+ border: 1px solid var(--accent-2);
+ border-radius: 50%;
+ transition: background 400ms var(--ease-quiet);
 }
 .nav-contact:hover::before { background: var(--accent-2); }
+
+
 
 
 main { display: none; }
 body[data-active-view="home"] #view-home { display: block; }
 body[data-active-view="collection"] #view-collection { display: block; }
 body[data-active-view="object"] #view-object { display: block; }
+body[data-active-view="terms"] #view-terms { display: block; }
+
+
+/* Terms & Policies Page Styles */
+.terms-container {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 8rem 2.5rem 8rem;
+}
+
+
+.terms-header {
+ margin-bottom: 3.5rem;
+ padding-bottom: 2.5rem;
+ border-bottom: 1px solid var(--line);
+}
+
+
+.terms-header h1 {
+ font-family: 'Poppins', sans-serif;
+ font-weight: 200;
+ font-size: clamp(2.4rem, 5vw, 4rem);
+ line-height: 1.15;
+ letter-spacing: -0.015em;
+ margin-top: 1rem;
+ margin-bottom: 1.25rem;
+}
+
+
+.terms-header h1 em {
+ font-style: italic;
+ color: var(--accent);
+ font-weight: 300;
+}
+
+
+.terms-header-lede {
+ color: var(--text-soft);
+ font-size: 15px;
+ font-weight: 300;
+ max-width: 800px;
+ line-height: 1.8;
+}
+
+
+.terms-quick-nav {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 0.5rem;
+ margin-bottom: 3.5rem;
+ padding: 1.5rem;
+ background: var(--bg-soft);
+ border: 1px solid var(--line-soft);
+}
+
+
+.terms-quick-nav-title {
+ width: 100%;
+ font-family: 'Poppins', sans-serif;
+ font-weight: 500;
+ font-size: 11px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--accent);
+ margin-bottom: 0.5rem;
+}
+
+
+.terms-quick-link {
+ font-family: 'Poppins', sans-serif;
+ font-size: 11px;
+ font-weight: 400;
+ padding: 0.35rem 0.75rem;
+ background: rgba(255, 255, 255, 0.03);
+ border: 1px solid var(--line-soft);
+ color: var(--text-soft);
+ border-radius: 2px;
+ transition: all 300ms var(--ease-quiet);
+}
+
+
+.terms-quick-link:hover {
+ border-color: var(--accent-2);
+ color: #fff;
+ background: rgba(0, 64, 255, 0.1);
+}
+
+
+.terms-sections {
+ display: flex;
+ flex-direction: column;
+ gap: 2rem;
+}
+
+
+.terms-card {
+ padding: 2.25rem 2rem;
+ background: var(--bg-soft);
+ border: 1px solid var(--line);
+ position: relative;
+ transition: border-color 400ms var(--ease-quiet);
+}
+
+
+.terms-card:hover {
+ border-color: rgba(57, 255, 20, 0.3);
+}
+
+
+.terms-card-header {
+ display: flex;
+ align-items: center;
+ gap: 1.25rem;
+ margin-bottom: 1.25rem;
+}
+
+
+.terms-card-num {
+ font-family: 'Poppins', sans-serif;
+ font-weight: 600;
+ font-size: 12px;
+ letter-spacing: 0.15em;
+ color: var(--accent);
+ background: rgba(57, 255, 20, 0.08);
+ border: 1px solid var(--accent-soft);
+ padding: 0.25rem 0.6rem;
+ flex-shrink: 0;
+}
+
+
+.terms-card-title {
+ font-family: 'Poppins', sans-serif;
+ font-weight: 400;
+ font-size: clamp(1.15rem, 2vw, 1.45rem);
+ letter-spacing: -0.01em;
+ color: var(--text);
+}
+
+
+.terms-card-content {
+ color: var(--text-soft);
+ font-size: 14.5px;
+ line-height: 1.8;
+ font-weight: 300;
+}
+
+
+.terms-card-content p {
+ margin-bottom: 1rem;
+}
+
+
+.terms-card-content p:last-child {
+ margin-bottom: 0;
+}
+
+
+.terms-list {
+ list-style: none;
+ margin: 1rem 0;
+ padding-left: 0.5rem;
+ display: flex;
+ flex-direction: column;
+ gap: 0.65rem;
+}
+
+
+.terms-list li {
+ position: relative;
+ padding-left: 1.75rem;
+ color: var(--text-soft);
+ font-size: 14px;
+ line-height: 1.7;
+}
+
+
+.terms-list li::before {
+ content: '';
+ position: absolute;
+ left: 0.25rem;
+ top: 0.6rem;
+ width: 5px;
+ height: 5px;
+ background: var(--accent-2);
+ border-radius: 50%;
+}
+
+
+.terms-warning-box {
+ margin-top: 1.25rem;
+ padding: 1rem 1.25rem;
+ background: rgba(255, 75, 75, 0.06);
+ border-left: 3px solid #ff4b4b;
+ color: #ff9999;
+ font-size: 13.5px;
+ font-weight: 400;
+ line-height: 1.6;
+}
+
+
+@media (max-width: 900px) {
+ .terms-container {
+   padding: 7rem 1rem 4rem;
+ }
+ .terms-card {
+   padding: 1.75rem 1.25rem;
+ }
+}
+
+
 
 
 .hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; background: var(--bg); }
@@ -154,6 +362,8 @@ body[data-active-view="object"] #view-object { display: block; }
 .slide-sub { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.7; color: var(--text-soft); max-width: 560px; margin-bottom: 2.75rem; }
 
 
+
+
 .hero-controls { position: absolute; bottom: 3rem; left: 0; right: 0; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; }
 .hero-counter { font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 11px; letter-spacing: 0.25em; color: var(--text-mute); }
 .hero-counter strong { color: var(--accent); font-weight: 600; }
@@ -167,10 +377,14 @@ body[data-active-view="object"] #view-object { display: block; }
 .hero-arrow svg { width: 14px; height: 14px; stroke: var(--text-soft); }
 
 
+
+
 .featured { background: var(--bg); padding-top: 10rem; }
 .featured-header { max-width: 1400px; margin: 0 auto 4rem; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; }
 .featured-header-link { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-soft); border-bottom: 1px solid var(--accent); padding-bottom: 0.35rem; transition: color 400ms var(--ease-quiet); flex-shrink: 0; margin-left: auto; }
 .featured-header-link:hover { color: var(--accent-2); }
+
+
 
 
 .pin-viewport { position: relative; }
@@ -189,8 +403,12 @@ body[data-active-view="object"] #view-object { display: block; }
 .obj-card-meta .original-price { color: var(--text-mute); text-decoration: line-through; font-size: 0.9em; display: block; margin-bottom: 0.35rem; }
 
 
+
+
 .pin-progress { position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); width: 12rem; height: 1px; background: var(--line); z-index: 5; }
 .pin-progress-fill { position: absolute; left: 0; top: 0; height: 100%; width: 0; background: var(--accent); transition: width 100ms linear; }
+
+
 
 
 .cta-banner { padding: 10rem 2.5rem; text-align: center; border-top: 1px solid var(--line-soft); }
@@ -200,51 +418,55 @@ body[data-active-view="object"] #view-object { display: block; }
 .cta-banner p { max-width: 800px; margin: 0 auto; color: var(--text-soft); font-size: 16px; font-weight: 300; text-align: justify; line-height: 1.8; }
 
 
+
+
 .collection-tabs {
-  padding: 8rem 2.5rem 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  gap: 2.5rem;
-  border-bottom: 1px solid var(--line-soft);
+ padding: 8rem 2.5rem 2rem;
+ max-width: 1400px;
+ margin: 0 auto;
+ display: flex;
+ gap: 2.5rem;
+ border-bottom: 1px solid var(--line-soft);
 }
 .collection-tab {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  padding: 1rem 0;
-  position: relative;
-  transition: color 400ms var(--ease-quiet);
-  background: none;
-  border: none;
-  cursor: pointer;
+ font-family: 'Poppins', sans-serif;
+ font-weight: 500;
+ font-size: 12px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--text-mute);
+ padding: 1rem 0;
+ position: relative;
+ transition: color 400ms var(--ease-quiet);
+ background: none;
+ border: none;
+ cursor: pointer;
 }
 .collection-tab::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: -1px;
-  width: 100%;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 500ms var(--ease-quiet);
+ content: '';
+ position: absolute;
+ left: 0; bottom: -1px;
+ width: 100%;
+ height: 2px;
+ background: var(--accent);
+ transform: scaleX(0);
+ transform-origin: left;
+ transition: transform 500ms var(--ease-quiet);
 }
 .collection-tab:hover { color: var(--text-soft); }
 .collection-tab.is-active { color: var(--accent); }
 .collection-tab.is-active::after { transform: scaleX(1); }
 
 
+
+
 .product-grid {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 4rem 2.5rem 8rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3rem 2rem;
+ max-width: 1400px;
+ margin: 0 auto;
+ padding: 4rem 2.5rem 8rem;
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 3rem 2rem;
 }
 .product-card { cursor: pointer; opacity: 0; transform: translateY(30px); transition: opacity 800ms var(--ease-quiet), transform 800ms var(--ease-quiet); }
 .product-card.is-revealed { opacity: 1; transform: none; }
@@ -261,10 +483,14 @@ body[data-active-view="object"] #view-object { display: block; }
 .price-original { text-decoration: line-through; color: var(--text-mute); font-size: 0.9em; font-weight: 400; }
 
 
+
+
 .breadcrumb { max-width: 1400px; margin: 0 auto; padding: 8rem 2.5rem 2rem; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mute); display: flex; gap: 0.85rem; align-items: center; }
 .breadcrumb a { transition: color 400ms var(--ease-quiet); }
 .breadcrumb a:hover { color: var(--accent-2); }
 .breadcrumb span { color: var(--text-mute); }
+
+
 
 
 .product-detail { max-width: 1400px; margin: 0 auto; padding: 2rem 2.5rem 8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -282,84 +508,90 @@ body[data-active-view="object"] #view-object { display: block; }
 .gallery-counter strong { color: var(--accent-2); font-weight: 600; }
 
 
+
+
 .zoom-hint {
-  position: absolute;
-  bottom: 1rem; left: 1rem;
-  background: rgba(10,10,10,0.7);
-  padding: 0.4rem 0.75rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text);
-  pointer-events: none;
-  backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity 400ms var(--ease-quiet);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+ position: absolute;
+ bottom: 1rem; left: 1rem;
+ background: rgba(10,10,10,0.7);
+ padding: 0.4rem 0.75rem;
+ font-family: 'Poppins', sans-serif;
+ font-weight: 500;
+ font-size: 10px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--text);
+ pointer-events: none;
+ backdrop-filter: blur(6px);
+ opacity: 0;
+ transition: opacity 400ms var(--ease-quiet);
+ display: flex;
+ align-items: center;
+ gap: 0.5rem;
 }
 .gallery-main:hover .zoom-hint { opacity: 1; }
 
 
+
+
 .lightbox {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(10,10,10,0.98);
-  z-index: 2000;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  cursor: grab;
+ position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(10,10,10,0.98);
+ z-index: 2000;
+ display: none;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+ cursor: grab;
 }
 .lightbox.is-open { display: flex; }
 .lightbox.is-grabbing { cursor: grabbing; }
 .lightbox-content {
-  width: 100%; height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+ width: 100%; height: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
 }
 #lightboxImg {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  transform-origin: center center;
-  transition: transform 0.1s linear;
-  will-change: transform;
-  user-select: none;
-  -webkit-user-drag: none;
+ max-width: 90%;
+ max-height: 90%;
+ object-fit: contain;
+ transform-origin: center center;
+ transition: transform 0.1s linear;
+ will-change: transform;
+ user-select: none;
+ -webkit-user-drag: none;
 }
 .lightbox-close {
-  position: absolute;
-  top: 2rem; right: 2rem;
-  color: var(--text);
-  font-size: 3rem;
-  line-height: 1;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 2001;
-  opacity: 0.7;
-  transition: opacity 300ms var(--ease-quiet);
+ position: absolute;
+ top: 2rem; right: 2rem;
+ color: var(--text);
+ font-size: 3rem;
+ line-height: 1;
+ background: none;
+ border: none;
+ cursor: pointer;
+ z-index: 2001;
+ opacity: 0.7;
+ transition: opacity 300ms var(--ease-quiet);
 }
 .lightbox-close:hover { opacity: 1; color: var(--accent); }
 .lightbox-hint {
-  position: absolute;
-  bottom: 2rem; left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  pointer-events: none;
+ position: absolute;
+ bottom: 2rem; left: 50%;
+ transform: translateX(-50%);
+ font-family: 'Poppins', sans-serif;
+ font-weight: 500;
+ font-size: 10px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--text-mute);
+ pointer-events: none;
 }
+
+
 
 
 .product-info { padding-top: 1rem; }
@@ -372,34 +604,42 @@ body[data-active-view="object"] #view-object { display: block; }
 .product-price .original-amount { color: var(--text-mute); text-decoration: line-through; font-size: 1.2rem; }
 
 
+
+
 .offer-text {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-top: -1.5rem;
-  margin-bottom: 0.75rem;
-  display: none;
+ font-family: 'Poppins', sans-serif;
+ font-weight: 600;
+ font-size: 13px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--accent);
+ margin-top: -1.5rem;
+ margin-bottom: 0.75rem;
+ display: none;
 }
+
+
 
 
 .price-subtext {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  margin-top: 0; 
-  margin-bottom: 2.5rem;
+ font-family: 'Poppins', sans-serif;
+ font-weight: 400;
+ font-size: 11px;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--text-mute);
+ margin-top: 0;
+ margin-bottom: 2.5rem;
 }
-.product-lede { font-size: 16px; color: var(--text-soft); margin-bottom: 2.5rem; font-weight: 300; display: none; } 
+.product-lede { font-size: 16px; color: var(--text-soft); margin-bottom: 2.5rem; font-weight: 300; display: none; }
+
+
 
 
 .add-to-order { width: 100%; padding: 1.25rem; background: var(--accent); color: var(--bg); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: background 400ms var(--ease-quiet), color 400ms var(--ease-quiet); display: flex; align-items: center; justify-content: center; gap: 0.85rem; }
 .add-to-order:hover { background: var(--accent-2); color: #ffffff; }
+
+
 
 
 .product-specs { margin-top: 3.5rem; }
@@ -414,8 +654,10 @@ body[data-active-view="object"] #view-object { display: block; }
 .spec-value { font-size: 15px; color: var(--text); font-weight: 300; }
 
 
+
+
 .footer { padding: 6rem 2.5rem 3rem; border-top: 1px solid var(--line-soft); max-width: 1400px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
 .footer-brand .brand-logo-footer { height: 26.4px; width: auto; display: block; mix-blend-mode: screen; }
 .footer-col h4 { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
 .footer-col ul { list-style: none; }
@@ -428,900 +670,61 @@ body[data-active-view="object"] #view-object { display: block; }
 .footer-contact a:hover svg { stroke: var(--accent-2); }
 
 
+
+
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1000ms var(--ease-quiet), transform 1000ms var(--ease-quiet); }
 .reveal.is-in { opacity: 1; transform: none; }
 
 
+
+
 @media (max-width: 1100px) {
-  .product-grid { grid-template-columns: repeat(3, 1fr); }
-  .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+ .product-grid { grid-template-columns: repeat(3, 1fr); }
+ .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 @media (max-width: 900px) {
-  .nav { padding: 1.25rem 1rem; } /* 16px margin */
-  .nav-logo { height: 16.8px; }
-  .nav-links { gap: 1.5rem; }
-  .featured-header { padding: 0 1rem; flex-direction: column; align-items: flex-start; gap: 2rem; } /* 16px margin */
-  .featured-header-link { margin-left: 0; }
-  .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
-  .pin-track { padding: 0 1rem; transform: none !important; } /* 16px margin */
-  .obj-card { scroll-snap-align: start; }
-  .pin-progress { display: none; }
-  .collection-tabs { padding: 7rem 1rem 2rem; gap: 1.5rem; } /* 16px margin */
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; padding: 3rem 1rem 6rem; } /* 16px margin */
-  .cta-banner { padding: 6rem 1rem; } /* 16px margin */
-  .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1rem 6rem; } /* 16px margin */
-  .product-gallery { position: static; grid-template-columns: 1fr; }
-  .gallery-thumbs { flex-direction: row; overflow-x: auto; }
-  .gallery-thumb { width: 80px; height: 100px; flex-shrink: 0; }
-  .footer { padding: 4rem 1rem 2rem; } /* 16px margin */
-  .breadcrumb { padding: 7rem 1rem 1.5rem; } /* 16px margin */
+ .nav { padding: 1.25rem 1rem; } /* 16px margin */
+ .nav-logo { height: 16.8px; }
+ .nav-links { gap: 1.5rem; }
+ .featured-header { padding: 0 1rem; flex-direction: column; align-items: flex-start; gap: 2rem; } /* 16px margin */
+ .featured-header-link { margin-left: 0; }
+ .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
+ .pin-track { padding: 0 1rem; transform: none !important; } /* 16px margin */
+ .obj-card { scroll-snap-align: start; }
+ .pin-progress { display: none; }
+ .collection-tabs { padding: 7rem 1rem 2rem; gap: 1.5rem; } /* 16px margin */
+ .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; padding: 3rem 1rem 6rem; } /* 16px margin */
+ .cta-banner { padding: 6rem 1rem; } /* 16px margin */
+ .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1rem 6rem; } /* 16px margin */
+ .product-gallery { position: static; grid-template-columns: 1fr; }
+ .gallery-thumbs { flex-direction: row; overflow-x: auto; }
+ .gallery-thumb { width: 80px; height: 100px; flex-shrink: 0; }
+ .footer { padding: 4rem 1rem 2rem; } /* 16px margin */
+ .breadcrumb { padding: 7rem 1rem 1.5rem; } /* 16px margin */
 }
 @media (max-width: 600px) {
-  .slide-content { padding: 0 1rem 9rem 1rem; } /* 16px margin */
-  .hero-controls { padding: 0 1rem; bottom: 2rem; } /* 16px margin */
-  .hero-counter { display: none; }
-  .hero-dot { width: 24px; }
-  .product-grid { grid-template-columns: 1fr; }
-  .spec-row { grid-template-columns: 1fr; gap: 0.5rem; }
-  .nav-links { display: none; }
-  .slide-title { font-size: clamp(2.2rem, 9vw, 3.4rem); }
+ .slide-content { padding: 0 1rem 9rem 1rem; } /* 16px margin */
+ .hero-controls { padding: 0 1rem; bottom: 2rem; } /* 16px margin */
+ .hero-counter { display: none; }
+ .hero-dot { width: 24px; }
+ .product-grid { grid-template-columns: 1fr; }
+ .spec-row { grid-template-columns: 1fr; gap: 0.5rem; }
+ .nav-links { display: none; }
+ .slide-title { font-size: clamp(2.2rem, 9vw, 3.4rem); }
 }
+
+
 
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
-  .slide-bg { transform: none !important; }
-  .reveal, .product-card, .slide-eyebrow, .slide-title, .slide-sub, .slide-cta { opacity: 1 !important; transform: none !important; }
+ *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+ .slide-bg { transform: none !important; }
+ .reveal, .product-card, .slide-eyebrow, .slide-title, .slide-sub, .slide-cta { opacity: 1 !important; transform: none !important; }
 }
 @media (pointer: coarse) {
-  .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
-  .pin-track { transform: none !important; }
-  .obj-card { transform: none !important; }
-  .pin-progress { display: none; }
-}
-</style>
-</head>
-<body data-active-view="home">
-
-
-<header class="nav">
-  <a href="#" class="nav-logo" data-view-link="home">
-    <img src="https://z-cdn-media.chatglm.cn/files/c45b9cfe-0d41-448e-839e-508ff5e65aec.png?auth_key=1888425504-55f5580c33d94561b9089eacc8775d4a-0-c1dc69a53f25331f0b2f059b40dbc34d" alt="MORA">
-  </a>
-  <nav class="nav-links">
-    <a href="#" data-view-link="home">Home</a>
-    <a href="#" data-view-link="collection" class="is-active">Products</a>
-  </nav>
-  <a href="#contact" class="nav-contact">Contact us</a>
-</header>
-
-
-<!-- ============ VIEW: HOME ============ -->
-<main id="view-home">
-  <section class="hero">
-    <div class="hero-slider" id="heroSlider">
-      <div class="slide is-active" data-slide="0">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/42ff0d90-f09f-49a3-a92f-3d66c08005e8.png?auth_key=1888501082-1377e97d630c4d9b84dfd76231738ae6-0-4f1d0a35b0a22bfa7320ea21f7f72900')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">ABOUT MORA</div>
-          <h1 class="slide-title">Four Generations of <em>Craftsmanship</em></h1>
-          <p class="slide-sub">Since 1972, MORA has preserved four generations of rare Indian craftsmanship, creating sculptural pieces where heritage meets refined luxury.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="1">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">OUR LEGACY</div>
-          <h1 class="slide-title">The Attukal <em>Legacy</em></h1>
-          <p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="2">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">MATERIAL</div>
-          <h1 class="slide-title">Pieces of <em>Rare Character</em></h1>
-          <p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="3">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">DESIGNER PRODUCTS</div>
-          <h1 class="slide-title">Born from <em>Heritage</em></h1>
-          <p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="4">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/1a134b4b-82a1-471a-918a-da0dde6abce4.jpeg?auth_key=1888508696-61bbe2b7fc014ee7962ddb83608b59eb-0-67bc3da828b1471391b911cb4fd898e9')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">CASH ON DELIVERY</div>
-          <h1 class="slide-title">Delivered with <em>Care</em></h1>
-          <p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on Delivery.</p>
-        </div>
-      </div>
-    </div>
-    <div class="hero-controls">
-      <div class="hero-counter"><strong id="heroCurrent">01</strong> &nbsp;/&nbsp; 05</div>
-      <div class="hero-dots" id="heroDots">
-        <button class="hero-dot is-active" data-dot="0"></button>
-        <button class="hero-dot" data-dot="1"></button>
-        <button class="hero-dot" data-dot="2"></button>
-        <button class="hero-dot" data-dot="3"></button>
-        <button class="hero-dot" data-dot="4"></button>
-      </div>
-      <div class="hero-arrows">
-        <button class="hero-arrow" id="heroPrev" aria-label="Previous slide">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="hero-arrow" id="heroNext" aria-label="Next slide">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="featured">
-    <div class="featured-header">
-      <div></div>
-      <a href="#" class="featured-header-link reveal" data-view-link="collection">View all Products →</a>
-    </div>
-    <div class="pin-viewport" id="pinViewport">
-      <div class="pin-track-wrap">
-        <div class="pin-track" id="pinTrack"></div>
-        <div class="pin-progress"><div class="pin-progress-fill" id="pinFill"></div></div>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="cta-banner">
-    <div class="eyebrow reveal">Our History</div>
-    <h2 class="reveal">Preserving the Art of a <em>Legacy</em>.</h2>
-    <p class="reveal">Founded in 1972 in Attukal, Trivandrum, Kerala, MORA emerged at a turning point in Indian history. The traditional handicraft sector, once rich and vibrant, was declining due to colonial exploitation and post independence industrialization. In this environment, M.R. Krishnan, a national & state award winning artisan, established MORA not just as a business, but as a living tribute to India’s artistic and spiritual heritage. Rooted in a proud four generation legacy of rare sculptural craftsmanship, MORA represents the seamless blend of age old tradition and refined artistry. Our master artisans shape each creation by hand, preserving techniques passed down through generations to produce timeless, museum worthy masterpieces. MORA is dedicated to safeguarding and celebrating the rich heritage of Indian craftsmanship.</p>
-  </section>
-</main>
-
-
-<!-- ============ VIEW: COLLECTION ============ -->
-<main id="view-collection">
-  <div class="collection-tabs">
-    <button class="collection-tab is-active" data-filter="all">All Products</button>
-    <button class="collection-tab" data-filter="Standard">Standard</button>
-    <button class="collection-tab" data-filter="Designer">Designer</button>
-  </div>
-  <section class="product-grid" id="productGrid"></section>
-</main>
-
-
-<!-- ============ VIEW: OBJECT ============ -->
-<main id="view-object">
-  <div class="breadcrumb">
-    <a href="#" data-view-link="home">Home</a>
-    <span>/</span>
-    <a href="#" data-view-link="collection">Products</a>
-    <span>/</span>
-    <a href="#" id="crumbCategory">Designer</a>
-    <span>/</span>
-    <span id="crumbName">Suvarna</span>
-  </div>
-  <div class="product-detail">
-    <div class="product-gallery">
-      <div class="gallery-thumbs" id="galleryThumbs"></div>
-      <div class="gallery-main" id="galleryMain">
-        <img id="galleryMainImg" src="" alt="Product Image">
-        <div class="gallery-counter"><strong id="galleryCurrent">01</strong>&nbsp;/&nbsp;<span id="galleryTotal">03</span></div>
-        <div class="zoom-hint">Zoom <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="m8 11 6 0"/></svg></div>
-      </div>
-    </div>
-    <div class="product-info">
-      <div class="eyebrow" id="prodEyebrow">Designer · CAT-001</div>
-      <h1 id="prodName">Suvarna <em>Collection</em></h1>
-      <div class="product-price" id="prodPriceContainer">
-        <span class="currency">INR</span>
-        <span class="amount" id="prodPrice">4,800</span>
-      </div>
-      
-      <!-- Offer Text dynamically inserted here -->
-      <div class="offer-text" id="prodOffer"></div>
-      
-      <div class="price-subtext">Tax Included | Cash on Delivery</div>
-      <p class="product-lede" id="prodLede"></p>
-      
-      <a href="https://wa.me/918073191006" target="_blank" class="add-to-order" id="addToOrderLink">
-        Order on Whatsapp
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <div class="product-specs">
-        <h3>Product Details</h3>
-        <div class="specs-list" id="specsList">
-          <!-- Specs are dynamically injected here -->
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-
-
-<!-- NEW: Lightbox / Zoom Overlay -->
-<div id="lightbox" class="lightbox">
-  <button class="lightbox-close" id="lightboxClose">&times;</button>
-  <div class="lightbox-content" id="lightboxContent">
-    <img id="lightboxImg" src="" alt="Zoom view" draggable="false">
-  </div>
-  <div class="lightbox-hint">Scroll to zoom · Drag to pan · Click to close</div>
-</div>
-
-
-<footer class="footer" id="contact">
-  <div class="footer-top">
-    <div class="footer-brand">
-      <img src="https://z-cdn-media.chatglm.cn/files/c45b9cfe-0d41-448e-839e-508ff5e65aec.png?auth_key=1888425504-55f5580c33d94561b9089eacc8775d4a-0-c1dc69a53f25331f0b2f059b40dbc34d" alt="MORA" class="brand-logo-footer">
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="#" data-view-link="collection">All Products</a></li>
-        <li><a href="#" data-view-link="collection">Standard</a></li>
-        <li><a href="#" data-view-link="collection">Designer</a></li>
-      </ul>
-    </div>
-    <div class="footer-col footer-contact">
-      <h4>Contact</h4>
-      <ul>
-        <li>
-          <a href="https://wa.me/918073191006" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 21l1.65-3.9a9 9 0 1 1 3.25 3.25L3 21"/>
-              <path d="M9 10a3 3 0 0 0 5 5"/>
-            </svg>
-            WhatsApp
-          </a>
-        </li>
-        <li>
-          <a href="https://instagram.com/mora.paithrukam" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="5"/>
-              <circle cx="12" cy="12" r="4"/>
-              <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
-            </svg>
-            Instagram
-          </a>
-        </li>
-        <li>
-          <a href="mailto:mora.enquiry@gmail.com">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="14" rx="2"/>
-              <path d="M3 7l9 6 9-6"/>
-            </svg>
-            mora.enquiry@gmail.com
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</footer>
-
-
-<script>
-/* ================================================================
-   1. PRODUCT DATABASE 
-   ================================================================ */
-const DELIVERY_TEXT = "Free delivery within Bangalore, with orders delivered within 3 days of booking. Additional delivery charges apply for locations outside Bangalore.";
-
-
-const PRODUCTS = [
-  { 
-    id: 1, name: "Suvarna", cat: "Designer", material: "Coconut paper, Coffee wood, White wood", price: 4800, originalPrice: 12000,
-    imgs: ["https://i.ibb.co/SX358TQC/Suvarna-1.jpg", "https://i.ibb.co/ZpnYqbkg/Suvarna-2.jpg", "https://i.ibb.co/jkQCQT13/Suvarna-3.jpg"], desc: "",
-    specs: { Dimension: "H-20 inches, W-10 inches", Material: "Coconut paper, Coffee wood, White wood", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 2, name: "Nancy Pearl", cat: "Standard", material: "Self embroidery fabric, Base: Teak", price: 1000, originalPrice: 2500,
-    imgs: ["https://i.ibb.co/cS4Bt6fQ/Nancy-Pearl-1.jpg", "https://i.ibb.co/1GDxZDFT/Nancy-Pearl-2.jpg", "https://i.ibb.co/99HXhM6B/Nancy-Pearl-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-6 inches", Material: "Self embroidery fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 3, name: "Red Palm", cat: "Standard", material: "Polyester, Base: Teak", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/wNh9MWPc/Red-Palm-1.jpg", "https://i.ibb.co/vxprv8Mp/Red-Palm-2.jpg", "https://i.ibb.co/0Tm10C3/Red-Palm-3.jpg"], desc: "",
-    specs: { Dimension: "H-26 inches, W-6 inches", Material: "Polyester, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 4, name: "Madhuri", cat: "Designer", material: "Lemongrass Paper, Base: Terracotta", price: 1600, originalPrice: 4000,
-    imgs: ["https://i.ibb.co/H3qD8RD/Madhuri-1.jpg", "https://i.ibb.co/Kxw6MGYx/Madhuri-2.jpg", "https://i.ibb.co/j9xqWchQ/Madhuri-3.jpg"], desc: "",
-    specs: { Dimension: "H-15 inches, W-17 inches", Material: "Lemongrass Paper, Base: Terracotta", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 5, name: "Niranjana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Coffee wood + Teak", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/BHYSx74d/Niranjana-1.jpg", "https://i.ibb.co/pjCkNWWM/Niranjana-2.jpg", "https://i.ibb.co/60ncDGrd/Niranjana-3.jpg"], desc: "",
-    specs: { Dimension: "H-12 inches, W-16 inches", Material: "Netted Stretchable Fabric, Base: Coffee wood + Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 6, name: "Megha", cat: "Standard", material: "White Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/27t7RpCw/Megha-1.jpg", "https://i.ibb.co/RkJ30r2b/Megha-2.jpg", "https://i.ibb.co/R4yr5D3k/Megha-3.jpg"], desc: "",
-    specs: { Dimension: "H-44 inches, W-6inches", Material: "White Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 7, name: "Shakthi", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/JWyg5BpD/Shakthi-1.jpg", "https://i.ibb.co/YFkktHpd/Shakthi-2.jpg", "https://i.ibb.co/1fHm0Kgj/Shakthi-3.jpg"], desc: "",
-    specs: { Dimension: "H-36 inches, W-6 inches", Material: "Printed Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 8, name: "Kamala", cat: "Designer", material: "Cotton Fabric, Base: Teak", price: 1600, originalPrice: 4000,
-    imgs: ["https://i.ibb.co/kVCNxzTR/Kamala-1.jpg", "https://i.ibb.co/SDzMs9pQ/Kamala-2.jpg", "https://i.ibb.co/DfpfW1np/Kamala-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-8 inches", Material: "Cotton Fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 9, name: "Meconopsis", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/v4S7vWjg/Meconopsis-1.jpg", "https://i.ibb.co/Q3XQL2p8/Meconopsis-2.jpg", "https://i.ibb.co/ynjknG08/Meconopsis-3.jpg"], desc: "",
-    specs: { Dimension: "H-37 inches, W-6 inches", Material: "Printed Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 10, name: "Kamakshi", cat: "Designer", material: "Original Kancheepuram Silk, Base: Teak", price: 7000, originalPrice: 17500,
-    imgs: ["https://i.ibb.co/ynMTrqkS/Kamakshi-1.jpg", "https://i.ibb.co/5xrBzcmG/Kamakshi-2.jpg", "https://i.ibb.co/CKTv23RK/Kamakshi-3.jpg"], desc: "",
-    specs: { Dimension: "H-22 inches, W-13 inches", Material: "Original Kancheepuram Silk, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 11, name: "Murasaki", cat: "Standard", material: "Korean Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/FkTpL6rf/Murasaki-1.jpg", "https://i.ibb.co/v66j1C64/Murasaki-2.jpg", "https://i.ibb.co/S4dC9kmm/Murasaki-3.jpg"], desc: "",
-    specs: { Dimension: "H-40 inches, W-6 inches", Material: "Korean Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 12, name: "Basjoo", cat: "Standard", material: "Banana Paper, Base: Teak, Brass Pipe", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/pr2h1HrY/Basjoo-1.jpg", "https://i.ibb.co/5W0X80fJ/Basjoo-2.jpg", "https://i.ibb.co/Y72G6nDF/Basjoo-3.jpg"], desc: "",
-    specs: { Dimension: "H-17 inches, W-6 inches", Material: "Banana Paper, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 13, name: "Kuruvi", cat: "Designer", material: "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", price: 3600, originalPrice: 9000,
-    imgs: ["https://i.ibb.co/XrgddnXs/Kuruvi-1.jpg", "https://i.ibb.co/39fggXKH/Kuruvi-2.jpg", "https://i.ibb.co/JWq1YTXS/Kuruvi-3.jpg"], desc: "",
-    specs: { Dimension: "H-17 inches, W-8 inches", Material: "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 14, name: "Pana", cat: "Standard", material: "White Cotton Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/0pjtSKfY/Pana-1.jpg", "https://i.ibb.co/f55FJvW/Pana-2.jpg", "https://i.ibb.co/fVcn1T5L/Pana-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-6 inches", Material: "White Cotton Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 15, name: "Aranya", cat: "Standard", material: "Embroidery Fabric, Base: Coffee Wood + Teak", price: 2600, originalPrice: 6500,
-    imgs: ["https://i.ibb.co/twnhLXQW/Aranya-1.jpg", "https://i.ibb.co/FkSmLyFS/Aranya-2.jpg", "https://i.ibb.co/xqX8RgJS/Aranya-3.jpg"], desc: "",
-    specs: { Dimension: "H-31 inches, W-12 inches", Material: "Embroidery Fabric, Base: Coffee Wood + Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 16, name: "The Maharani", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 7600, originalPrice: 19000,
-    imgs: ["https://i.ibb.co/RXvYqrJ/The-Maharani-1.jpg", "https://i.ibb.co/ycZWBR4D/The-Maharani-2.jpg", "https://i.ibb.co/zH5vJjNd/The-Maharani-3.jpg"], desc: "",
-    specs: { Dimension: "H-28 inches, W-12 inches", Material: "Embroidery Fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 17, name: "Amore", cat: "Standard", material: "Embroidery Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/j9BtpZd6/Amore-1.jpg", "https://i.ibb.co/6cBZskz9/Amore-2.jpg", "https://i.ibb.co/SwxsybG7/Amore-3.jpg"], desc: "",
-    specs: { Dimension: "H-40 inches, W-6inches", Material: "Embroidery Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 18, name: "Klee", cat: "Standard", material: "Embroidery Fabric, Base: Teak + Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/TDmSmDQb/Klee-1.jpg", "https://i.ibb.co/v4KHsF5j/Klee-2.jpg", "https://i.ibb.co/KcJjsBfB/Klee-3.jpg"], desc: "",
-    specs: { Dimension: "H-41 inches, W-6 inches", Material: "Embroidery Fabric, Base: Teak + Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 19, name: "Kinu", cat: "Standard", material: "Raw Silk, Base: Teak", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/WN1j0Tg4/Kinu-1.jpg", "https://i.ibb.co/TxLG2ktS/Kinu-2.jpg", "https://i.ibb.co/zH58bQSj/Kinu-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-12 inches", Material: "Raw Silk, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 20, name: "Yoddha", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 4200, originalPrice: 10500,
-    imgs: ["https://i.ibb.co/W4jYfrKj/Yoddha-1.jpg", "https://i.ibb.co/gKnhf72/Yoddha-2.jpg", "https://i.ibb.co/vxPM3jyV/Yoddha-3.jpg"], desc: "",
-    specs: { Dimension: "H-16 inches, W-12 inches", Material: "Embroidery Fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 21, name: "Hilma", cat: "Standard", material: "Printed Fabric, Base: FRP- Oil Paint", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/RpVQXkrq/Hilma-1.jpg", "https://i.ibb.co/VcfkbYKB/Hilma-2.jpg", "https://i.ibb.co/PsPbHXzM/Hilma-3.jpg"], desc: "",
-    specs: { Dimension: "H-25 inches, W-7 inches", Material: "Printed Fabric, Base: FRP- Oil Paint", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 22, name: "Black Cherry", cat: "Designer", material: "Jute Fabric, Base: FRP- Oil paint", price: 4600, originalPrice: 11500,
-    imgs: ["https://i.ibb.co/k2pMhDpn/Black-Cherry-1.jpg", "https://i.ibb.co/BKt8HMNm/Black-Cherry-2.jpg", "https://i.ibb.co/Y7VfCYP8/Black-Cherry-3.jpg"], desc: "",
-    specs: { Dimension: "H-26 inches, W-12 inches", Material: "Jute Fabric, Base: FRP- Oil paint", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 23, name: "Keeffe", cat: "Standard", material: "Printed Fabric, Base: Terracotta", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/wr07WXyb/Keeffe-1.jpg", "https://i.ibb.co/RpVj1TNJ/Keeffe-2.jpg", "https://i.ibb.co/DPQx6rxJ/Keeffe-3.jpg"], desc: "",
-    specs: { Dimension: "H-31 inches, W-7 inches", Material: "Printed Fabric, Base: Terracotta", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 24, name: "Caihou", cat: "Standard", material: "Handmade Paper, Base: Teak, Brass Pipe", price: 1200, originalPrice: 3000,
-    imgs: ["https://i.ibb.co/XxKWmQT6/Caihou-1.jpg", "https://i.ibb.co/tTqQ6F10/Caihou-2.jpg", "https://i.ibb.co/DPwQjLmz/Caihou-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-7 inches", Material: "Handmade Paper, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 25, name: "Kanchana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/VYF4S07t/Kanchana-1.jpg", "https://i.ibb.co/3yTgHvqd/Kanchana-2.jpg", "https://i.ibb.co/j9jDFV3V/Kanchana-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-8 inches", Material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 26, name: "Olivia", cat: "Designer", material: "Banana Paper", price: 1200, originalPrice: 3000,
-    imgs: ["https://i.ibb.co/sJ92QQjx/Olivia-1.jpg", "https://i.ibb.co/4yQBr8Q/Olivia-2.jpg", "https://i.ibb.co/XZjf2RFd/Olivia-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-7 inches", Material: "Banana Paper", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null,
-    imgs: ["https://i.ibb.co/qqt36Ww/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], desc: "",
-    specs: { Dimension: "H-26 inches, W-12 inches", Material: "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  }
-];
-
-
-/* ================================================================
-   2. VIEW SWITCHING
-   ================================================================ */
-function setView(name, productId) {
-  document.body.dataset.activeView = name;
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.classList.toggle('is-active', a.dataset.viewLink === name);
-  });
-  window.scrollTo(0, 0);
-  if (name === 'collection') {
-    revealProductCards();
-  }
-  if (name === 'object' && productId) {
-    renderProduct(productId);
-  }
-  if (name === 'home') {
-    setTimeout(() => {
-      if (pinScrollTrigger) pinScrollTrigger.refresh();
-      setupPinScroll();
-    }, 50);
-  }
+ .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+ .pin-track { transform: none !important; }
+ .obj-card { transform: none !important; }
+ .pin-progress { display: none; }
 }
 
-
-document.addEventListener('click', (e) => {
-  const link = e.target.closest('[data-view-link]');
-  if (link) {
-    e.preventDefault();
-    setView(link.dataset.viewLink);
-  }
-  const card = e.target.closest('.product-card, .obj-card');
-  if (card) {
-    e.preventDefault();
-    setView('object', card.dataset.productId);
-  }
-});
-
-
-/* ================================================================
-   3. HERO SLIDER
-   ================================================================ */
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.hero-dot');
-const heroCurrentEl = document.getElementById('heroCurrent');
-let currentSlide = 0;
-let slideTimer = null;
-const SLIDE_DURATION = 7200;
-
-
-function activateSlide(idx) {
-  if (idx === currentSlide && slides[idx].classList.contains('is-active')) return;
-  slides.forEach(s => {
-    s.classList.remove('is-active');
-    gsap.set(s.querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub'), {
-      opacity: 0, y: 40, clearProps: 'transition'
-    });
-  });
-  const next = slides[idx];
-  next.classList.add('is-active');
-  const beats = next.querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub');
-  gsap.killTweensOf(beats);
-  gsap.timeline({ delay: 0.3 })
-    .to(beats[0], { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-    .to(beats[1], { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.45')
-    .to(beats[2], { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
-  currentSlide = idx;
-  dots.forEach((d, di) => d.classList.toggle('is-active', di === idx));
-  heroCurrentEl.textContent = String(idx + 1).padStart(2, '0');
-}
-
-
-function nextSlide() { activateSlide((currentSlide + 1) % slides.length); }
-function prevSlide() { activateSlide((currentSlide - 1 + slides.length) % slides.length); }
-function startTimer() { stopTimer(); slideTimer = setInterval(nextSlide, SLIDE_DURATION); }
-function stopTimer() { if (slideTimer) clearInterval(slideTimer); }
-
-
-dots.forEach((d, di) => d.addEventListener('click', () => { activateSlide(di); startTimer(); }));
-document.getElementById('heroNext').addEventListener('click', () => { nextSlide(); startTimer(); });
-document.getElementById('heroPrev').addEventListener('click', () => { prevSlide(); startTimer(); });
-
-
-const heroEl = document.querySelector('.hero');
-heroEl.addEventListener('mouseenter', stopTimer);
-heroEl.addEventListener('mouseleave', startTimer);
-
-
-/* ================================================================
-   4. FEATURED — horizontal pin scroll
-   ================================================================ */
-const pinTrack = document.getElementById('pinTrack');
-const pinViewport = document.getElementById('pinViewport');
-const pinFill = document.getElementById('pinFill');
-
-
-function renderFeatured() {
-  const featured = PRODUCTS.slice(0, 8);
-  pinTrack.innerHTML = featured.map(p => {
-    const priceHtml = p.originalPrice 
-      ? `<span class="original-price">₹ ${p.originalPrice.toLocaleString('en-IN')}</span><span class="price">₹ ${p.price.toLocaleString('en-IN')}</span>`
-      : `<span class="price">₹ ${p.price.toLocaleString('en-IN')}</span>`;
-      
-    return `
-      <article class="obj-card" data-product-id="${p.id}">
-        <div class="obj-card-img"><img src="${p.imgs[0]}" alt="${p.name}" loading="lazy"></div>
-        <div class="obj-card-info">
-          <div>
-            <div class="obj-card-cat" style="font-family:'Poppins',sans-serif;font-weight:300;font-size:13px;color:var(--text-soft);margin-bottom:0.4rem;text-transform:none;">${p.material}</div>
-            <div class="obj-card-name">${p.name}</div>
-          </div>
-          <div class="obj-card-meta">
-            ${priceHtml}
-          </div>
-        </div>
-      </article>
-    `;
-  }).join('');
-}
-
-
-let pinScrollTrigger = null;
-function setupPinScroll() {
-  if (window.innerWidth < 900 || window.matchMedia('(pointer: coarse)').matches) {
-    pinViewport.style.height = '';
-    if (pinScrollTrigger) { pinScrollTrigger.kill(); pinScrollTrigger = null; }
-    gsap.set(pinTrack, { x: 0 });
-    return;
-  }
-  if (pinScrollTrigger) pinScrollTrigger.kill();
-  const trackWidth = () => pinTrack.scrollWidth - window.innerWidth + 48;
-  pinViewport.style.height = (trackWidth() + window.innerHeight) + 'px';
-  let skewTimeout = null;
-  pinScrollTrigger = gsap.to(pinTrack, {
-    x: () => -trackWidth(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: pinViewport,
-      start: 'top top',
-      end: () => `+=${trackWidth()}`,
-      scrub: 1,
-      onUpdate: (self) => {
-        const p = self.progress;
-        pinFill.style.width = (p * 100) + '%';
-        const v = self.getVelocity();
-        const skew = Math.max(-10, Math.min(10, v * 0.002));
-        pinTrack.querySelectorAll('.obj-card').forEach(c => {
-          c.style.transform = `skewX(${skew}deg)`;
-        });
-        clearTimeout(skewTimeout);
-        skewTimeout = setTimeout(() => {
-          pinTrack.querySelectorAll('.obj-card').forEach(c => {
-            c.style.transform = 'skewX(0deg)';
-          });
-        }, 200);
-      },
-      onLeaveBack: () => {
-        gsap.set(pinTrack, { x: 0 });
-        pinFill.style.width = '0%';
-      }
-    }
-  });
-}
-
-
-/* ================================================================
-   5. COLLECTION GRID & TABS
-   ================================================================ */
-const productGrid = document.getElementById('productGrid');
-
-
-function renderCollection() {
-  productGrid.innerHTML = PRODUCTS.map(p => {
-    const priceHtml = p.originalPrice 
-      ? `<span class="price-original">₹ ${p.originalPrice.toLocaleString('en-IN')}</span> ₹ ${p.price.toLocaleString('en-IN')}`
-      : `₹ ${p.price.toLocaleString('en-IN')}`;
-      
-    return `
-      <article class="product-card" data-product-id="${p.id}" data-category="${p.cat}">
-        <div class="product-card-img">
-          <span class="product-card-num">CAT-${String(p.id).padStart(3, '0')}</span>
-          <img src="${p.imgs[0]}" alt="${p.name}" loading="lazy">
-        </div>
-        <div class="product-card-info">
-          <h3 class="product-card-name">${p.name}</h3>
-          <div class="product-card-material">${p.material}</div>
-          <div class="product-card-price">${priceHtml}</div>
-        </div>
-      </article>
-    `;
-  }).join('');
-}
-
-
-function revealProductCards() {
-  const cards = productGrid.querySelectorAll('.product-card');
-  cards.forEach((c, i) => {
-    c.classList.remove('is-revealed');
-    setTimeout(() => c.classList.add('is-revealed'), 40 + i * 35);
-  });
-}
-
-
-document.querySelectorAll('.collection-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.collection-tab').forEach(b => b.classList.remove('is-active'));
-    btn.classList.add('is-active');
-    const f = btn.dataset.filter;
-    productGrid.querySelectorAll('.product-card').forEach(c => {
-      const show = f === 'all' || c.dataset.category === f;
-      c.style.display = show ? '' : 'none';
-    });
-  });
-});
-
-
-/* ================================================================
-   6. DYNAMIC PRODUCT DETAIL
-   ================================================================ */
-
-
-function renderProduct(productId) {
-  const p = PRODUCTS.find(x => x.id == productId);
-  if (!p) return;
-  
-  const num = String(p.id).padStart(3, '0');
-  
-  document.getElementById('crumbName').textContent = p.name;
-  document.getElementById('crumbCategory').textContent = p.cat;
-  document.getElementById('prodEyebrow').textContent = `${p.cat} · CAT-${num}`;
-  document.getElementById('prodName').innerHTML = p.name; 
-  
-  // Render Price with Strike-through
-  const priceContainer = document.getElementById('prodPriceContainer');
-  if (p.originalPrice) {
-    priceContainer.innerHTML = `
-      <span class="currency">INR</span>
-      <span class="original-amount">₹ ${p.originalPrice.toLocaleString('en-IN')}</span>
-      <span class="amount" id="prodPrice">₹ ${p.price.toLocaleString('en-IN')}</span>
-    `;
-  } else {
-    priceContainer.innerHTML = `
-      <span class="currency">INR</span>
-      <span class="amount" id="prodPrice">₹ ${p.price.toLocaleString('en-IN')}</span>
-    `;
-  }
-
-
-  // Render Offer Text (Flat 60% Off - Introductory Offer)
-  const offerEl = document.getElementById('prodOffer');
-  if (p.id !== 27 && p.originalPrice) {
-      offerEl.innerHTML = "Flat 60% Off - Introductory Offer";
-      offerEl.style.display = "block";
-  } else {
-      offerEl.innerHTML = "";
-      offerEl.style.display = "none";
-  }
-  
-  // Render Description (Hide if empty to save space)
-  const ledeEl = document.getElementById('prodLede');
-  if (p.desc && p.desc.trim() !== '') {
-    ledeEl.textContent = p.desc;
-    ledeEl.style.display = 'block';
-  } else {
-    ledeEl.textContent = '';
-    ledeEl.style.display = 'none';
-  }
-
-
-  // Dynamically Render Specs Table
-  const specsList = document.getElementById('specsList');
-  if (p.specs) {
-    let specsHtml = '';
-    for (const [key, value] of Object.entries(p.specs)) {
-      specsHtml += `<div class="spec-row"><div class="spec-label">${key}</div><div class="spec-value">${value}</div></div>`;
-    }
-    specsList.innerHTML = specsHtml;
-  } else {
-    specsList.innerHTML = '';
-  }
-  
-  const waLink = document.getElementById('addToOrderLink');
-  waLink.href = `https://wa.me/918073191006?text=I%20would%20like%20to%20order%20the%20${encodeURIComponent(p.name)}%20(₹%20${p.price.toLocaleString('en-IN')})`;
-  
-  // Render Gallery with multiple images
-  const thumbs = document.getElementById('galleryThumbs');
-  thumbs.innerHTML = p.imgs.map((src, i) => `
-    <button class="gallery-thumb ${i === 0 ? 'is-active' : ''}" data-idx="${i}">
-      <img src="${src}" alt="View ${i+1}">
-    </button>
-  `).join('');
-  
-  document.getElementById('galleryMainImg').src = p.imgs[0];
-  document.getElementById('galleryTotal').textContent = String(p.imgs.length).padStart(2, '0');
-  document.getElementById('galleryCurrent').textContent = '01';
-  
-  initGalleryClicks();
-}
-
-
-function initGalleryClicks() {
-  const thumbs = document.querySelectorAll('#view-object .gallery-thumb');
-  const mainImg = document.getElementById('galleryMainImg');
-  const main = document.getElementById('galleryMain');
-  const currentEl = document.getElementById('galleryCurrent');
-  const seeds = Array.from(thumbs).map(t => t.querySelector('img').src);
-
-
-  thumbs.forEach((t, idx) => {
-    t.onclick = () => {
-      thumbs.forEach(th => th.classList.remove('is-active'));
-      t.classList.add('is-active');
-      main.classList.add('changing');
-      setTimeout(() => {
-        mainImg.src = seeds[idx];
-        main.classList.remove('changing');
-      }, 300);
-      currentEl.textContent = String(idx + 1).padStart(2, '0');
-    };
-  });
-}
-
-
-/* ================================================================
-   7. LIGHTBOX / ZOOM LOGIC
-   ================================================================ */
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const lightboxClose = document.getElementById('lightboxClose');
-const galleryMainEl = document.getElementById('galleryMain');
-let lbScale = 1;
-let lbPosX = 0;
-let lbPosY = 0;
-let isDragging = false;
-let startDragX = 0;
-let startDragY = 0;
-
-
-function updateLightboxTransform() {
-  lightboxImg.style.transform = `translate(${lbPosX}px, ${lbPosY}px) scale(${lbScale})`;
-}
-
-
-function openLightbox() {
-  const mainImg = document.getElementById('galleryMainImg');
-  if (!mainImg.src) return;
-  lightboxImg.src = mainImg.src;
-  lbScale = 1;
-  lbPosX = 0;
-  lbPosY = 0;
-  updateLightboxTransform();
-  lightbox.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-}
-
-
-function closeLightbox() {
-  lightbox.classList.remove('is-open');
-  document.body.style.overflow = '';
-}
-
-
-galleryMainEl.addEventListener('click', openLightbox);
-lightboxClose.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox || e.target.id === 'lightboxContent') {
-    closeLightbox();
-  }
-});
-
-
-lightbox.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  const delta = e.deltaY * -0.002;
-  lbScale += delta;
-  if (lbScale < 1) lbScale = 1;
-  if (lbScale > 5) lbScale = 5;
-  if (lbScale === 1) { lbPosX = 0; lbPosY = 0; }
-  updateLightboxTransform();
-});
-
-
-lightboxImg.addEventListener('mousedown', (e) => {
-  if (lbScale > 1) {
-    isDragging = true;
-    startDragX = e.clientX - lbPosX;
-    startDragY = e.clientY - lbPosY;
-    lightbox.classList.add('is-grabbing');
-  }
-});
-
-
-window.addEventListener('mousemove', (e) => {
-  if (isDragging) {
-    lbPosX = e.clientX - startDragX;
-    lbPosY = e.clientY - startDragY;
-    updateLightboxTransform();
-  }
-});
-
-
-window.addEventListener('mouseup', () => {
-  isDragging = false;
-  lightbox.classList.remove('is-grabbing');
-});
-
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
-    closeLightbox();
-  }
-});
-
-
-/* ================================================================
-   8. REVEAL ON SCROLL
-   ================================================================ */
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('is-in');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
-
-
-function observeReveals() {
-  document.querySelectorAll('.reveal').forEach(el => {
-    if (!el.classList.contains('is-in')) revealObserver.observe(el);
-  });
-}
-
-
-/* ================================================================
-   9. INIT
-   ================================================================ */
-function init() {
-  gsap.set(slides[0].querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub'), { opacity: 0, y: 40 });
-  gsap.timeline({ delay: 0.4 })
-    .to(slides[0].querySelector('.slide-eyebrow'), { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-    .to(slides[0].querySelector('.slide-title'), { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.45')
-    .to(slides[0].querySelector('.slide-sub'), { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
-
-
-  startTimer();
-  renderFeatured();
-  renderCollection();
-  observeReveals();
-  setTimeout(setupPinScroll, 100);
-
-
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      if (pinScrollTrigger) pinScrollTrigger.refresh();
-      setupPinScroll();
-    }, 200);
-  });
-}
-
-
-if (document.readyState === 'complete') init();
-else window.addEventListener('load', init);
-</script>
-
-
-</body>
-</html>
-```
