@@ -267,6 +267,24 @@ body[data-active-view="object"] #view-object { display: block; }
 .breadcrumb span { color: var(--text-mute); }
 
 
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  margin-right: 1rem;
+  transition: border-color 400ms var(--ease-quiet), background 400ms var(--ease-quiet);
+}
+.back-btn:hover {
+  border-color: var(--accent-2);
+  background: rgba(0, 64, 255, 0.08);
+}
+.back-btn svg { width: 14px; height: 14px; stroke: var(--text-soft); }
+
+
 .product-detail { max-width: 1400px; margin: 0 auto; padding: 2rem 2.5rem 8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .product-gallery { position: sticky; top: 6rem; display: grid; grid-template-columns: 88px 1fr; gap: 1.5rem; align-items: start; }
 .gallery-thumbs { display: flex; flex-direction: column; gap: 1rem; }
@@ -428,6 +446,97 @@ body[data-active-view="object"] #view-object { display: block; }
 .footer-contact a:hover svg { stroke: var(--accent-2); }
 
 
+.footer-bottom {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.footer-bottom a { 
+  color: var(--text-mute); 
+  transition: color 400ms var(--ease-quiet); 
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+}
+.footer-bottom a:hover { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+
+.terms-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 4rem 1.5rem;
+}
+.terms-modal.is-open { display: flex; }
+.terms-modal-content {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+  padding: 4rem 3rem;
+  position: relative;
+}
+.terms-close {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  color: var(--text-soft);
+  font-size: 2.5rem;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 300ms var(--ease-quiet), color 300ms var(--ease-quiet);
+  z-index: 10;
+}
+.terms-close:hover { opacity: 1; color: var(--accent); }
+.terms-body h2 { 
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 200; 
+  font-size: clamp(2rem, 4vw, 3rem); 
+  margin-bottom: 0.5rem; 
+  color: var(--text); 
+  letter-spacing: -0.01em;
+}
+.terms-body h2 em { color: var(--accent); font-weight: 300; }
+.terms-body .eyebrow { margin-bottom: 3rem; }
+.terms-body h3 { 
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  font-size: 1.1rem; 
+  margin-top: 2.5rem; 
+  margin-bottom: 1rem; 
+  letter-spacing: 0.02em; 
+  color: var(--text); 
+  border-bottom: 1px solid var(--line); 
+  padding-bottom: 0.5rem; 
+}
+.terms-body p { 
+  font-size: 14px; 
+  color: var(--text-soft); 
+  margin-bottom: 1rem; 
+  line-height: 1.8; 
+  font-weight: 300;
+}
+.terms-body p strong { color: var(--text); font-weight: 500; }
+
+
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1000ms var(--ease-quiet), transform 1000ms var(--ease-quiet); }
 .reveal.is-in { opacity: 1; transform: none; }
 
@@ -437,28 +546,30 @@ body[data-active-view="object"] #view-object { display: block; }
   .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 @media (max-width: 900px) {
-  .nav { padding: 1.25rem 1rem; } /* 16px margin */
+  .nav { padding: 1.25rem 1rem; } 
   .nav-logo { height: 16.8px; }
   .nav-links { gap: 1.5rem; }
-  .featured-header { padding: 0 1rem; flex-direction: column; align-items: flex-start; gap: 2rem; } /* 16px margin */
+  .featured-header { padding: 0 1rem; flex-direction: column; align-items: flex-start; gap: 2rem; } 
   .featured-header-link { margin-left: 0; }
   .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
-  .pin-track { padding: 0 1rem; transform: none !important; } /* 16px margin */
+  .pin-track { padding: 0 1rem; transform: none !important; } 
   .obj-card { scroll-snap-align: start; }
   .pin-progress { display: none; }
-  .collection-tabs { padding: 7rem 1rem 2rem; gap: 1.5rem; } /* 16px margin */
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; padding: 3rem 1rem 6rem; } /* 16px margin */
-  .cta-banner { padding: 6rem 1rem; } /* 16px margin */
-  .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1rem 6rem; } /* 16px margin */
+  .collection-tabs { padding: 7rem 1rem 2rem; gap: 1.5rem; } 
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; padding: 3rem 1rem 6rem; } 
+  .cta-banner { padding: 6rem 1rem; } 
+  .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1rem 6rem; } 
   .product-gallery { position: static; grid-template-columns: 1fr; }
   .gallery-thumbs { flex-direction: row; overflow-x: auto; }
   .gallery-thumb { width: 80px; height: 100px; flex-shrink: 0; }
-  .footer { padding: 4rem 1rem 2rem; } /* 16px margin */
-  .breadcrumb { padding: 7rem 1rem 1.5rem; } /* 16px margin */
+  .footer { padding: 4rem 1rem 2rem; } 
+  .breadcrumb { padding: 7rem 1rem 1.5rem; } 
+  .terms-modal-content { padding: 3rem 1.5rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
 }
 @media (max-width: 600px) {
-  .slide-content { padding: 0 1rem 9rem 1rem; } /* 16px margin */
-  .hero-controls { padding: 0 1rem; bottom: 2rem; } /* 16px margin */
+  .slide-content { padding: 0 1rem 9rem 1rem; } 
+  .hero-controls { padding: 0 1rem; bottom: 2rem; } 
   .hero-counter { display: none; }
   .hero-dot { width: 24px; }
   .product-grid { grid-template-columns: 1fr; }
@@ -603,6 +714,9 @@ body[data-active-view="object"] #view-object { display: block; }
 <!-- ============ VIEW: OBJECT ============ -->
 <main id="view-object">
   <div class="breadcrumb">
+    <a href="#" id="backBtn" class="back-btn" aria-label="Go back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    </a>
     <a href="#" data-view-link="home">Home</a>
     <span>/</span>
     <a href="#" data-view-link="collection">Products</a>
@@ -649,13 +763,143 @@ body[data-active-view="object"] #view-object { display: block; }
 </main>
 
 
-<!-- NEW: Lightbox / Zoom Overlay -->
+<!-- Lightbox / Zoom Overlay -->
 <div id="lightbox" class="lightbox">
   <button class="lightbox-close" id="lightboxClose">&times;</button>
   <div class="lightbox-content" id="lightboxContent">
     <img id="lightboxImg" src="" alt="Zoom view" draggable="false">
   </div>
   <div class="lightbox-hint">Scroll to zoom · Drag to pan · Click to close</div>
+</div>
+
+
+<!-- Terms & Policies Modal -->
+<div id="termsModal" class="terms-modal">
+  <div class="terms-modal-content">
+    <button class="terms-close" id="termsClose">&times;</button>
+    <div class="terms-body">
+      <div class="eyebrow">Please Read Carefully</div>
+      <h2>Terms & <em>Policies</em></h2>
+      
+      <h3>1. Product Information</h3>
+      <p>Each lampshade is individually handcrafted using carefully selected materials. As a result, minor variations in colour, texture, grain, shape, finish and dimensions may occur. These natural variations are part of the character and uniqueness of a handmade product and should not be considered defects.</p>
+      <p>Product colours may also appear slightly different depending on lighting conditions, photography and individual screen settings.</p>
+
+
+      <h3>2. Handmade Product Disclaimer</h3>
+      <p>Our products are handmade and not mass-produced. Minor variations, natural marks, surface irregularities and differences in texture may occur due to the nature of the materials and traditional craftsmanship.</p>
+      <p>Such variations are not considered manufacturing defects.</p>
+
+
+      <h3>3. Material Warranty</h3>
+      <p>The materials used in our lampshades are selected for their intended application and quality. However, natural materials such as wood, paper, fabric and other organic materials can change over time due to humidity, temperature, sunlight and environmental conditions.</p>
+      <p>Material ageing, fading, discolouration, natural cracking, shrinkage or expansion caused by environmental conditions is not covered under warranty.</p>
+      <p>Unless specifically mentioned on the individual product page, the product does not carry a lifetime or unconditional material warranty.</p>
+
+
+      <h3>4. Electrical Safety</h3>
+      <p>Where a lampshade is supplied with electrical components, customers must use the product only with the recommended electrical fittings, bulb type and maximum wattage specified by the manufacturer.</p>
+      <p>Customers must:</p>
+      <p>Use the recommended bulb type and wattage.<br>Ensure adequate ventilation around the bulb.<br>Keep the lampshade away from water and excessive moisture.<br>Keep flammable materials away from the lamp.<br>Switch off and unplug the lamp when not in use or when unattended.<br>Stop using the product if the wire, holder, switch or any electrical component appears damaged.<br>Have electrical installation or repair work carried out by a qualified electrician where required.</p>
+
+
+      <h3>5. Short Circuit, Electrical Failure & Fire</h3>
+      <p>The product should be used strictly according to the supplied instructions and recommended electrical specifications.</p>
+      <p>We are not responsible for damage, injury, fire, short circuit, electrical failure or consequential loss resulting from:</p>
+      <p>Incorrect installation or wiring.<br>Use of an incorrect or higher-wattage bulb.<br>Use of incompatible electrical components.<br>Voltage fluctuations, power surges or external electrical faults.<br>Modification, alteration or repair by an unauthorised person.<br>Improper handling, storage or installation.<br>Use of the product in unsuitable environments.<br>Negligence, misuse or failure to follow safety instructions.</p>
+      <p>In the event of any unusual heat, burning smell, sparks, smoke or electrical malfunction, immediately switch off and disconnect the product from the power supply and discontinue use.</p>
+      <p><strong>Important:</strong> A lampshade should never be left switched on while unattended or while the customer is away from the premises.</p>
+
+
+      <h3>6. Product Inspection</h3>
+      <p>Every product is carefully inspected before dispatch. Electrical components, where applicable, are also checked prior to shipment.</p>
+      <p>Customers are requested to inspect the package and product immediately upon delivery. If the package or product is found to be damaged, the product should be returned immediately to the delivery agent and the issue must be reported to our customer service team immediately, along with photographs or other supporting evidence where possible.</p>
+      <p>Once the product has been accepted and the delivery is completed, damage claims may be subject to verification and applicable return or replacement terms.</p>
+
+
+      <h3>7. Packaging</h3>
+      <p>Every product is carefully packed using protective packaging appropriate to its size, material and design.</p>
+      <p>Because lampshades can be delicate and sculptural, protective packaging may include multiple layers of cushioning and structural support.</p>
+      <p>Customers are advised to retain the original packaging until the product has been inspected and accepted.</p>
+
+
+      <h3>8. Transit Damage</h3>
+      <p>If the product arrives visibly damaged, customers should:</p>
+      <p>Photograph the outer packaging before opening it.<br>Photograph the damaged product and packaging from multiple angles.<br>Record an unboxing video wherever possible.<br>Contact us as soon as possible with the order details and photographs/videos.</p>
+      <p>Claims without adequate evidence may be difficult to verify.</p>
+      <p>Transit-damage claims will be reviewed based on the condition of the product, packaging and available evidence.</p>
+
+
+      <h3>9. Delivery</h3>
+      <p>Delivery timelines vary depending on the customer's location, product availability and shipping conditions.</p>
+      <p>The estimated delivery period provided at the time of purchase is an estimate and may be affected by:</p>
+      <p>Courier delays.<br>Weather conditions.<br>Transport disruptions.<br>Public holidays.<br>Remote-location delivery.<br>Address-related issues.<br>Events outside our reasonable control.</p>
+      <p>Delivery dates are therefore not guaranteed unless specifically confirmed in writing.</p>
+
+
+      <h3>10. Delivery Address</h3>
+      <p>Customers are responsible for providing a complete and accurate delivery address and contact number.</p>
+      <p>Additional delivery charges may apply if:</p>
+      <p>The address is changed after dispatch.<br>The courier has to make a second delivery attempt due to customer unavailability.<br>The address is incorrect or incomplete.<br>The location requires special or additional transportation.</p>
+
+
+      <h3>11. Cash on Delivery</h3>
+      <p>For Cash on Delivery orders, the customer must make the full payment to the authorised delivery agent at the time of delivery.</p>
+      <p>Customers should not make additional payments to unauthorised individuals claiming to represent the company.</p>
+
+
+      <h3>12. Returns & Exchanges</h3>
+      <p>Because our lampshades are handcrafted and made in limited quantities, returns and exchanges may be subject to specific conditions.</p>
+      <p>Returns will generally not be accepted for:</p>
+      <p>Change of mind.<br>Incorrect size selection by the customer.<br>Colour preference after purchase.<br>Minor natural variations in handmade materials.<br>Customised or specially commissioned products.<br>Damage caused after delivery.</p>
+      <p>Where a product is found to have a manufacturing defect or arrives damaged in transit, the matter will be reviewed and an appropriate resolution may be offered.</p>
+
+
+      <h3>13. Cancellation</h3>
+      <p>Order cancellation requests must be made before the product is dispatched.</p>
+      <p>Once a customised, made-to-order or specially prepared product has entered production, cancellation may not be possible.</p>
+
+
+      <h3>14. Installation & Assembly</h3>
+      <p>Where installation or electrical connection is required, customers should use a qualified electrician or appropriate professional.</p>
+      <p>The company is not responsible for damage or injury resulting from incorrect installation, unauthorised modification or improper electrical connection.</p>
+
+
+      <h3>15. Product Care</h3>
+      <p>To maintain the appearance and longevity of your lampshade:</p>
+      <p>Keep it away from direct and prolonged sunlight.<br>Keep it away from water and excessive humidity.<br>Do not use harsh chemicals or abrasive cleaning products.<br>Do not pull or place excessive pressure on the shade.<br>Clean gently using a soft, dry cloth or the care method recommended for the specific material.<br>Use only the recommended bulb and wattage.</p>
+
+
+      <h3>16. Warranty</h3>
+      <p>Where a specific warranty period is offered, the warranty covers manufacturing defects under normal intended use during the stated warranty period.</p>
+      <p>The warranty does not cover:</p>
+      <p>Accidental damage.<br>Improper installation.<br>Electrical faults caused by external sources.<br>Short circuits caused by incorrect wiring or use.<br>Fire or heat damage resulting from improper use.<br>Water or moisture damage.<br>Normal wear and tear.<br>Natural ageing of materials.<br>Damage caused by modification or repair.<br>Damage caused by unsuitable bulbs or excessive wattage.</p>
+      <p>Warranty claims are subject to inspection and verification.</p>
+
+
+      <h3>17. Limitation of Liability</h3>
+      <p>To the extent permitted by applicable law, the company shall not be responsible for indirect, incidental or consequential loss arising from misuse, improper installation, unauthorised modification, electrical faults outside the product's control or failure to follow the supplied safety and care instructions.</p>
+      <p>Nothing in this policy is intended to exclude or restrict any consumer rights or remedies that cannot legally be excluded under applicable Indian law.</p>
+
+
+      <h3>18. Customer Responsibility</h3>
+      <p>By purchasing and using the product, customers agree to follow the product's installation, electrical safety, usage and care instructions.</p>
+      <p>Customers should contact us before installation if they have any questions regarding compatibility, electrical specifications or product use.</p>
+
+
+      <h3>19. Force Majeure</h3>
+      <p>We shall not be liable for delays or inability to fulfil an order caused by circumstances beyond our reasonable control, including natural disasters, extreme weather, strikes, transport disruptions, government restrictions, accidents, civil disturbances or other unforeseen events.</p>
+
+
+      <h3>20. Policy Updates</h3>
+      <p>We reserve the right to update these terms and policies from time to time. The version published on our website at the time of purchase will generally apply to that order, subject to applicable law.</p>
+
+
+      <h3>21. Customer Support</h3>
+      <p>For questions regarding an order, delivery, product care, warranty or damage claim, customers should contact us through the official contact details provided on our website.</p>
+      <p>Please retain your order confirmation/invoice as proof of purchase for any warranty or service request.</p>
+    </div>
+  </div>
 </div>
 
 
@@ -706,6 +950,10 @@ body[data-active-view="object"] #view-object { display: block; }
       </ul>
     </div>
   </div>
+  <div class="footer-bottom">
+    <span>&copy; 2024 MORA. All Rights Reserved.</span>
+    <a href="#" id="termsLink">Terms & Policies</a>
+  </div>
 </footer>
 
 
@@ -749,7 +997,7 @@ const PRODUCTS = [
   },
   { 
     id: 29, name: "Madhurya", cat: "Designer", material: "Lemon grass paper, Base: Terracotta", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/LDqQxvnr/Madhurya-1.jpg", "https://i.ibb.co/p6fhgdD6/Madhurya-2.jpg", "https://i.ibb.co/jjNbmXg/Madhurya-3.jpg"], desc: "",
+    imgs: ["https://i.ibb.co/LDqQxvnr/Madhurya-1.jpg", "https://i.ibb.co/p6fhgdD6/Madhurya-2.jpg", "https://i.ibb.co/jjNbmXgk/Madhurya-3.jpg"], desc: "",
     specs: { Dimension: "H-15 inches, W-17 inches", Material: "Lemon grass paper, Base: Terracotta", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
   },
   { 
@@ -883,7 +1131,12 @@ const PRODUCTS = [
     specs: { Dimension: "H-11 inches, W-8 inches", Material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
   },
   { 
-    id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak", price: 11000, originalPrice: 27500,
+    id: 26, name: "Olivia", cat: "Designer", material: "Banana Paper", price: 1200, originalPrice: 3000,
+    imgs: ["https://i.ibb.co/sJ92QQjx/Olivia-1.jpg", "https://i.ibb.co/4yQBr8Q/Olivia-2.jpg", "https://i.ibb.co/XZjf2RFd/Olivia-3.jpg"], desc: "",
+    specs: { Dimension: "H-18 inches, W-7 inches", Material: "Banana Paper", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
+  },
+  { 
+    id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null,
     imgs: ["https://i.ibb.co/qqt36Ww/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], desc: "",
     specs: { Dimension: "H-26 inches, W-12 inches", Material: "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
   }
@@ -891,14 +1144,18 @@ const PRODUCTS = [
 
 
 /* ================================================================
-   2. VIEW SWITCHING
+   2. VIEW SWITCHING & HISTORY API
    ================================================================ */
-function setView(name, productId) {
+
+
+// Pure view switching logic (doesn't touch browser history)
+function switchView(name, productId) {
   document.body.dataset.activeView = name;
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('is-active', a.dataset.viewLink === name);
   });
   window.scrollTo(0, 0);
+  
   if (name === 'collection') {
     revealProductCards();
   }
@@ -914,12 +1171,61 @@ function setView(name, productId) {
 }
 
 
+// Active view change triggered by clicking links
+function setView(name, productId) {
+  switchView(name, productId);
+  // Push state to browser history so the back button works
+  const state = { view: name, productId: productId };
+  const url = `#${name}`;
+  try {
+    history.pushState(state, "", url);
+  } catch (e) {
+    console.warn("History pushState failed, continuing without URL update.");
+  }
+}
+
+
+// Listen to browser back/forward button presses
+window.addEventListener('popstate', (event) => {
+  if (event.state) {
+    // Revert to the previous view without pushing a new history entry
+    switchView(event.state.view, event.state.productId);
+  } else {
+    // Fallback if state is lost (e.g., initial entry)
+    switchView('home', null);
+  }
+});
+
+
+// Initialize baseline history state on load
+try {
+  history.replaceState({ view: 'home', productId: null }, "", "#home");
+} catch (e) {
+  console.warn("History replaceState failed, continuing without URL update.");
+}
+
+
+// Global click listener for SPA navigation
 document.addEventListener('click', (e) => {
+  // Ignore clicks inside the terms modal or lightbox
+  if (e.target.closest('#termsModal') || e.target.closest('#lightbox')) return;
+
+
+  // Handle UI Back Button click
+  if (e.target.closest('#backBtn')) {
+    e.preventDefault();
+    history.back(); // Triggers the 'popstate' listener above
+    return;
+  }
+
+
   const link = e.target.closest('[data-view-link]');
   if (link) {
     e.preventDefault();
     setView(link.dataset.viewLink);
+    return;
   }
+  
   const card = e.target.closest('.product-card, .obj-card');
   if (card) {
     e.preventDefault();
@@ -1296,15 +1602,55 @@ window.addEventListener('mouseup', () => {
 });
 
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
-    closeLightbox();
+/* ================================================================
+   8. TERMS MODAL LOGIC
+   ================================================================ */
+const termsModal = document.getElementById('termsModal');
+const termsClose = document.getElementById('termsClose');
+const termsLink = document.getElementById('termsLink');
+
+
+function openTermsModal(e) {
+  e.preventDefault();
+  termsModal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  termsModal.scrollTop = 0;
+}
+
+
+function closeTermsModal() {
+  termsModal.classList.remove('is-open');
+  if (!lightbox.classList.contains('is-open')) {
+    document.body.style.overflow = '';
+  }
+}
+
+
+termsLink.addEventListener('click', openTermsModal);
+termsClose.addEventListener('click', closeTermsModal);
+termsModal.addEventListener('click', (e) => {
+  if (e.target === termsModal) {
+    closeTermsModal();
   }
 });
 
 
 /* ================================================================
-   8. REVEAL ON SCROLL
+   9. GLOBAL KEYBOARD EVENTS
+   ================================================================ */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (lightbox.classList.contains('is-open')) {
+      closeLightbox();
+    } else if (termsModal.classList.contains('is-open')) {
+      closeTermsModal();
+    }
+  }
+});
+
+
+/* ================================================================
+   10. REVEAL ON SCROLL
    ================================================================ */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -1324,7 +1670,7 @@ function observeReveals() {
 
 
 /* ================================================================
-   9. INIT
+   11. INIT
    ================================================================ */
 function init() {
   gsap.set(slides[0].querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub'), { opacity: 0, y: 40 });
@@ -1339,6 +1685,18 @@ function init() {
   renderCollection();
   observeReveals();
   setTimeout(setupPinScroll, 100);
+
+
+  // Handle initial URL hash (e.g., if user loads #collection directly)
+  const initialHash = window.location.hash.replace('#', '');
+  if (initialHash === 'collection') {
+    switchView('collection');
+  } else if (initialHash === 'object') {
+    // Without the ID in the URL, we can't load the specific object, so go home
+    switchView('home');
+  } else {
+    switchView('home');
+  }
 
 
   let resizeTimeout;
@@ -1360,4 +1718,3 @@ else window.addEventListener('load', init);
 </body>
 </html>
 ```
-
