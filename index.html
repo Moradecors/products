@@ -254,6 +254,13 @@
             .section { padding: 80px 20px; }
             .product-card { flex: 0 0 280px; }
             .product-card-img { height: 250px; }
+            .product-card-info { padding: 16px; }
+            .product-card-info h3 { font-size: 1.1rem; margin-bottom: 6px; }
+            .price-container { margin-bottom: 8px; }
+            /* Reduced price sizes for mobile layout */
+            .actual-price { font-size: 0.8rem; margin-right: 8px; }
+            .discount-price { font-size: 1.05rem; }
+            .material-info { font-size: 0.8rem; padding-top: 12px; }
             .products-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px 80px; }
             .page-header { padding: 80px 20px 30px; }
             .filters { gap: 20px; padding: 30px 20px; }
@@ -577,7 +584,7 @@
             if (!p) { app.innerHTML = '<h1 style="text-align:center; padding:50px;">Product not found</h1>'; return; }
 
             var waLink = 'https://wa.me/911234567890?text=I%20want%20to%20order%20' + encodeURIComponent(p.name);
-            var allProductImages = p.imgs.slice(); // copy array
+            var allProductImages = p.imgs.slice(); 
             allProductImages.push("https://z-cdn-media.chatglm.cn/files/c4e4aa21-f86e-4e18-b813-a0c01c4b9a7e.jpg?auth_key=1890250423-818c3e1d509b416096797aad85942eee-0-a8c12d6dde8d9903af2ea449e84bf4ea");
 
             var thumbsHtml = '';
