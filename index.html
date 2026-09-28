@@ -96,8 +96,8 @@
         .logo { cursor: pointer; flex-shrink: 0; display: flex; align-items: center; }
         .logo svg { height: 20px; width: auto; display: block; }
 
-        nav { flex-grow: 1; display: flex; justify-content: center; }
-        nav ul { display: flex; gap: 40px; list-style: none; }
+        #mainNav { flex-grow: 1; display: flex; justify-content: center; }
+        #mainNav ul { display: flex; gap: 40px; list-style: none; }
         nav a, .filter-btn {
             background: transparent; border: none; font-size: 13px; font-weight: 500; color: var(--text-soft); 
             transition: color 300ms var(--ease-quiet); cursor: pointer; position: relative; padding-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif;
@@ -107,6 +107,67 @@
         nav a:hover::after, .filter-btn:hover::after { width: 100%; }
         nav a.active, .filter-btn.active { color: var(--accent-2); }
         nav a.active::after, .filter-btn.active::after { width: 100%; }
+
+        /* Hamburger Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: var(--text);
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -280px; /* Hidden off-screen */
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-soft);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.15);
+            z-index: 1001;
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            transition: right 0.4s var(--ease-quiet);
+        }
+        .mobile-menu.is-open { right: 0; }
+        
+        .menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: var(--text-soft);
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s var(--ease-quiet);
+        }
+        .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
+        
+        .mobile-nav ul { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+        .mobile-nav a {
+            font-size: 16px; font-weight: 500; color: var(--text); 
+            display: block; padding-bottom: 5px; border-bottom: 1px solid transparent;
+            cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: color 0.3s ease;
+        }
+        .mobile-nav a:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
+        .mobile-contact-link { color: var(--accent) !important; font-weight: 600 !important; }
 
         #app { min-height: 80vh; }
 
@@ -154,12 +215,11 @@
 
         .product-card-info { padding: 24px; text-align: left; display: flex; flex-direction: column; flex-grow: 1; }
         .product-category-tag { font-size: 12px; color: var(--text-mute); margin-bottom: 12px; display: block; font-weight: 500; }
-        /* Reduced padding above and below cost */
         .product-card-info h3 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 400; color: var(--text); }
-        .price-container { margin-bottom: 12px; }
+        .price-container { margin-bottom: 10px; }
         .actual-price { color: var(--text-mute); text-decoration: line-through; margin-right: 12px; font-size: 0.9rem; }
         .discount-price { color: var(--accent); font-weight: 600; font-size: 1.3rem; }
-        .material-info { font-size: 0.85rem; color: var(--text-mute); text-align: left; border-top: 1px solid var(--line-soft); padding-top: 12px; margin-top: auto; line-height: 1.6; font-weight: 300; }
+        .material-info { font-size: 0.85rem; color: var(--text-mute); text-align: left; border-top: 1px solid var(--line-soft); padding-top: 16px; margin-top: auto; line-height: 1.6; font-weight: 300; }
         .material-info strong { color: var(--text-soft); font-weight: 500; }
 
         .history-section { background: var(--bg-soft); display: flex; align-items: center; gap: 80px; padding: 120px 50px; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
@@ -228,7 +288,9 @@
         @media (max-width: 768px) {
             header { padding: 15px 20px; gap: 10px; }
             .logo svg { height: 16px; }
-            nav { display: none; } 
+            #mainNav { display: none; } /* FIXED: targets desktop nav specifically */
+            .contact-cta { display: none; }
+            .menu-toggle { display: flex; }
             .slide-content { padding: 0 20px; }
             .slide-title { font-size: 2.2rem; }
             .slide-sub { font-size: 0.95rem; }
@@ -270,7 +332,38 @@
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </a>
+
+        <!-- Mobile Menu Toggle (Hamburger) -->
+        <button id="menuToggle" class="menu-toggle" aria-label="Open menu" onclick="openMobileMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="menuOverlay" class="menu-overlay" onclick="closeMobileMenu()"></div>
+
+    <!-- Mobile Sidebar Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button class="menu-close" aria-label="Close menu" onclick="closeMobileMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <nav class="mobile-nav">
+            <ul>
+                <li><a onclick="window.navigate('home'); closeMobileMenu();">Home</a></li>
+                <li><a onclick="window.navigate('products', {filter: 'all'}); closeMobileMenu();">All Products</a></li>
+                <li><a onclick="window.navigate('products', {filter: 'standard'}); closeMobileMenu();">Standard</a></li>
+                <li><a onclick="window.navigate('products', {filter: 'designer'}); closeMobileMenu();">Designer</a></li>
+                <li><a href="https://wa.me/911234567890" target="_blank" class="mobile-contact-link" onclick="closeMobileMenu();">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <div id="app"></div>
 
@@ -348,6 +441,19 @@
           { id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null, imgs: ["https://i.ibb.co/qqt36Ww/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } }
         ];
 
+        // --- Mobile Menu Functions ---
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('is-open');
+            document.getElementById('menuOverlay').classList.add('is-active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('is-open');
+            document.getElementById('menuOverlay').classList.remove('is-active');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
         // --- Global Router & History Management ---
         let heroCarouselInterval;
 
@@ -396,16 +502,16 @@
         function renderHome() {
             const app = document.getElementById('app');
             
-            // Shuffle 3 Designer and 3 Standard products for the carousel
-            const featuredDesigners = PRODUCTS.filter(p => p.cat === 'Designer').slice(0, 3);
-            const featuredStandards = PRODUCTS.filter(p => p.cat === 'Standard').slice(0, 3);
-            let featuredProducts = [...featuredDesigners, ...featuredStandards];
-            
-            // Simple shuffle array
-            for (let i = featuredProducts.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [featuredProducts[i], featuredProducts[j]] = [featuredProducts[j], featuredProducts[i]];
+            // Logic to shuffle 3 Standard and 3 Designer products equally
+            const stdProds = PRODUCTS.filter(p => p.cat === 'Standard');
+            const desProds = PRODUCTS.filter(p => p.cat === 'Designer');
+            let featuredProds = [];
+            for(let i=0; i<3; i++) {
+                if(stdProds[i]) featuredProds.push(stdProds[i]);
+                if(desProds[i]) featuredProds.push(desProds[i]);
             }
+            // Shuffle the interleaved array for visual variety
+            featuredProds.sort(() => Math.random() - 0.5);
 
             app.innerHTML = `
                 <section class="hero">
@@ -457,7 +563,7 @@
 
                     <!-- Slide 5 -->
                     <div class="slide" data-slide="4">
-                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/1a134b4b-82a1-471a-918a-da0dde6abce4.jpeg?auth_key=1888508696-61bbe2b7fc014ee7962ddb83608b59eb-0-67bc3da828b1471391b911cb4fd898e9')"></div>
+                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/fd5cb8ac-1859-4ebd-9bff-4fe570d6b6fa.png?auth_key=1890578717-b468bf1488164a7587c822624088cb1d-0-2e93f9799f8585affdd097e517ce11c3')"></div>
                       <div class="slide-overlay"></div>
                       <div class="slide-content">
                         <div class="slide-eyebrow">Cash on delivery</div>
@@ -500,7 +606,7 @@
                     </div>
                     <div class="product-carousel-container">
                         <div class="product-carousel">
-                            ${featuredProducts.map(p => `
+                            ${featuredProds.map(p => `
                                 <div class="product-card" onclick="window.navigate('product', {id: ${p.id}})">
                                     <div class="product-card-img" style="background-image: url('${p.imgs[0]}')"></div>
                                     <div class="product-card-info">
@@ -646,7 +752,7 @@
                         <div class="pd-main-image" id="mainImage" style="background-image: url('${allProductImages[0]}');"></div>
                         <div class="pd-thumbnails">
                             ${allProductImages.map((img, index) => `
-                                <div class="pd-thumbnail ${index === 0 ? 'active' : ''}" style="background-image: url('${img}');" onclick="changeMainImage(this, '${img}')"></div>
+                                <div class="pd-thumbnail index===0?'active':''"style="background-image:url('{img}');" onclick="changeMainImage(this, '${img}')"></div>
                             `).join('')}
                         </div>
                     </div>
@@ -668,7 +774,7 @@
                                 if (key === 'Delivery') {
                                     return `<div class="pd-delivery-box"><strong>Delivery:</strong> ${value}</div>`;
                                 } else {
-                                    return `<div class="pd-spec-row"><div class="pd-spec-label">${key}</div><div class="pd-spec-value">${value}</div></div>`;
+                                    return `<div class="pd-spec-row"><div class="pd-spec-label">key</div><divclass="pd-spec-value">{value}</div></div>`;
                                 }
                             }).join('')}
                         </div>
