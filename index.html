@@ -6,6 +6,9 @@
     <title>MORA - Heritage Handcrafted</title>
     
     <style>
+        /* ================================================================
+           1. COLORS & ROOT VARIABLES (LIGHT MODE)
+        ================================================================= */
         :root {
           --bg: #FAF8F5;
           --bg-soft: #FFFFFF;
@@ -105,62 +108,23 @@
         nav a.active::after, .filter-btn.active::after { width: 100%; }
 
         .menu-toggle {
-            display: none;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-            color: var(--text);
-            flex-shrink: 0;
-            align-items: center;
-            justify-content: center;
+            display: none; background: transparent; border: none; cursor: pointer; padding: 5px;
+            color: var(--text); flex-shrink: 0; align-items: center; justify-content: center;
         }
         
         .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -280px; 
-            width: 280px;
-            height: 100vh;
-            background: var(--bg-soft);
-            box-shadow: -2px 0 15px rgba(0,0,0,0.15);
-            z-index: 1001;
-            padding: 80px 30px 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            transition: right 0.4s var(--ease-quiet);
+            position: fixed; top: 0; right: -280px; width: 280px; height: 100vh; background: var(--bg-soft);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.15); z-index: 1001; padding: 80px 30px 30px;
+            display: flex; flex-direction: column; gap: 25px; transition: right 0.4s var(--ease-quiet);
         }
         .mobile-menu.is-open { right: 0; }
+        .menu-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; cursor: pointer; padding: 5px; color: var(--text-soft); }
         
-        .menu-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-            color: var(--text-soft);
-        }
-        
-        .menu-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s var(--ease-quiet);
-        }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease-quiet); }
         .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
         
         .mobile-nav ul { list-style: none; display: flex; flex-direction: column; gap: 20px; }
-        .mobile-nav a {
-            font-size: 16px; font-weight: 500; color: var(--text); 
-            display: block; padding-bottom: 5px; border-bottom: 1px solid transparent;
-            cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: color 0.3s ease;
-        }
+        .mobile-nav a { font-size: 16px; font-weight: 500; color: var(--text); display: block; padding-bottom: 5px; border-bottom: 1px solid transparent; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: color 0.3s ease; }
         .mobile-nav a:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
         .mobile-contact-link { color: var(--accent) !important; font-weight: 600 !important; }
 
@@ -190,7 +154,6 @@
 
         .section { padding: 120px 50px; }
         .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; text-align: left; flex-wrap: wrap; gap: 20px; }
-        
         .product-carousel-container { position: relative; max-width: 1400px; margin: 0 auto; }
         .product-carousel { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 20px; }
         .product-carousel::-webkit-scrollbar { display: none; }
@@ -442,30 +405,31 @@
 
         let heroCarouselInterval;
 
-        window.navigate = function(view, params = {}) {
+        window.navigate = function(view, params) {
+            params = params || {};
             clearInterval(heroCarouselInterval);
-            const currentState = history.state || { view: 'home' };
-            history.replaceState({ ...currentState, scrollY: window.scrollY }, '', '');
-            const newState = { view, ...params };
+            var currentState = history.state || { view: 'home' };
+            history.replaceState(Object.assign({}, currentState, { scrollY: window.scrollY }), '', '');
+            var newState = Object.assign({ view: view }, params);
             history.pushState(newState, '', '');
             renderView(newState);
             window.scrollTo(0, 0);
             updateActiveNav(newState);
         }
 
-        window.addEventListener('popstate', (e) => {
+        window.addEventListener('popstate', function(e) {
             clearInterval(heroCarouselInterval);
-            const state = e.state || { view: 'home' };
+            var state = e.state || { view: 'home' };
             renderView(state);
             if (state.scrollY !== undefined) {
-                setTimeout(() => window.scrollTo(0, state.scrollY), 0);
+                setTimeout(function() { window.scrollTo(0, state.scrollY); }, 0);
             }
             updateActiveNav(state);
         });
 
         function updateActiveNav(state) {
-            const navLinks = document.querySelectorAll('#mainNav a');
-            navLinks.forEach(link => link.classList.remove('active'));
+            var navLinks = document.querySelectorAll('#mainNav a');
+            navLinks.forEach(function(link) { link.classList.remove('active'); });
             if (state.view === 'home') navLinks[0].classList.add('active');
             else if (state.view === 'products') {
                 if (state.filter === 'standard') navLinks[2].classList.add('active');
@@ -475,7 +439,7 @@
         }
 
         function renderView(state) {
-            const app = document.getElementById('app');
+            var app = document.getElementById('app');
             app.innerHTML = ''; 
             if (state.view === 'home') renderHome();
             else if (state.view === 'products') renderProducts(state.filter || 'all');
@@ -484,278 +448,196 @@
         }
 
         function renderHome() {
-            const app = document.getElementById('app');
-            const stdProds = PRODUCTS.filter(p => p.cat === 'Standard');
-            const desProds = PRODUCTS.filter(p => p.cat === 'Designer');
-            let featuredProds = [];
-            for(let i=0; i<3; i++) {
+            var app = document.getElementById('app');
+            var stdProds = PRODUCTS.filter(function(p) { return p.cat === 'Standard'; });
+            var desProds = PRODUCTS.filter(function(p) { return p.cat === 'Designer'; });
+            var featuredProds = [];
+            for(var i=0; i<3; i++) {
                 if(stdProds[i]) featuredProds.push(stdProds[i]);
                 if(desProds[i]) featuredProds.push(desProds[i]);
             }
-            featuredProds.sort(() => Math.random() - 0.5);
+            featuredProds.sort(function() { return 0.5 - Math.random(); });
 
-            app.innerHTML = `
-                <section class="hero">
-                  <div class="hero-slider" id="heroSlider">
-                    <div class="slide is-active" data-slide="0">
-                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/42ff0d90-f09f-49a3-a92f-3d66c08005e8.png?auth_key=1888501082-1377e97d630c4d9b84dfd76231738ae6-0-4f1d0a35b0a22bfa7320ea21f7f72900')"></div>
-                      <div class="slide-overlay"></div>
-                      <div class="slide-content">
-                        <div class="slide-eyebrow">About Mora</div>
-                        <h1 class="slide-title">Four generations of <em>craftsmanship</em></h1>
-                        <p class="slide-sub">Since 1972, MORA has preserved four generations of rare Indian craftsmanship, creating sculptural pieces where heritage meets refined luxury.</p>
-                      </div>
-                    </div>
-                    <div class="slide" data-slide="1">
-                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a')"></div>
-                      <div class="slide-overlay"></div>
-                      <div class="slide-content">
-                        <div class="slide-eyebrow">Our legacy</div>
-                        <h1 class="slide-title">The Attukal <em>legacy</em></h1>
-                        <p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p>
-                      </div>
-                    </div>
-                    <div class="slide" data-slide="2">
-                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046')"></div>
-                      <div class="slide-overlay"></div>
-                      <div class="slide-content">
-                        <div class="slide-eyebrow">Material</div>
-                        <h1 class="slide-title">Pieces of <em>rare character</em></h1>
-                        <p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p>
-                      </div>
-                    </div>
-                    <div class="slide" data-slide="3">
-                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353')"></div>
-                      <div class="slide-overlay"></div>
-                      <div class="slide-content">
-                        <div class="slide-eyebrow">Designer products</div>
-                        <h1 class="slide-title">Born from <em>heritage</em></h1>
-                        <p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p>
-                      </div>
-                    </div>
-                    <div class="slide" data-slide="4">
-                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/fd5cb8ac-1859-4ebd-9bff-4fe570d6b6fa.png?auth_key=1890578717-b468bf1488164a7587c822624088cb1d-0-2e93f9799f8585affdd097e517ce11c3')"></div>
-                      <div class="slide-overlay"></div>
-                      <div class="slide-content">
-                        <div class="slide-eyebrow">Cash on delivery</div>
-                        <h1 class="slide-title">Delivered with <em>care</em></h1>
-                        <p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on delivery.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="hero-controls">
-                    <div class="hero-counter"><strong id="heroCurrent">01</strong> &nbsp;/&nbsp; 05</div>
-                    <div class="hero-dots" id="heroDots">
-                      <button class="hero-dot is-active" data-dot="0"></button>
-                      <button class="hero-dot" data-dot="1"></button>
-                      <button class="hero-dot" data-dot="2"></button>
-                      <button class="hero-dot" data-dot="3"></button>
-                      <button class="hero-dot" data-dot="4"></button>
-                    </div>
-                    <div class="hero-arrows">
-                      <button class="hero-arrow" id="heroPrev" aria-label="Previous slide">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-                      </button>
-                      <button class="hero-arrow" id="heroNext" aria-label="Next slide">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                      </button>
-                    </div>
-                  </div>
-                </section>
+            var featuredHtml = '';
+            for (var i = 0; i < featuredProds.length; i++) {
+                var p = featuredProds[i];
+                var actualPriceHtml = p.originalPrice ? '<span class="actual-price">₹' + p.originalPrice.toLocaleString('en-IN') + '</span>' : '';
+                featuredHtml += '<div class="product-card" onclick="window.navigate(\'product\', {id: ' + p.id + '})">' +
+                    '<div class="product-card-img" style="background-image: url(\'' + p.imgs[0] + '\')"></div>' +
+                    '<div class="product-card-info">' +
+                        '<span class="product-category-tag">' + p.cat + '</span>' +
+                        '<h3>' + p.name + '</h3>' +
+                        '<div class="price-container">' + actualPriceHtml + '<span class="discount-price">₹' + p.price.toLocaleString('en-IN') + '</span></div>' +
+                        '<div class="material-info"><strong>Material:</strong> ' + p.material + '</div>' +
+                    '</div>' +
+                '</div>';
+            }
 
-                <div class="section">
-                    <div class="section-header">
-                        <h2>Featured masterpieces</h2>
-                        <a class="featured-header-link" onclick="window.navigate('products', {filter: 'all'})">View all products 
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="product-carousel-container">
-                        <div class="product-carousel">
-                            ${featuredProds.map(p => `
-                                <div class="product-card" onclick="window.navigate('product', {id: ${p.id}})">
-                                    <div class="product-card-img" style="background-image: url('${p.imgs[0]}')"></div>
-                                    <div class="product-card-info">
-                                        <span class="product-category-tag">${p.cat}</span>
-                                        <h3>${p.name}</h3>
-                                        <div class="price-container">
-                                            ${p.originalPrice ? `<span class="actual-price">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
-                                            <span class="discount-price">₹${p.price.toLocaleString('en-IN')}</span>
-                                        </div>
-                                        <div class="material-info"><strong>Material:</strong> ${p.material}</div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="history-section">
-                    <div class="history-image"></div>
-                    <div class="history-text">
-                        <div class="eyebrow" style="color: var(--text-mute);">Our legacy</div>
-                        <h2>Preserving the art of a legacy.</h2>
-                        <p>Founded in 1972 in Attukal, Trivandrum, Kerala, MORA emerged at a turning point in Indian history. The traditional handicraft sector, once rich and vibrant, was declining due to colonial exploitation and post independence industrialization. In this environment, M.R. Krishnan, a national & state award winning artisan, established MORA not just as a business, but as a living tribute to India’s artistic and spiritual heritage.</p>
-                        <p>Rooted in a proud four generation legacy of rare sculptural craftsmanship, MORA represents the seamless blend of age old tradition and refined artistry. Our master artisans shape each creation by hand, preserving techniques passed down through generations to produce timeless, museum worthy masterpieces. MORA is dedicated to safeguarding and celebrating the rich heritage of Indian craftsmanship.</p>
-                    </div>
-                </div>
-            `;
+            app.innerHTML = 
+                '<section class="hero">' +
+                  '<div class="hero-slider" id="heroSlider">' +
+                    '<div class="slide is-active" data-slide="0"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/42ff0d90-f09f-49a3-a92f-3d66c08005e8.png?auth_key=1888501082-1377e97d630c4d9b84dfd76231738ae6-0-4f1d0a35b0a22bfa7320ea21f7f72900\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">About Mora</div><h1 class="slide-title">Four generations of <em>craftsmanship</em></h1><p class="slide-sub">Since 1972, MORA has preserved four generations of rare Indian craftsmanship, creating sculptural pieces where heritage meets refined luxury.</p></div></div>' +
+                    '<div class="slide" data-slide="1"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Our legacy</div><h1 class="slide-title">The Attukal <em>legacy</em></h1><p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p></div></div>' +
+                    '<div class="slide" data-slide="2"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Material</div><h1 class="slide-title">Pieces of <em>rare character</em></h1><p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p></div></div>' +
+                    '<div class="slide" data-slide="3"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Designer products</div><h1 class="slide-title">Born from <em>heritage</em></h1><p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p></div></div>' +
+                    '<div class="slide" data-slide="4"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/fd5cb8ac-1859-4ebd-9bff-4fe570d6b6fa.png?auth_key=1890578717-b468bf1488164a7587c822624088cb1d-0-2e93f9799f8585affdd097e517ce11c3\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Cash on delivery</div><h1 class="slide-title">Delivered with <em>care</em></h1><p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on delivery.</p></div></div>' +
+                  '</div>' +
+                  '<div class="hero-controls">' +
+                    '<div class="hero-counter"><strong id="heroCurrent">01</strong> &nbsp;/&nbsp; 05</div>' +
+                    '<div class="hero-dots" id="heroDots">' +
+                      '<button class="hero-dot is-active" data-dot="0"></button><button class="hero-dot" data-dot="1"></button><button class="hero-dot" data-dot="2"></button><button class="hero-dot" data-dot="3"></button><button class="hero-dot" data-dot="4"></button>' +
+                    '</div>' +
+                    '<div class="hero-arrows">' +
+                      '<button class="hero-arrow" id="heroPrev" aria-label="Previous slide"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>' +
+                      '<button class="hero-arrow" id="heroNext" aria-label="Next slide"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>' +
+                    '</div>' +
+                  '</div>' +
+                '</section>' +
+                '<div class="section">' +
+                    '<div class="section-header">' +
+                        '<h2>Featured masterpieces</h2>' +
+                        '<a class="featured-header-link" onclick="window.navigate(\'products\', {filter: \'all\'})">View all products <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' +
+                    '</div>' +
+                    '<div class="product-carousel-container"><div class="product-carousel">' + featuredHtml + '</div></div>' +
+                '</div>' +
+                '<div class="history-section">' +
+                    '<div class="history-image"></div>' +
+                    '<div class="history-text">' +
+                        '<div class="eyebrow" style="color: var(--text-mute);">Our legacy</div>' +
+                        '<h2>Preserving the art of a legacy.</h2>' +
+                        '<p>Founded in 1972 in Attukal, Trivandrum, Kerala, MORA emerged at a turning point in Indian history. The traditional handicraft sector, once rich and vibrant, was declining due to colonial exploitation and post independence industrialization. In this environment, M.R. Krishnan, a national & state award winning artisan, established MORA not just as a business, but as a living tribute to India’s artistic and spiritual heritage.</p>' +
+                        '<p>Rooted in a proud four generation legacy of rare sculptural craftsmanship, MORA represents the seamless blend of age old tradition and refined artistry. Our master artisans shape each creation by hand, preserving techniques passed down through generations to produce timeless, museum worthy masterpieces. MORA is dedicated to safeguarding and celebrating the rich heritage of Indian craftsmanship.</p>' +
+                    '</div>' +
+                '</div>';
             initHeroCarousel();
         }
 
         function initHeroCarousel() {
-            const slides = document.querySelectorAll('#heroSlider .slide');
-            const dots = document.querySelectorAll('#heroDots .hero-dot');
-            const counter = document.getElementById('heroCurrent');
-            const prevBtn = document.getElementById('heroPrev');
-            const nextBtn = document.getElementById('heroNext');
+            var slides = document.querySelectorAll('#heroSlider .slide');
+            var dots = document.querySelectorAll('#heroDots .hero-dot');
+            var counter = document.getElementById('heroCurrent');
+            var prevBtn = document.getElementById('heroPrev');
+            var nextBtn = document.getElementById('heroNext');
             
-            let current = 0;
-            const total = slides.length;
-            let slideInterval;
+            var current = 0;
+            var total = slides.length;
+            var slideInterval;
 
             function updateSlidePosition() {
-                slides.forEach((slide, i) => {
-                    slide.classList.toggle('is-active', i === current);
-                });
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('is-active', i === current);
-                });
-                if (counter) {
-                    counter.textContent = String(current + 1).padStart(2, '0');
-                }
+                slides.forEach(function(slide, i) { slide.classList.toggle('is-active', i === current); });
+                dots.forEach(function(dot, i) { dot.classList.toggle('is-active', i === current); });
+                if (counter) { counter.textContent = String(current + 1).padStart(2, '0'); }
             }
+            function nextSlide() { current = (current + 1) % total; updateSlidePosition(); }
+            function prevSlide() { current = (current - 1 + total) % total; updateSlidePosition(); }
+            function goToSlide(index) { current = index; updateSlidePosition(); resetInterval(); }
+            function resetInterval() { clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 5000); }
 
-            function nextSlide() {
-                current = (current + 1) % total;
-                updateSlidePosition();
-            }
-
-            function prevSlide() {
-                current = (current - 1 + total) % total;
-                updateSlidePosition();
-            }
-
-            function goToSlide(index) {
-                current = index;
-                updateSlidePosition();
-                resetInterval();
-            }
-
-            function resetInterval() {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, 5000);
-            }
-
-            if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
-            if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
-            
-            if (dots.length > 0) {
-                dots.forEach((dot, index) => {
-                    dot.addEventListener('click', () => goToSlide(index));
-                });
-            }
-
+            if (nextBtn) nextBtn.addEventListener('click', function() { nextSlide(); resetInterval(); });
+            if (prevBtn) prevBtn.addEventListener('click', function() { prevSlide(); resetInterval(); });
+            if (dots.length > 0) { dots.forEach(function(dot, index) { dot.addEventListener('click', function() { goToSlide(index); }); }); }
             resetInterval();
         }
 
         function renderProducts(filter) {
-            const app = document.getElementById('app');
-            const filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat.toLowerCase() === filter);
+            var app = document.getElementById('app');
+            var filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(function(p) { return p.cat.toLowerCase() === filter; });
             
-            app.innerHTML = `
-                <div class="page-header">
-                    <h1>Lampshades</h1>
-                    <p>Explore our curated range of handcrafted lampshades, blending age-old tradition with refined artistry.</p>
-                </div>
-                <div class="filters">
-                    <button class="filter-btn ${filter === 'all' ? 'active' : ''}" onclick="window.navigate('products', {filter: 'all'})">All products</button>
-                    <button class="filter-btn ${filter === 'standard' ? 'active' : ''}" onclick="window.navigate('products', {filter: 'standard'})">Standard</button>
-                    <button class="filter-btn ${filter === 'designer' ? 'active' : ''}" onclick="window.navigate('products', {filter: 'designer'})">Designer</button>
-                </div>
-                <div class="products-grid">
-                    ${filtered.map(p => `
-                        <div class="product-card" onclick="window.navigate('product', {id: ${p.id}})">
-                            <div class="product-card-img" style="background-image: url('${p.imgs[0]}')"></div>
-                            <div class="product-card-info">
-                                <span class="product-category-tag">${p.cat}</span>
-                                <h3>${p.name}</h3>
-                                <div class="price-container">
-                                    ${p.originalPrice ? `<span class="actual-price">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
-                                    <span class="discount-price">₹${p.price.toLocaleString('en-IN')}</span>
-                                </div>
-                                <div class="material-info"><strong>Material:</strong> ${p.material}</div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+            var gridHtml = '';
+            for (var i = 0; i < filtered.length; i++) {
+                var p = filtered[i];
+                var actualPriceHtml = p.originalPrice ? '<span class="actual-price">₹' + p.originalPrice.toLocaleString('en-IN') + '</span>' : '';
+                gridHtml += '<div class="product-card" onclick="window.navigate(\'product\', {id: ' + p.id + '})">' +
+                    '<div class="product-card-img" style="background-image: url(\'' + p.imgs[0] + '\')"></div>' +
+                    '<div class="product-card-info">' +
+                        '<span class="product-category-tag">' + p.cat + '</span>' +
+                        '<h3>' + p.name + '</h3>' +
+                        '<div class="price-container">' + actualPriceHtml + '<span class="discount-price">₹' + p.price.toLocaleString('en-IN') + '</span></div>' +
+                        '<div class="material-info"><strong>Material:</strong> ' + p.material + '</div>' +
+                    '</div>' +
+                '</div>';
+            }
+
+            app.innerHTML = 
+                '<div class="page-header">' +
+                    '<h1>Lampshades</h1>' +
+                    '<p>Explore our curated range of handcrafted lampshades, blending age-old tradition with refined artistry.</p>' +
+                '</div>' +
+                '<div class="filters">' +
+                    '<button class="filter-btn ' + (filter === 'all' ? 'active' : '') + '" onclick="window.navigate(\'products\', {filter: \'all\'})">All products</button>' +
+                    '<button class="filter-btn ' + (filter === 'standard' ? 'active' : '') + '" onclick="window.navigate(\'products\', {filter: \'standard\'})">Standard</button>' +
+                    '<button class="filter-btn ' + (filter === 'designer' ? 'active' : '') + '" onclick="window.navigate(\'products\', {filter: \'designer\'})">Designer</button>' +
+                '</div>' +
+                '<div class="products-grid">' + gridHtml + '</div>';
         }
 
         function renderProductDetail(id) {
-            const p = PRODUCTS.find(prod => prod.id == id);
-            const app = document.getElementById('app');
+            var p = PRODUCTS.find(function(prod) { return prod.id == id; });
+            var app = document.getElementById('app');
             if (!p) { app.innerHTML = '<h1 style="text-align:center; padding:50px;">Product not found</h1>'; return; }
 
-            const waLink = `https://wa.me/911234567890?text=I%20want%20to%20order%20${encodeURIComponent(p.name)}`;
-            
-            const allProductImages = [...p.imgs, "https://z-cdn-media.chatglm.cn/files/c4e4aa21-f86e-4e18-b813-a0c01c4b9a7e.jpg?auth_key=1890250423-818c3e1d509b416096797aad85942eee-0-a8c12d6dde8d9903af2ea449e84bf4ea"];
+            var waLink = 'https://wa.me/911234567890?text=I%20want%20to%20order%20' + encodeURIComponent(p.name);
+            var allProductImages = p.imgs.slice(); // copy array
+            allProductImages.push("https://z-cdn-media.chatglm.cn/files/c4e4aa21-f86e-4e18-b813-a0c01c4b9a7e.jpg?auth_key=1890250423-818c3e1d509b416096797aad85942eee-0-a8c12d6dde8d9903af2ea449e84bf4ea");
 
-            app.innerHTML = `
-                <div class="pd-top-bar">
-                    <a class="back-btn" onclick="history.back()">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                    <span class="pd-back-text" onclick="history.back()">Back to products</span>
-                </div>
-                <div class="product-detail-container">
-                    <div class="pd-gallery">
-                        <div class="pd-main-image" id="mainImage" style="background-image: url('${allProductImages[0]}');"></div>
-                        <div class="pd-thumbnails">
-                            ${allProductImages.map((img, index) => `
-                                <div class="pd-thumbnail index===0?'active':''"style="background-image:url('{img}');" onclick="changeMainImage(this, '${img}')"></div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div class="pd-info">
-                        <div class="eyebrow" style="color: var(--text-mute); font-weight: 400;">${p.cat} series</div>
-                        <h1>${p.name}</h1>
-                        <div class="pd-price-container">
-                            ${p.originalPrice ? `<span class="pd-actual-price">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
-                            <span class="pd-discount-price">₹${p.price.toLocaleString('en-IN')}</span>
-                        </div>
-                        ${p.originalPrice ? `<div class="pd-offer-badge">Flat 60% off - Introductory offer</div>` : ''}
-                        <div class="pd-subtext">Tax included | Cash on delivery</div>
-                        
-                        <a href="${waLink}" target="_blank" class="add-to-order">Order on WhatsApp</a>
-                        
-                        <div class="pd-details">
-                            <h3>Product details</h3>
-                            ${Object.entries(p.specs).map(([key, value]) => {
-                                if (key === 'Delivery') {
-                                    return `<div class="pd-delivery-box"><strong>Delivery:</strong> ${value}</div>`;
-                                } else {
-                                    return `<div class="pd-spec-row"><div class="pd-spec-label">key</div><divclass="pd-spec-value">{value}</div></div>`;
-                                }
-                            }).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
+            var thumbsHtml = '';
+            for (var i = 0; i < allProductImages.length; i++) {
+                var activeClass = i === 0 ? ' active' : '';
+                thumbsHtml += '<div class="pd-thumbnail' + activeClass + '" style="background-image: url(\'' + allProductImages[i] + '\');" onclick="changeMainImage(this, \'' + allProductImages[i] + '\')"></div>';
+            }
+
+            var specsHtml = '';
+            for (var key in p.specs) {
+                var value = p.specs[key];
+                if (key === 'Delivery') {
+                    specsHtml += '<div class="pd-delivery-box"><strong>Delivery:</strong> ' + value + '</div>';
+                } else {
+                    specsHtml += '<div class="pd-spec-row"><div class="pd-spec-label">' + key + '</div><div class="pd-spec-value">' + value + '</div></div>';
+                }
+            }
+
+            var priceContainerHtml = p.originalPrice ? '<span class="pd-actual-price">₹' + p.originalPrice.toLocaleString('en-IN') + '</span>' : '';
+            priceContainerHtml += '<span class="pd-discount-price">₹' + p.price.toLocaleString('en-IN') + '</span>';
+
+            var offerBadgeHtml = p.originalPrice ? '<div class="pd-offer-badge">Flat 60% off - Introductory offer</div>' : '';
+
+            app.innerHTML = 
+                '<div class="pd-top-bar">' +
+                    '<a class="back-btn" onclick="history.back()">' +
+                        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                            '<path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+                        '</svg>' +
+                    '</a>' +
+                    '<span class="pd-back-text" onclick="history.back()">Back to products</span>' +
+                '</div>' +
+                '<div class="product-detail-container">' +
+                    '<div class="pd-gallery">' +
+                        '<div class="pd-main-image" id="mainImage" style="background-image: url(\'' + allProductImages[0] + '\');"></div>' +
+                        '<div class="pd-thumbnails">' + thumbsHtml + '</div>' +
+                    '</div>' +
+                    '<div class="pd-info">' +
+                        '<div class="eyebrow" style="color: var(--text-mute); font-weight: 400;">' + p.cat + ' series</div>' +
+                        '<h1>' + p.name + '</h1>' +
+                        '<div class="pd-price-container">' + priceContainerHtml + '</div>' +
+                        offerBadgeHtml +
+                        '<div class="pd-subtext">Tax included | Cash on delivery</div>' +
+                        '<a href="' + waLink + '" target="_blank" class="add-to-order">Order on WhatsApp</a>' +
+                        '<div class="pd-details">' +
+                            '<h3>Product details</h3>' +
+                            specsHtml +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
         }
 
         function changeMainImage(element, newImageUrl) {
-            document.getElementById('mainImage').style.backgroundImage = `url('${newImageUrl}')`;
-            document.querySelectorAll('.pd-thumbnail').forEach(el => el.classList.remove('active'));
+            document.getElementById('mainImage').style.backgroundImage = 'url(\'' + newImageUrl + '\')';
+            document.querySelectorAll('.pd-thumbnail').forEach(function(el) { el.classList.remove('active'); });
             element.classList.add('active');
         }
 
         function renderTerms() {
-            const terms = [
+            var terms = [
                 { title: "1. Product information", text: "Each lampshade is individually handcrafted using carefully selected materials. As a result, minor variations in colour, texture, grain, shape, finish and dimensions may occur. These natural variations are part of the character and uniqueness of a handmade product and should not be considered defects. Product colours may also appear slightly different depending on lighting conditions, photography and individual screen settings." },
                 { title: "2. Handmade product disclaimer", text: "Our products are handmade and not mass-produced. Minor variations, natural marks, surface irregularities and differences in texture may occur due to the nature of the materials and traditional craftsmanship. Such variations are not considered manufacturing defects." },
                 { title: "3. Material warranty", text: "The materials used in our lampshades are selected for their intended application and quality. However, natural materials such as wood, paper, fabric and other organic materials can change over time due to humidity, temperature, sunlight and environmental conditions. Material ageing, fading, discolouration, natural cracking, shrinkage or expansion caused by environmental conditions is not covered under warranty. Unless specifically mentioned on the individual product page, the product does not carry a lifetime or unconditional material warranty." },
@@ -779,23 +661,22 @@
                 { title: "21. Customer support", text: "For questions regarding an order, delivery, product care, warranty or damage claim, customers should contact us through the official contact details provided on our website. Please retain your order confirmation/invoice as proof of purchase for any warranty or service request." }
             ];
 
-            const app = document.getElementById('app');
-            app.innerHTML = `
-                <div class="terms-container">
-                    <div class="eyebrow" style="margin-bottom: 30px; color: var(--text-soft);">Legal</div>
-                    <h1>Terms & policies</h1>
-                    ${terms.map(t => `
-                        <div class="terms-section">
-                            <h2>${t.title}</h2>
-                            <p>${t.text}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+            var termsHtml = '';
+            for (var i = 0; i < terms.length; i++) {
+                termsHtml += '<div class="terms-section"><h2>' + terms[i].title + '</h2><p>' + terms[i].text + '</p></div>';
+            }
+
+            var app = document.getElementById('app');
+            app.innerHTML = 
+                '<div class="terms-container">' +
+                    '<div class="eyebrow" style="margin-bottom: 30px; color: var(--text-soft);">Legal</div>' +
+                    '<h1>Terms & policies</h1>' +
+                    termsHtml +
+                '</div>';
         }
 
-        window.addEventListener('load', () => {
-            const initialState = { view: 'home' };
+        window.addEventListener('load', function() {
+            var initialState = { view: 'home' };
             history.replaceState(initialState, '', '');
             renderView(initialState);
             updateActiveNav(initialState);
@@ -803,3 +684,4 @@
     </script>
 </body>
 </html>
+
