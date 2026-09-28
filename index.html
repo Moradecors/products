@@ -2,1762 +2,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MORA — Heritage Handcrafted</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<style>
-:root {
-  --bg: #0a0a0a;
-  --bg-soft: #111111;
-  --text: #ffffff;
-  --text-soft: #dadada;
-  --text-mute: rgba(255,255,255,0.45);
-  --accent: #39FF14;
-  --accent-soft: rgba(57, 255, 20, 0.25);
-  --accent-2: #0040FF;
-  --accent-2-soft: rgba(0, 64, 255, 0.25);
-  --line: rgba(255,255,255,0.10);
-  --line-soft: rgba(255,255,255,0.06);
-  --ease-quiet: cubic-bezier(.22,1,.36,1);
-  --ease-precise: cubic-bezier(.4,0,.2,1);
-  --ease-emphasis: cubic-bezier(.16,1,.3,1);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: auto; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 300;
-  line-height: 1.75;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-img { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MORA - Heritage Handcrafted</title>
+    
+    <style>
+        /* ================================================================
+           1. COLORS & ROOT VARIABLES (LIGHT MODE)
+        ================================================================= */
+        :root {
+          --bg: #FAF8F5;
+          --bg-soft: #FFFFFF;
+          --text: #1A1A1A;
+          --text-soft: #444444;
+          --text-mute: rgba(0,0,0,0.5);
+          --accent: #00C853;
+          --accent-soft: rgba(0, 200, 83, 0.1);
+          --accent-2: #0040FF;
+          --accent-2-soft: rgba(0, 64, 255, 0.1);
+          --line: rgba(0,0,0,0.1);
+          --line-soft: rgba(0,0,0,0.05);
+          --page-padding: 80px; /* Unified margin space for entire webpage */
+          --ease-quiet: cubic-bezier(.22,1,.36,1);
+          --ease-precise: cubic-bezier(.4,0,.2,1);
+          --ease-emphasis: cubic-bezier(.16,1,.3,1);
+        }
 
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap');
 
-.eyebrow {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-.eyebrow::after {
-  content: '';
-  display: inline-block;
-  width: 2rem;
-  height: 1px;
-  background: var(--accent);
-  opacity: 0.6;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 300;
+            line-height: 1.75;
+            letter-spacing: 0.03em;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.25rem 2.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(10,10,10,0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line-soft);
-}
-.nav-logo { display: flex; align-items: center; height: 19.2px; }
-.nav-logo img { height: 100%; width: auto; display: block; mix-blend-mode: screen; }
-.nav-links { display: flex; gap: 2.5rem; }
-.nav-links a {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-  position: relative;
-  padding: 0.25rem 0;
-  transition: color 400ms var(--ease-quiet);
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: var(--accent-2);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 500ms var(--ease-quiet);
-}
-.nav-links a:hover { color: var(--accent-2); }
-.nav-links a:hover::after { transform: scaleX(1); }
-.nav-links a.is-active::after { transform: scaleX(1); background: var(--accent); }
-.nav-links a.is-active { color: var(--accent); }
+        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); font-weight: 500; line-height: 1.3; }
+        a { text-decoration: none; color: inherit; }
 
+        .eyebrow {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .eyebrow::after { display: none; }
 
-.nav-contact {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-  transition: color 400ms var(--ease-quiet);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.nav-contact:hover { color: var(--accent-2); }
-.nav-contact::before {
-  content: '';
-  display: inline-block;
-  width: 6px; height: 6px;
-  border: 1px solid var(--accent-2);
-  border-radius: 50%;
-  transition: background 400ms var(--ease-quiet);
-}
-.nav-contact:hover::before { background: var(--accent-2); }
+        .add-to-order { 
+            width: 100%; padding: 1.5rem; background: var(--accent); color: #ffffff; 
+            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; 
+            transition: background 400ms var(--ease-quiet), color 400ms var(--ease-quiet); 
+            display: flex; align-items: center; justify-content: center; gap: 0.85rem; text-decoration: none; border: none;
+        }
+        .add-to-order:hover { background: var(--accent-2); color: #ffffff; }
 
+        .featured-header-link, .contact-cta, .hero-btn {
+            display: inline-flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none;
+            position: relative; padding-bottom: 10px; transition: color 400ms var(--ease-quiet);
+        }
+        .featured-header-link::after, .contact-cta::after, .hero-btn::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--accent); transition: background 400ms var(--ease-quiet);
+        }
+        .featured-header-link:hover, .contact-cta:hover, .hero-btn:hover { color: var(--accent-2); }
+        .featured-header-link:hover::after, .contact-cta:hover::after, .hero-btn:hover::after { background: var(--accent-2); }
+        .featured-header-link svg, .contact-cta svg, .hero-btn svg { width: 16px; height: 16px; stroke: currentColor; }
+        .hero-btn { color: #ffffff; }
+        .hero-btn:hover { color: var(--accent); }
 
-main { display: none; }
-body[data-active-view="home"] #view-home { display: block; }
-body[data-active-view="collection"] #view-collection { display: block; }
-body[data-active-view="object"] #view-object { display: block; }
+        .back-btn {
+            display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+            border: 1px solid var(--accent-2); border-radius: 50%; margin-right: 1rem; background: var(--accent-2-soft);
+            transition: border-color 400ms var(--ease-quiet), background 400ms var(--ease-quiet); text-decoration: none; cursor: pointer; flex-shrink: 0;
+        }
+        .back-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+        .back-btn svg { width: 16px; height: 16px; stroke: var(--text-soft); }
 
+        header {
+            display: flex; justify-content: space-between; align-items: center; padding: 24px var(--page-padding);
+            background: rgba(250, 248, 245, 0.85); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); gap: 20px;
+        }
+        
+        .logo { cursor: pointer; flex-shrink: 0; display: flex; align-items: center; }
+        .logo svg { height: 20px; width: auto; display: block; }
 
-.hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; background: var(--bg); }
-.hero-slider { position: absolute; inset: 0; }
-.slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 1200ms var(--ease-quiet); }
-.slide.is-active { opacity: 1; pointer-events: auto; }
-.slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.04); transition: transform 8000ms var(--ease-quiet); }
-.slide.is-active .slide-bg { transform: scale(1); }
-.slide-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0.45) 0%, rgba(10,10,10,0.15) 35%, rgba(10,10,10,0.85) 100%), linear-gradient(90deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 50%); }
-.slide-content { position: relative; z-index: 2; height: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2.5rem; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 11rem; }
-.slide-eyebrow, .slide-title, .slide-sub { opacity: 0; transform: translateY(40px); }
-.slide-eyebrow { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.85rem; }
-.slide-eyebrow::after { content: ''; width: 3rem; height: 1px; background: var(--accent); opacity: 0.7; }
-.slide-title { font-family: 'Poppins', sans-serif; font-weight: 200; font-size: clamp(3rem, 6.5vw, 6rem); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 1.75rem; max-width: 900px; }
-.slide-title em { font-style: italic; color: var(--accent); font-weight: 300; }
-.slide-sub { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.7; color: var(--text-soft); max-width: 560px; margin-bottom: 2.75rem; }
+        nav { flex-grow: 1; display: flex; justify-content: center; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a, .filter-btn {
+            background: transparent; border: none; font-size: 13px; font-weight: 500; color: var(--text-soft); 
+            transition: color 300ms var(--ease-quiet); cursor: pointer; position: relative; padding-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        nav a::after, .filter-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--accent-2); transition: width 300ms var(--ease-quiet); }
+        nav a:hover, .filter-btn:hover { color: var(--accent-2); }
+        nav a:hover::after, .filter-btn:hover::after { width: 100%; }
+        nav a.active, .filter-btn.active { color: var(--accent-2); }
+        nav a.active::after, .filter-btn.active::after { width: 100%; }
 
+        #app { min-height: 80vh; }
 
-.hero-controls { position: absolute; bottom: 3rem; left: 0; right: 0; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; }
-.hero-counter { font-family: 'Poppins', sans-serif; font-weight: 400; font-size: 11px; letter-spacing: 0.25em; color: var(--text-mute); }
-.hero-counter strong { color: var(--accent); font-weight: 600; }
-.hero-dots { display: flex; gap: 0.85rem; align-items: center; }
-.hero-dot { width: 32px; height: 1px; background: rgba(255,255,255,0.18); position: relative; cursor: pointer; padding: 0; transition: background 400ms var(--ease-quiet); }
-.hero-dot.is-active { background: var(--accent); }
-.hero-dot.is-active::after { content: ''; position: absolute; left: 0; top: -1px; height: 3px; background: var(--accent); width: 100%; }
-.hero-arrows { display: flex; gap: 0.5rem; }
-.hero-arrow { width: 42px; height: 42px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; transition: border-color 400ms var(--ease-quiet), background 400ms var(--ease-quiet); }
-.hero-arrow:hover { border-color: var(--accent-2); background: rgba(0, 64, 255, 0.08); }
-.hero-arrow svg { width: 14px; height: 14px; stroke: var(--text-soft); }
+        /* --- HERO BANNER STYLES --- */
+        .hero { position: relative; height: 90vh; overflow: hidden; background: var(--bg-soft); }
+        .hero-slider { position: relative; width: 100%; height: 100%; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s var(--ease-quiet); pointer-events: none; }
+        .slide.is-active { opacity: 1; pointer-events: auto; }
+        .slide-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; }
+        .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.25)); z-index: 1; }
+        .slide-content { position: relative; z-index: 2; max-width: 640px; padding: 0 var(--page-padding); height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: left; color: #ffffff; }
+        .slide-eyebrow { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.25em; color: var(--accent); margin-bottom: 1.5rem; }
+        .slide-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3.5rem; font-weight: 400; line-height: 1.2; margin-bottom: 1.5rem; color: #ffffff; }
+        .slide-title em { font-style: italic; font-weight: 300; }
+        .slide-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 2.5rem; max-width: 500px; }
 
+        .hero-controls { position: absolute; bottom: 40px; left: 0; width: 100%; padding: 0 var(--page-padding); display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+        .hero-counter { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,0.8); letter-spacing: 0.1em; }
+        .hero-counter strong { color: #ffffff; font-weight: 600; }
+        .hero-dots { display: flex; gap: 12px; }
+        .hero-dot { width: 10px; height: 10px; background: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; border: 1px solid transparent; transition: all 300ms var(--ease-quiet); padding: 0; }
+        .hero-dot.is-active { background: #ffffff; border-color: #ffffff; transform: scale(1.1); }
+        .hero-arrows { display: flex; gap: 15px; }
+        .hero-arrow { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 300ms var(--ease-quiet); }
+        .hero-arrow:hover { background: rgba(255,255,255,0.1); border-color: #ffffff; }
 
-.featured { background: var(--bg); padding-top: 10rem; }
-.featured-header { max-width: 1400px; margin: 0 auto 4rem; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; }
-.featured-header-link { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-soft); border-bottom: 1px solid var(--accent); padding-bottom: 0.35rem; transition: color 400ms var(--ease-quiet); flex-shrink: 0; margin-left: auto; }
-.featured-header-link:hover { color: var(--accent-2); }
+        /* Sections & Grids */
+        .section { padding: 120px var(--page-padding); }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; text-align: left; flex-wrap: wrap; gap: 20px; }
+        
+        .product-carousel-container { position: relative; max-width: none; margin: 0; }
+        .product-carousel { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 20px; }
+        .product-carousel::-webkit-scrollbar { display: none; }
 
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 0 var(--page-padding) 120px; max-width: none; margin: 0; }
 
-.pin-viewport { position: relative; }
-.pin-track-wrap { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; }
-.pin-track { display: flex; gap: 2.5rem; padding: 0 6rem; will-change: transform; transition: transform 200ms var(--ease-quiet); }
-.obj-card { flex: 0 0 auto; width: 360px; cursor: pointer; transition: transform 200ms var(--ease-quiet); }
-.obj-card-img { width: 100%; aspect-ratio: 4/5; background: var(--bg-soft); overflow: hidden; position: relative; }
-.obj-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 800ms var(--ease-quiet), filter 800ms var(--ease-quiet); filter: grayscale(0.2); }
-.obj-card:hover .obj-card-img img { transform: scale(1.04); filter: grayscale(0); }
-.obj-card-info { padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; border-top: 1px solid var(--line); margin-top: 1.5rem; position: relative; }
-.obj-card-info::before { content: ''; position: absolute; left: 0; top: -1px; width: 0; height: 1px; background: var(--accent-2); transition: width 600ms var(--ease-quiet); }
-.obj-card:hover .obj-card-info::before { width: 100%; }
-.obj-card-name { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 20px; letter-spacing: -0.005em; line-height: 1.3; }
-.obj-card-meta { text-align: right; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-mute); line-height: 1.6; flex-shrink: 0; }
-.obj-card-meta .price { color: var(--accent); display: block; margin-bottom: 0.35rem; }
-.obj-card-meta .original-price { color: var(--text-mute); text-decoration: line-through; font-size: 0.9em; display: block; margin-bottom: 0.35rem; }
+        .product-card {
+            background: var(--bg-soft); border: 1px solid var(--line-soft); transition: border-color 400ms var(--ease-quiet), transform 400ms var(--ease-quiet), box-shadow 400ms var(--ease-quiet); cursor: pointer;
+            display: flex; flex-direction: column; overflow: hidden; flex: 0 0 350px; scroll-snap-align: start;
+        }
+        .product-card.hidden { display: none; }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .product-card-img { width: 100%; height: 300px; background-size: cover; background-position: center; transition: opacity 400ms var(--ease-quiet); background-color: var(--bg); }
+        .product-card:hover .product-card-img { opacity: 0.9; }
 
+        .product-card-info { padding: 24px; text-align: left; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-category-tag { font-size: 12px; color: var(--text-mute); margin-bottom: 12px; display: block; font-weight: 500; }
+        /* Reduced padding above and below cost */
+        .product-card-info h3 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 400; color: var(--text); }
+        .price-container { margin-bottom: 12px; }
+        .actual-price { color: var(--text-mute); text-decoration: line-through; margin-right: 12px; font-size: 0.9rem; }
+        .discount-price { color: var(--accent); font-weight: 600; font-size: 1.3rem; }
+        .material-info { font-size: 0.85rem; color: var(--text-mute); text-align: left; border-top: 1px solid var(--line-soft); padding-top: 12px; margin-top: auto; line-height: 1.6; font-weight: 300; }
+        .material-info strong { color: var(--text-soft); font-weight: 500; }
 
-.pin-progress { position: absolute; bottom: 4rem; left: 50%; transform: translateX(-50%); width: 12rem; height: 1px; background: var(--line); z-index: 5; }
-.pin-progress-fill { position: absolute; left: 0; top: 0; height: 100%; width: 0; background: var(--accent); transition: width 100ms linear; }
+        .history-section { background: var(--bg-soft); display: flex; align-items: center; gap: 80px; padding: 120px var(--page-padding); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+        .history-image { flex: 1; height: 600px; background-image: url('https://z-cdn-media.chatglm.cn/files/9cb54507-2e2a-48e0-b537-be3e961f8a30.png?auth_key=1890252349-36e919e40ed3430fb4dd78033a27a99a-0-d67b0e2a25f45ac665afb6ea4284c576'); background-size: cover; background-position: center; filter: contrast(1.05); }
+        .history-text { flex: 1; }
+        .history-text h2 { font-size: 3rem; margin-bottom: 30px; color: var(--text); font-weight: 300; }
+        .history-text p { margin-bottom: 25px; font-size: 1.05rem; line-height: 1.8; color: var(--text-soft); font-weight: 300; }
 
+        .page-header { text-align: left; padding: 100px var(--page-padding) 40px; background: var(--bg-soft); border-bottom: 1px solid var(--line-soft); }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 15px; font-weight: 400; color: var(--text); }
+        .page-header p { color: var(--text-soft); max-width: 600px; margin: 0; font-size: 1rem; font-weight: 300; }
 
-.cta-banner { padding: 10rem 2.5rem; text-align: center; border-top: 1px solid var(--line-soft); }
-.cta-banner .eyebrow { margin-bottom: 2rem; }
-.cta-banner h2 { font-family: 'Poppins', sans-serif; font-weight: 200; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.2; letter-spacing: -0.015em; max-width: 800px; margin: 0 auto 2.5rem; }
-.cta-banner h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
-.cta-banner p { max-width: 800px; margin: 0 auto; color: var(--text-soft); font-size: 16px; font-weight: 300; text-align: justify; line-height: 1.8; }
+        .filters { text-align: left; padding: 40px var(--page-padding); display: flex; justify-content: flex-start; gap: 40px; flex-wrap: wrap; background: var(--bg-soft); border-bottom: 1px solid var(--line-soft); }
 
+        .pd-top-bar { display: flex; align-items: center; margin: 40px var(--page-padding) 0; }
+        .pd-back-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 13px; color: var(--text-soft); transition: color 400ms var(--ease-quiet); cursor: pointer; }
+        .pd-back-text:hover { color: var(--accent); }
 
-.collection-tabs {
-  padding: 8rem 2.5rem 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  gap: 2.5rem;
-  border-bottom: 1px solid var(--line-soft);
-}
-.collection-tab {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  padding: 1rem 0;
-  position: relative;
-  transition: color 400ms var(--ease-quiet);
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.collection-tab::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: -1px;
-  width: 100%;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 500ms var(--ease-quiet);
-}
-.collection-tab:hover { color: var(--text-soft); }
-.collection-tab.is-active { color: var(--accent); }
-.collection-tab.is-active::after { transform: scaleX(1); }
+        .product-detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: var(--page-padding); max-width: 1400px; margin: 0; padding: 40px var(--page-padding) 120px; }
+        .pd-gallery { display: flex; flex-direction: column; gap: 20px; }
+        .pd-main-image { width: 100%; height: 550px; background-size: cover; background-position: center; border: 1px solid var(--line); background-color: var(--bg-soft); }
+        .pd-thumbnails { display: flex; gap: 15px; flex-wrap: wrap; }
+        .pd-thumbnail { width: 100px; height: 100px; background-size: cover; background-position: center; cursor: pointer; border: 1px solid var(--line); transition: border-color 400ms var(--ease-quiet); background-color: var(--bg-soft); }
+        .pd-thumbnail:hover { border-color: var(--accent-2); }
+        .pd-thumbnail.active { border-color: var(--accent); }
 
+        .pd-info h1 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 400; }
+        .pd-price-container { margin-bottom: 10px; display: flex; align-items: baseline; gap: 15px; }
+        .pd-actual-price { font-size: 1.2rem; color: var(--text-mute); text-decoration: line-through; }
+        .pd-discount-price { font-size: 2rem; color: var(--accent); font-weight: 600; }
+        
+        .pd-offer-badge { display: block; color: var(--text-mute); font-size: 14px; font-weight: 600; margin-bottom: 15px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .pd-subtext { font-size: 0.9rem; color: var(--text-mute); margin-bottom: 40px; font-weight: 300; }
+        
+        .pd-details { margin-top: 60px; border-top: 1px solid var(--line); padding-top: 40px; }
+        .pd-details h3 { font-size: 13px; margin-bottom: 30px; color: var(--text-soft); font-weight: 600; }
+        .pd-spec-row { display: grid; grid-template-columns: 180px 1fr; margin-bottom: 20px; font-size: 14px; align-items: baseline; }
+        .pd-spec-label { font-weight: 600; color: var(--text); font-size: 14px; }
+        .pd-spec-value { color: var(--text-soft); font-weight: 300; font-size: 14px; }
+        .pd-delivery-box { background: var(--bg); padding: 20px; border-left: 2px solid var(--accent); margin-top: 30px; font-size: 14px; color: var(--text-soft); font-weight: 300; }
 
-.product-grid {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 4rem 2.5rem 8rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3rem 2rem;
-}
-.product-card { cursor: pointer; opacity: 0; transform: translateY(30px); transition: opacity 800ms var(--ease-quiet), transform 800ms var(--ease-quiet), outline 0.3s ease; outline: 2px solid transparent; outline-offset: 4px; }
-.product-card.is-revealed { opacity: 1; transform: none; }
-.product-card.is-highlighted { outline: 2px solid var(--accent); }
-.product-card-img { width: 100%; aspect-ratio: 4/5; background: var(--bg-soft); overflow: hidden; position: relative; }
-.product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1000ms var(--ease-quiet), filter 1000ms var(--ease-quiet); filter: grayscale(0.15); }
-.product-card:hover .product-card-img img { transform: scale(1.04); filter: grayscale(0); }
-.product-card-num { position: absolute; top: 1rem; left: 1rem; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 10px; letter-spacing: 0.2em; color: var(--accent); background: rgba(10,10,10,0.6); padding: 0.35rem 0.65rem; backdrop-filter: blur(4px); }
-.product-card-info { padding-top: 1.25rem; position: relative; }
-.product-card-info::before { content: ''; position: absolute; left: 0; top: 0; width: 0; height: 1px; background: var(--accent-2); transition: width 600ms var(--ease-quiet); }
-.product-card:hover .product-card-info::before { width: 100%; }
-.product-card-name { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 20px; line-height: 1.3; margin-bottom: 0.5rem; letter-spacing: -0.005em; }
-.product-card-material { font-size: 13px; color: var(--text-soft); margin-bottom: 0.85rem; font-weight: 300; }
-.product-card-price { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0.05em; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
-.price-original { text-decoration: line-through; color: var(--text-mute); font-size: 0.9em; font-weight: 400; }
+        .terms-container { max-width: 900px; margin: 0; padding: 80px var(--page-padding); }
+        .terms-container h1 { font-size: 2.5rem; margin-bottom: 40px; text-align: left; color: var(--text); font-weight: 400; }
+        .terms-section { margin-bottom: 40px; }
+        .terms-section h2 { font-size: 1rem; margin-bottom: 12px; color: var(--text-soft); font-weight: 600; }
+        .terms-section p { font-size: 0.95rem; color: var(--text-soft); font-weight: 300; line-height: 1.8; }
 
+        footer { background: var(--bg-soft); color: var(--text-mute); padding: 80px var(--page-padding) 40px; border-top: 1px solid var(--line-soft); }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: none; margin: 0; }
+        .footer-col h4 { color: var(--text); margin-bottom: 24px; font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col a { color: var(--text-mute); text-decoration: none; transition: color 400ms var(--ease-quiet); cursor: pointer; font-size: 0.9rem; font-weight: 300; }
+        .footer-col a:hover { color: var(--accent); }
+        .footer-bottom { text-align: left; margin-top: 60px; border-top: 1px solid var(--line-soft); padding-top: 30px; font-size: 0.85rem; color: var(--text-mute); font-weight: 300; }
 
-.breadcrumb { max-width: 1400px; margin: 0 auto; padding: 8rem 2.5rem 2rem; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mute); display: flex; gap: 0.85rem; align-items: center; }
-.breadcrumb a { transition: color 400ms var(--ease-quiet); }
-.breadcrumb a:hover { color: var(--accent-2); }
-.breadcrumb span { color: var(--text-mute); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  margin-right: 1rem;
-  transition: border-color 400ms var(--ease-quiet), background 400ms var(--ease-quiet);
-}
-.back-btn:hover {
-  border-color: var(--accent-2);
-  background: rgba(0, 64, 255, 0.08);
-}
-.back-btn svg { width: 14px; height: 14px; stroke: var(--text-soft); }
-
-
-.product-detail { max-width: 1400px; margin: 0 auto; padding: 2rem 2.5rem 8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-.product-gallery { position: sticky; top: 6rem; display: grid; grid-template-columns: 88px 1fr; gap: 1.5rem; align-items: start; }
-.gallery-thumbs { display: flex; flex-direction: column; gap: 1rem; }
-.gallery-thumb { width: 88px; height: 110px; background: var(--bg-soft); overflow: hidden; cursor: pointer; position: relative; border: 1px solid transparent; transition: border-color 400ms var(--ease-quiet); }
-.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.4); transition: filter 400ms var(--ease-quiet); }
-.gallery-thumb.is-active { border-color: var(--accent); }
-.gallery-thumb.is-active img { filter: grayscale(0); }
-.gallery-thumb:hover img { filter: grayscale(0); }
-.gallery-main { width: 100%; aspect-ratio: 4/5; background: var(--bg-soft); overflow: hidden; position: relative; cursor: zoom-in; }
-.gallery-main img { width: 100%; height: 100%; object-fit: cover; transition: opacity 600ms var(--ease-quiet); }
-.gallery-main.changing img { opacity: 0; }
-.gallery-counter { position: absolute; bottom: 1rem; right: 1rem; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; color: var(--text); background: rgba(10,10,10,0.7); padding: 0.4rem 0.75rem; backdrop-filter: blur(6px); pointer-events: none; }
-.gallery-counter strong { color: var(--accent-2); font-weight: 600; }
-
-
-.zoom-hint {
-  position: absolute;
-  bottom: 1rem; left: 1rem;
-  background: rgba(10,10,10,0.7);
-  padding: 0.4rem 0.75rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text);
-  pointer-events: none;
-  backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity 400ms var(--ease-quiet);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.gallery-main:hover .zoom-hint { opacity: 1; }
-
-
-.lightbox {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(10,10,10,0.98);
-  z-index: 2000;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  cursor: grab;
-}
-.lightbox.is-open { display: flex; }
-.lightbox.is-grabbing { cursor: grabbing; }
-.lightbox-content {
-  width: 100%; height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-#lightboxImg {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  transform-origin: center center;
-  transition: transform 0.1s linear;
-  will-change: transform;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-.lightbox-close {
-  position: absolute;
-  top: 2rem; right: 2rem;
-  color: var(--text);
-  font-size: 3rem;
-  line-height: 1;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 2001;
-  opacity: 0.7;
-  transition: opacity 300ms var(--ease-quiet);
-}
-.lightbox-close:hover { opacity: 1; color: var(--accent); }
-.lightbox-hint {
-  position: absolute;
-  bottom: 2rem; left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  pointer-events: none;
-}
-
-
-.product-info { padding-top: 1rem; }
-.product-info .eyebrow { margin-bottom: 1.5rem; }
-.product-info h1 { font-family: 'Poppins', sans-serif; font-weight: 200; font-size: clamp(2.2rem, 4vw, 3.4rem); line-height: 1.15; letter-spacing: -0.015em; margin-bottom: 1.25rem; }
-.product-info h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
-.product-price { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 1.65rem; letter-spacing: -0.005em; margin-bottom: 0.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-.product-price .currency { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; color: var(--text-mute); letter-spacing: 0.15em; text-transform: uppercase; }
-.product-price .amount { color: var(--accent); }
-.product-price .original-amount { color: var(--text-mute); text-decoration: line-through; font-size: 1.2rem; }
-
-
-.offer-text {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-top: -1.5rem;
-  margin-bottom: 0.75rem;
-  display: none;
-}
-
-
-.price-subtext {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  margin-top: 0; 
-  margin-bottom: 2.5rem;
-}
-.product-lede { font-size: 16px; color: var(--text-soft); margin-bottom: 2.5rem; font-weight: 300; display: none; } 
-
-
-.add-to-order { width: 100%; padding: 1.25rem; background: var(--accent); color: var(--bg); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: background 400ms var(--ease-quiet), color 400ms var(--ease-quiet); display: flex; align-items: center; justify-content: center; gap: 0.85rem; }
-.add-to-order:hover { background: var(--accent-2); color: #ffffff; }
-
-
-.product-specs { margin-top: 3.5rem; }
-.product-specs h3 { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 1.4rem; margin-bottom: 1.5rem; }
-.specs-list { border-top: 1px solid var(--line); }
-.spec-row { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; padding: 1.25rem 0; border-bottom: 1px solid var(--line-soft); position: relative; transition: padding-left 500ms var(--ease-quiet); }
-.spec-row::before { content: ''; position: absolute; left: -1rem; top: 0; width: 2px; height: 0; background: var(--accent); transition: height 600ms var(--ease-quiet); }
-.spec-row:hover { padding-left: 1rem; }
-.spec-row:hover::before { height: 100%; }
-.spec-label { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mute); transition: color 500ms var(--ease-quiet); }
-.spec-row:hover .spec-label { color: var(--accent); }
-.spec-value { font-size: 15px; color: var(--text); font-weight: 300; }
-
-
-.footer { padding: 6rem 2.5rem 3rem; border-top: 1px solid var(--line-soft); max-width: 1400px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
-.footer-brand .brand-logo-footer { height: 26.4px; width: auto; display: block; mix-blend-mode: screen; }
-.footer-col h4 { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 0.75rem; }
-.footer-col a { font-size: 14px; color: var(--text-soft); transition: color 400ms var(--ease-quiet); font-weight: 300; }
-.footer-col a:hover { color: var(--accent-2); }
-.footer-contact li { margin-bottom: 0.9rem; }
-.footer-contact a { display: inline-flex; align-items: center; gap: 0.85rem; }
-.footer-contact svg { width: 14px; height: 14px; stroke: var(--text-soft); transition: stroke 400ms var(--ease-quiet); flex-shrink: 0; }
-.footer-contact a:hover svg { stroke: var(--accent-2); }
-
-
-.footer-bottom {
-  margin-top: 4rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--line-soft);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-}
-.footer-bottom a { 
-  color: var(--text-mute); 
-  transition: color 400ms var(--ease-quiet); 
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-}
-.footer-bottom a:hover { color: var(--accent); border-bottom: 1px solid var(--accent); }
-
-
-.terms-modal {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(10,10,10,0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 3000;
-  display: none;
-  justify-content: center;
-  align-items: flex-start;
-  overflow-y: auto;
-  padding: 4rem 1.5rem;
-}
-.terms-modal.is-open { display: flex; }
-.terms-modal-content {
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  max-width: 900px;
-  width: 100%;
-  margin: auto;
-  padding: 4rem 3rem;
-  position: relative;
-}
-.terms-close {
-  position: absolute;
-  top: 1.5rem; right: 1.5rem;
-  color: var(--text-soft);
-  font-size: 2.5rem;
-  line-height: 1;
-  background: none;
-  border: none;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 300ms var(--ease-quiet), color 300ms var(--ease-quiet);
-  z-index: 10;
-}
-.terms-close:hover { opacity: 1; color: var(--accent); }
-.terms-body h2 { 
-  font-family: 'Poppins', sans-serif; 
-  font-weight: 200; 
-  font-size: clamp(2rem, 4vw, 3rem); 
-  margin-bottom: 0.5rem; 
-  color: var(--text); 
-  letter-spacing: -0.01em;
-}
-.terms-body h2 em { color: var(--accent); font-weight: 300; }
-.terms-body .eyebrow { margin-bottom: 3rem; }
-.terms-body h3 { 
-  font-family: 'Poppins', sans-serif; 
-  font-weight: 500; 
-  font-size: 1.1rem; 
-  margin-top: 2.5rem; 
-  margin-bottom: 1rem; 
-  letter-spacing: 0.02em; 
-  color: var(--text); 
-  border-bottom: 1px solid var(--line); 
-  padding-bottom: 0.5rem; 
-}
-.terms-body p { 
-  font-size: 14px; 
-  color: var(--text-soft); 
-  margin-bottom: 1rem; 
-  line-height: 1.8; 
-  font-weight: 300;
-}
-.terms-body p strong { color: var(--text); font-weight: 500; }
-
-
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1000ms var(--ease-quiet), transform 1000ms var(--ease-quiet); }
-.reveal.is-in { opacity: 1; transform: none; }
-
-
-@media (max-width: 1100px) {
-  .product-grid { grid-template-columns: repeat(3, 1fr); }
-  .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
-}
-@media (max-width: 900px) {
-  .nav { padding: 1.25rem 1rem; } 
-  .nav-logo { height: 16.8px; }
-  .nav-links { gap: 1.5rem; }
-  .featured-header { padding: 0 1rem; flex-direction: column; align-items: flex-start; gap: 2rem; } 
-  .featured-header-link { margin-left: 0; }
-  .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
-  .pin-track { padding: 0 1rem; transform: none !important; } 
-  .obj-card { scroll-snap-align: start; }
-  .pin-progress { display: none; }
-  .collection-tabs { padding: 7rem 1rem 2rem; gap: 1.5rem; } 
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; padding: 3rem 1rem 6rem; } 
-  .cta-banner { padding: 6rem 1rem; } 
-  .product-detail { grid-template-columns: 1fr; gap: 3rem; padding: 1.5rem 1rem 6rem; } 
-  .product-gallery { position: static; grid-template-columns: 1fr; }
-  .gallery-thumbs { flex-direction: row; overflow-x: auto; }
-  .gallery-thumb { width: 80px; height: 100px; flex-shrink: 0; }
-  .footer { padding: 4rem 1rem 2rem; } 
-  .breadcrumb { padding: 7rem 1rem 1.5rem; } 
-  .terms-modal-content { padding: 3rem 1.5rem; }
-  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-}
-@media (max-width: 600px) {
-  .slide-content { padding: 0 1rem 9rem 1rem; } 
-  .hero-controls { padding: 0 1rem; bottom: 2rem; } 
-  .hero-counter { display: none; }
-  .hero-dot { width: 24px; }
-  .product-grid { grid-template-columns: 1fr; }
-  .spec-row { grid-template-columns: 1fr; gap: 0.5rem; }
-  .nav-links { display: none; }
-  .slide-title { font-size: clamp(2.2rem, 9vw, 3.4rem); }
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
-  .slide-bg { transform: none !important; }
-  .reveal, .product-card, .slide-eyebrow, .slide-title, .slide-sub, .slide-cta { opacity: 1 !important; transform: none !important; }
-}
-@media (pointer: coarse) {
-  .pin-track-wrap { position: static; height: auto; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
-  .pin-track { transform: none !important; }
-  .obj-card { transform: none !important; }
-  .pin-progress { display: none; }
-}
-</style>
+        /* Responsive alignment adjustments */
+        @media (max-width: 992px) {
+            :root { --page-padding: 40px; }
+            .history-section { flex-direction: column; gap: 40px; padding: 60px var(--page-padding); }
+            .history-image { height: 400px; width: 100%; }
+            .history-text h2 { font-size: 2.2rem; }
+            .product-detail-container { grid-template-columns: 1fr; gap: 40px; padding: 20px var(--page-padding) 80px; }
+            .pd-main-image { height: 450px; }
+        }
+        @media (max-width: 768px) {
+            :root { --page-padding: 24px; }
+            header { padding: 15px var(--page-padding); gap: 10px; }
+            .logo svg { height: 16px; }
+            nav { display: none; } 
+            .slide-content { padding: 0 var(--page-padding); }
+            .slide-title { font-size: 2.2rem; }
+            .slide-sub { font-size: 0.95rem; }
+            .hero-controls { padding: 0 var(--page-padding); bottom: 20px; }
+            .section { padding: 80px var(--page-padding); }
+            .product-card { flex: 0 0 280px; }
+            .product-card-img { height: 250px; }
+            .products-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 var(--page-padding) 80px; }
+            .page-header { padding: 80px var(--page-padding) 30px; }
+            .filters { gap: 20px; padding: 30px var(--page-padding); }
+            .pd-spec-row { grid-template-columns: 120px 1fr; gap: 10px; }
+            .footer-grid { grid-template-columns: 1fr; text-align: left; gap: 30px; }
+        }
+    </style>
 </head>
-<body data-active-view="home">
+<body>
 
-
-<header class="nav">
-  <a href="#" class="nav-logo" data-view-link="home">
-    <img src="https://z-cdn-media.chatglm.cn/files/c45b9cfe-0d41-448e-839e-508ff5e65aec.png?auth_key=1888425504-55f5580c33d94561b9089eacc8775d4a-0-c1dc69a53f25331f0b2f059b40dbc34d" alt="MORA">
-  </a>
-  <nav class="nav-links">
-    <a href="#" data-view-link="home">Home</a>
-    <a href="#" data-view-link="collection" class="is-active">Products</a>
-  </nav>
-  <a href="#contact" class="nav-contact">Contact us</a>
-</header>
-
-
-<!-- ============ VIEW: HOME ============ -->
-<main id="view-home">
-  <section class="hero">
-    <div class="hero-slider" id="heroSlider">
-      <div class="slide is-active" data-slide="0">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/42ff0d90-f09f-49a3-a92f-3d66c08005e8.png?auth_key=1888501082-1377e97d630c4d9b84dfd76231738ae6-0-4f1d0a35b0a22bfa7320ea21f7f72900')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">ABOUT MORA</div>
-          <h1 class="slide-title">Four Generations of <em>Craftsmanship</em></h1>
-          <p class="slide-sub">Since 1972, MORA has preserved four generations of rare Indian craftsmanship, creating sculptural pieces where heritage meets refined luxury.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="1">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">OUR LEGACY</div>
-          <h1 class="slide-title">The Attukal <em>Legacy</em></h1>
-          <p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="2">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">MATERIAL</div>
-          <h1 class="slide-title">Pieces of <em>Rare Character</em></h1>
-          <p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="3">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">DESIGNER PRODUCTS</div>
-          <h1 class="slide-title">Born from <em>Heritage</em></h1>
-          <p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p>
-        </div>
-      </div>
-      <div class="slide" data-slide="4">
-        <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/1a134b4b-82a1-471a-918a-da0dde6abce4.jpeg?auth_key=1888508696-61bbe2b7fc014ee7962ddb83608b59eb-0-67bc3da828b1471391b911cb4fd898e9')"></div>
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-eyebrow">CASH ON DELIVERY</div>
-          <h1 class="slide-title">Delivered with <em>Care</em></h1>
-          <p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on Delivery.</p>
-        </div>
-      </div>
-    </div>
-    <div class="hero-controls">
-      <div class="hero-counter"><strong id="heroCurrent">01</strong> &nbsp;/&nbsp; 05</div>
-      <div class="hero-dots" id="heroDots">
-        <button class="hero-dot is-active" data-dot="0"></button>
-        <button class="hero-dot" data-dot="1"></button>
-        <button class="hero-dot" data-dot="2"></button>
-        <button class="hero-dot" data-dot="3"></button>
-        <button class="hero-dot" data-dot="4"></button>
-      </div>
-      <div class="hero-arrows">
-        <button class="hero-arrow" id="heroPrev" aria-label="Previous slide">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="hero-arrow" id="heroNext" aria-label="Next slide">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="featured">
-    <div class="featured-header">
-      <div></div>
-      <a href="#" class="featured-header-link reveal" data-view-link="collection">View all Products →</a>
-    </div>
-    <div class="pin-viewport" id="pinViewport">
-      <div class="pin-track-wrap">
-        <div class="pin-track" id="pinTrack"></div>
-        <div class="pin-progress"><div class="pin-progress-fill" id="pinFill"></div></div>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="cta-banner">
-    <div class="eyebrow reveal">Our History</div>
-    <h2 class="reveal">Preserving the Art of a <em>Legacy</em>.</h2>
-    <p class="reveal">Founded in 1972 in Attukal, Trivandrum, Kerala, MORA emerged at a turning point in Indian history. The traditional handicraft sector, once rich and vibrant, was declining due to colonial exploitation and post independence industrialization. In this environment, M.R. Krishnan, a national & state award winning artisan, established MORA not just as a business, but as a living tribute to India’s artistic and spiritual heritage. Rooted in a proud four generation legacy of rare sculptural craftsmanship, MORA represents the seamless blend of age old tradition and refined artistry. Our master artisans shape each creation by hand, preserving techniques passed down through generations to produce timeless, museum worthy masterpieces. MORA is dedicated to safeguarding and celebrating the rich heritage of Indian craftsmanship.</p>
-  </section>
-</main>
-
-
-<!-- ============ VIEW: COLLECTION ============ -->
-<main id="view-collection">
-  <div class="collection-tabs">
-    <button class="collection-tab is-active" data-filter="all">All Products</button>
-    <button class="collection-tab" data-filter="Standard">Standard</button>
-    <button class="collection-tab" data-filter="Designer">Designer</button>
-  </div>
-  <section class="product-grid" id="productGrid"></section>
-</main>
-
-
-<!-- ============ VIEW: OBJECT ============ -->
-<main id="view-object">
-  <div class="breadcrumb">
-    <a href="#" id="backBtn" class="back-btn" aria-label="Go back">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-    </a>
-    <a href="#" data-view-link="home">Home</a>
-    <span>/</span>
-    <a href="#" data-view-link="collection">Products</a>
-    <span>/</span>
-    <a href="#" id="crumbCategory">Designer</a>
-    <span>/</span>
-    <span id="crumbName">Suvarna</span>
-  </div>
-  <div class="product-detail">
-    <div class="product-gallery">
-      <div class="gallery-thumbs" id="galleryThumbs"></div>
-      <div class="gallery-main" id="galleryMain">
-        <img id="galleryMainImg" src="" alt="Product Image">
-        <div class="gallery-counter"><strong id="galleryCurrent">01</strong>&nbsp;/&nbsp;<span id="galleryTotal">03</span></div>
-        <div class="zoom-hint">Zoom <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="m8 11 6 0"/></svg></div>
-      </div>
-    </div>
-    <div class="product-info">
-      <div class="eyebrow" id="prodEyebrow">Designer · CAT-001</div>
-      <h1 id="prodName">Suvarna <em>Collection</em></h1>
-      <div class="product-price" id="prodPriceContainer">
-        <span class="currency">INR</span>
-        <span class="amount" id="prodPrice">4,800</span>
-      </div>
-      
-      <!-- Offer Text dynamically inserted here -->
-      <div class="offer-text" id="prodOffer"></div>
-      
-      <div class="price-subtext">Tax Included | Cash on Delivery</div>
-      <p class="product-lede" id="prodLede"></p>
-      
-      <a href="https://wa.me/918073191006" target="_blank" class="add-to-order" id="addToOrderLink">
-        Order on Whatsapp
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <div class="product-specs">
-        <h3>Product Details</h3>
-        <div class="specs-list" id="specsList">
-          <!-- Specs are dynamically injected here -->
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-
-
-<!-- Lightbox / Zoom Overlay -->
-<div id="lightbox" class="lightbox">
-  <button class="lightbox-close" id="lightboxClose">&times;</button>
-  <div class="lightbox-content" id="lightboxContent">
-    <img id="lightboxImg" src="" alt="Zoom view" draggable="false">
-  </div>
-  <div class="lightbox-hint">Scroll to zoom · Drag to pan · Click to close</div>
-</div>
-
-
-<!-- Terms & Policies Modal -->
-<div id="termsModal" class="terms-modal">
-  <div class="terms-modal-content">
-    <button class="terms-close" id="termsClose">&times;</button>
-    <div class="terms-body">
-      <div class="eyebrow">Please Read Carefully</div>
-      <h2>Terms & <em>Policies</em></h2>
-      
-      <h3>1. Product Information</h3>
-      <p>Each lampshade is individually handcrafted using carefully selected materials. As a result, minor variations in colour, texture, grain, shape, finish and dimensions may occur. These natural variations are part of the character and uniqueness of a handmade product and should not be considered defects.</p>
-      <p>Product colours may also appear slightly different depending on lighting conditions, photography and individual screen settings.</p>
-
-
-      <h3>2. Handmade Product Disclaimer</h3>
-      <p>Our products are handmade and not mass-produced. Minor variations, natural marks, surface irregularities and differences in texture may occur due to the nature of the materials and traditional craftsmanship.</p>
-      <p>Such variations are not considered manufacturing defects.</p>
-
-
-      <h3>3. Material Warranty</h3>
-      <p>The materials used in our lampshades are selected for their intended application and quality. However, natural materials such as wood, paper, fabric and other organic materials can change over time due to humidity, temperature, sunlight and environmental conditions.</p>
-      <p>Material ageing, fading, discolouration, natural cracking, shrinkage or expansion caused by environmental conditions is not covered under warranty.</p>
-      <p>Unless specifically mentioned on the individual product page, the product does not carry a lifetime or unconditional material warranty.</p>
-
-
-      <h3>4. Electrical Safety</h3>
-      <p>Where a lampshade is supplied with electrical components, customers must use the product only with the recommended electrical fittings, bulb type and maximum wattage specified by the manufacturer.</p>
-      <p>Customers must:</p>
-      <p>Use the recommended bulb type and wattage.<br>Ensure adequate ventilation around the bulb.<br>Keep the lampshade away from water and excessive moisture.<br>Keep flammable materials away from the lamp.<br>Switch off and unplug the lamp when not in use or when unattended.<br>Stop using the product if the wire, holder, switch or any electrical component appears damaged.<br>Have electrical installation or repair work carried out by a qualified electrician where required.</p>
-
-
-      <h3>5. Short Circuit, Electrical Failure & Fire</h3>
-      <p>The product should be used strictly according to the supplied instructions and recommended electrical specifications.</p>
-      <p>We are not responsible for damage, injury, fire, short circuit, electrical failure or consequential loss resulting from:</p>
-      <p>Incorrect installation or wiring.<br>Use of an incorrect or higher-wattage bulb.<br>Use of incompatible electrical components.<br>Voltage fluctuations, power surges or external electrical faults.<br>Modification, alteration or repair by an unauthorised person.<br>Improper handling, storage or installation.<br>Use of the product in unsuitable environments.<br>Negligence, misuse or failure to follow safety instructions.</p>
-      <p>In the event of any unusual heat, burning smell, sparks, smoke or electrical malfunction, immediately switch off and disconnect the product from the power supply and discontinue use.</p>
-      <p><strong>Important:</strong> A lampshade should never be left switched on while unattended or while the customer is away from the premises.</p>
-
-
-      <h3>6. Product Inspection</h3>
-      <p>Every product is carefully inspected before dispatch. Electrical components, where applicable, are also checked prior to shipment.</p>
-      <p>Customers are requested to inspect the package and product immediately upon delivery. If the package or product is found to be damaged, the product should be returned immediately to the delivery agent and the issue must be reported to our customer service team immediately, along with photographs or other supporting evidence where possible.</p>
-      <p>Once the product has been accepted and the delivery is completed, damage claims may be subject to verification and applicable return or replacement terms.</p>
-
-
-      <h3>7. Packaging</h3>
-      <p>Every product is carefully packed using protective packaging appropriate to its size, material and design.</p>
-      <p>Because lampshades can be delicate and sculptural, protective packaging may include multiple layers of cushioning and structural support.</p>
-      <p>Customers are advised to retain the original packaging until the product has been inspected and accepted.</p>
-
-
-      <h3>8. Transit Damage</h3>
-      <p>If the product arrives visibly damaged, customers should:</p>
-      <p>Photograph the outer packaging before opening it.<br>Photograph the damaged product and packaging from multiple angles.<br>Record an unboxing video wherever possible.<br>Contact us as soon as possible with the order details and photographs/videos.</p>
-      <p>Claims without adequate evidence may be difficult to verify.</p>
-      <p>Transit-damage claims will be reviewed based on the condition of the product, packaging and available evidence.</p>
-
-
-      <h3>9. Delivery</h3>
-      <p>Delivery timelines vary depending on the customer's location, product availability and shipping conditions.</p>
-      <p>The estimated delivery period provided at the time of purchase is an estimate and may be affected by:</p>
-      <p>Courier delays.<br>Weather conditions.<br>Transport disruptions.<br>Public holidays.<br>Remote-location delivery.<br>Address-related issues.<br>Events outside our reasonable control.</p>
-      <p>Delivery dates are therefore not guaranteed unless specifically confirmed in writing.</p>
-
-
-      <h3>10. Delivery Address</h3>
-      <p>Customers are responsible for providing a complete and accurate delivery address and contact number.</p>
-      <p>Additional delivery charges may apply if:</p>
-      <p>The address is changed after dispatch.<br>The courier has to make a second delivery attempt due to customer unavailability.<br>The address is incorrect or incomplete.<br>The location requires special or additional transportation.</p>
-
-
-      <h3>11. Cash on Delivery</h3>
-      <p>For Cash on Delivery orders, the customer must make the full payment to the authorised delivery agent at the time of delivery.</p>
-      <p>Customers should not make additional payments to unauthorised individuals claiming to represent the company.</p>
-
-
-      <h3>12. Returns & Exchanges</h3>
-      <p>Because our lampshades are handcrafted and made in limited quantities, returns and exchanges may be subject to specific conditions.</p>
-      <p>Returns will generally not be accepted for:</p>
-      <p>Change of mind.<br>Incorrect size selection by the customer.<br>Colour preference after purchase.<br>Minor natural variations in handmade materials.<br>Customised or specially commissioned products.<br>Damage caused after delivery.</p>
-      <p>Where a product is found to have a manufacturing defect or arrives damaged in transit, the matter will be reviewed and an appropriate resolution may be offered.</p>
-
-
-      <h3>13. Cancellation</h3>
-      <p>Order cancellation requests must be made before the product is dispatched.</p>
-      <p>Once a customised, made-to-order or specially prepared product has entered production, cancellation may not be possible.</p>
-
-
-      <h3>14. Installation & Assembly</h3>
-      <p>Where installation or electrical connection is required, customers should use a qualified electrician or appropriate professional.</p>
-      <p>The company is not responsible for damage or injury resulting from incorrect installation, unauthorised modification or improper electrical connection.</p>
-
-
-      <h3>15. Product Care</h3>
-      <p>To maintain the appearance and longevity of your lampshade:</p>
-      <p>Keep it away from direct and prolonged sunlight.<br>Keep it away from water and excessive humidity.<br>Do not use harsh chemicals or abrasive cleaning products.<br>Do not pull or place excessive pressure on the shade.<br>Clean gently using a soft, dry cloth or the care method recommended for the specific material.<br>Use only the recommended bulb and wattage.</p>
-
-
-      <h3>16. Warranty</h3>
-      <p>Where a specific warranty period is offered, the warranty covers manufacturing defects under normal intended use during the stated warranty period.</p>
-      <p>The warranty does not cover:</p>
-      <p>Accidental damage.<br>Improper installation.<br>Electrical faults caused by external sources.<br>Short circuits caused by incorrect wiring or use.<br>Fire or heat damage resulting from improper use.<br>Water or moisture damage.<br>Normal wear and tear.<br>Natural ageing of materials.<br>Damage caused by modification or repair.<br>Damage caused by unsuitable bulbs or excessive wattage.</p>
-      <p>Warranty claims are subject to inspection and verification.</p>
-
-
-      <h3>17. Limitation of Liability</h3>
-      <p>To the extent permitted by applicable law, the company shall not be responsible for indirect, incidental or consequential loss arising from misuse, improper installation, unauthorised modification, electrical faults outside the product's control or failure to follow the supplied safety and care instructions.</p>
-      <p>Nothing in this policy is intended to exclude or restrict any consumer rights or remedies that cannot legally be excluded under applicable Indian law.</p>
-
-
-      <h3>18. Customer Responsibility</h3>
-      <p>By purchasing and using the product, customers agree to follow the product's installation, electrical safety, usage and care instructions.</p>
-      <p>Customers should contact us before installation if they have any questions regarding compatibility, electrical specifications or product use.</p>
-
-
-      <h3>19. Force Majeure</h3>
-      <p>We shall not be liable for delays or inability to fulfil an order caused by circumstances beyond our reasonable control, including natural disasters, extreme weather, strikes, transport disruptions, government restrictions, accidents, civil disturbances or other unforeseen events.</p>
-
-
-      <h3>20. Policy Updates</h3>
-      <p>We reserve the right to update these terms and policies from time to time. The version published on our website at the time of purchase will generally apply to that order, subject to applicable law.</p>
-
-
-      <h3>21. Customer Support</h3>
-      <p>For questions regarding an order, delivery, product care, warranty or damage claim, customers should contact us through the official contact details provided on our website.</p>
-      <p>Please retain your order confirmation/invoice as proof of purchase for any warranty or service request.</p>
-    </div>
-  </div>
-</div>
-
-
-<footer class="footer" id="contact">
-  <div class="footer-top">
-    <div class="footer-brand">
-      <img src="https://z-cdn-media.chatglm.cn/files/c45b9cfe-0d41-448e-839e-508ff5e65aec.png?auth_key=1888425504-55f5580c33d94561b9089eacc8775d4a-0-c1dc69a53f25331f0b2f059b40dbc34d" alt="MORA" class="brand-logo-footer">
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="#" data-view-link="collection">All Products</a></li>
-        <li><a href="#" data-view-link="collection">Standard</a></li>
-        <li><a href="#" data-view-link="collection">Designer</a></li>
-      </ul>
-    </div>
-    <div class="footer-col footer-contact">
-      <h4>Contact</h4>
-      <ul>
-        <li>
-          <a href="https://wa.me/918073191006" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 21l1.65-3.9a9 9 0 1 1 3.25 3.25L3 21"/>
-              <path d="M9 10a3 3 0 0 0 5 5"/>
+    <header>
+        <div class="logo" onclick="window.navigate('home')">
+            <svg width="684" height="159" viewBox="0 0 684 159" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M567.81 99.4558L552.208 134.364C549.771 139.78 548.552 144.244 548.552 147.757C548.552 152.587 550.99 156.026 555.865 158.075H521.006C522.631 158.075 524.987 156.612 528.075 153.684C531.163 150.757 534.738 144.976 538.801 136.34L602.425 0L665.562 136.999C669.137 144.903 672.55 150.318 675.8 153.245C679.213 156.173 681.894 157.783 683.844 158.075H643.379C647.441 156.319 649.473 153.611 649.473 149.952C649.473 146.878 648.173 142.487 645.572 136.779L628.509 99.4558H567.81ZM624.608 90.4543L598.037 31.8346L571.954 90.4543H624.608Z" fill="black"/>
+                <path d="M439.89 78.6156C446.935 78.6156 453.06 77.0103 458.266 73.7998C463.473 70.4364 467.378 66.1558 469.981 60.9578C472.738 55.6070 474.116 50.0269 474.116 44.2174C474.116 38.2550 472.814 32.6748 470.211 27.4769C467.761 22.1260 463.932 17.7690 458.726 14.4056C453.519 11.0422 447.164 9.3605 439.661 9.3605H420.136V136.863C420.136 142.978 420.902 147.641 422.433 150.852C423.965 153.909 425.649 155.973 427.487 157.044C429.324 157.961 430.243 158.267 430.243 157.961H393.721C393.721 158.267 394.64 157.884 396.477 156.814C398.315 155.744 399.923 153.68 401.301 150.623C402.832 147.565 403.598 142.978 403.598 136.863V22.2025C403.598 15.9344 402.832 11.1951 401.301 7.98457C399.923 4.62119 398.315 2.4044 396.477 1.33424C394.64 0.111191 393.721 -0.271019 393.721 0.187627H439.201C451.146 0.187627 460.946 2.17507 468.603 6.14997C476.413 9.972 482.002 15.0171 485.371 21.2852C488.893 27.4005 490.654 34.1272 490.654 41.4655C490.654 47.5808 489.199 53.6196 486.29 59.5819C483.38 65.3914 479.169 70.5129 473.656 74.9464C468.297 79.2271 462.018 82.2083 454.821 83.89L451.146 84.5779L491.573 135.946C496.933 141.908 501.374 146.495 504.896 149.705C508.418 152.916 510.944 155.056 512.476 156.126C514.16 157.196 515.156 157.808 515.462 157.961H488.587L426.108 78.6156H439.89Z" fill="black"/>
+                <path d="M134.834 158.034C136.672 157.727 138.662 156.12 140.806 153.21C142.95 150.147 144.022 144.558 144.022 136.442V21.5918L83.9623 158.034L22.7403 21.8215V135.293C22.7403 143.563 24.042 149.382 26.6452 152.751C29.4016 155.966 31.8518 157.727 33.9956 158.034H0C2.297 157.727 4.8237 156.043 7.5801 152.98C10.3365 149.764 11.7147 143.869 11.7147 135.293V20.2136C11.7147 12.8632 10.4131 7.80982 7.8098 5.05342C5.20654 2.29701 2.60327 0.612535 0 0H31.0095L87.4078 125.876L142.644 0H170.438C168.447 0.306263 166.303 1.91419 164.006 4.82372C161.709 7.73327 160.56 13.0929 160.56 20.9027V137.361C160.56 145.017 161.709 150.3 164.006 153.21C166.303 156.12 168.447 157.727 170.438 158.034H134.834Z" fill="black"/>
+                <circle cx="282.002" cy="79.1127" r="79.0387" transform="rotate(-90 282.002 79.1127)" fill="#0040FF"/>
+                <ellipse cx="282.001" cy="108.752" rx="49.3992" ry="49.3992" transform="rotate(-90 282.001 108.752)" fill="#39FF14"/>
             </svg>
-            WhatsApp
-          </a>
-        </li>
-        <li>
-          <a href="https://instagram.com/mora.paithrukam" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="5"/>
-              <circle cx="12" cy="12" r="4"/>
-              <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+        </div>
+
+        <nav id="mainNav">
+            <ul>
+                <li><a onclick="window.navigate('home')">Home</a></li>
+                <li><a onclick="window.navigate('products', {filter: 'all'})">All products</a></li>
+                <li><a onclick="window.navigate('products', {filter: 'standard'})">Standard</a></li>
+                <li><a onclick="window.navigate('products', {filter: 'designer'})">Designer</a></li>
+            </ul>
+        </nav>
+        <a href="https://wa.me/911234567890" target="_blank" class="contact-cta">Contact us 
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Instagram
-          </a>
-        </li>
-        <li>
-          <a href="mailto:mora.enquiry@gmail.com">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="14" rx="2"/>
-              <path d="M3 7l9 6 9-6"/>
-            </svg>
-            mora.enquiry@gmail.com
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&copy; 2024 MORA. All Rights Reserved.</span>
-    <a href="#" id="termsLink">Terms & Policies</a>
-  </div>
-</footer>
+        </a>
+    </header>
 
+    <div id="app"></div>
 
-<script>
-/* ================================================================
-   1. PRODUCT DATABASE 
-   ================================================================ */
-const DELIVERY_TEXT = "Free delivery within Bangalore, with orders delivered within 3 days of booking. Additional delivery charges apply for locations outside Bangalore.";
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a onclick="window.navigate('products', {filter: 'all'})">All products</a></li>
+                    <li><a onclick="window.navigate('products', {filter: 'standard'})">Standard</a></li>
+                    <li><a onclick="window.navigate('products', {filter: 'designer'})">Designer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="https://wa.me/911234567890" target="_blank">WhatsApp</a></li>
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="mailto:contact@mora.com">Email</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a onclick="window.navigate('terms')">Terms & policies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 MORA. Heritage handcrafted.</p>
+        </div>
+    </footer>
 
+    <script>
+        /* ================================================================
+           1. PRODUCT DATABASE
+        ================================================================= */
+        const DELIVERY_TEXT = "Free delivery within Bangalore, with orders delivered within 3 days of booking. Additional delivery charges apply for locations outside Bangalore.";
 
-const PRODUCTS = [
-  { 
-    id: 35, name: "Arati", cat: "Standard", material: "Handmade Banana paper, Base: Teak", price: 1000, originalPrice: 2500,
-    imgs: ["https://i.ibb.co/XxYkVX9y/Arati-1.jpg", "https://i.ibb.co/1YPrHrYv/Arati-2.jpg", "https://i.ibb.co/5JTYD3V/Arati-3.jpg"], desc: "",
-    specs: { Dimension: "H-12 inches, W-6 inches", Material: "Handmade Banana paper, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 34, name: "Lima", cat: "Standard", material: "Handmade lemongrass paper, Base: Teak", price: 1000, originalPrice: 2500,
-    imgs: ["https://i.ibb.co/TqqtrJzT/Lima-1.jpg", "https://i.ibb.co/Vpq1Qy41/Lima-2.jpg", "https://i.ibb.co/wZyRy6Xw/Lima-3.jpg"], desc: "",
-    specs: { Dimension: "H-12 inches, W-6 inches", Material: "Handmade lemongrass paper, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 33, name: "Kera", cat: "Standard", material: "Handmade coconut paper, Base: Teak", price: 1000, originalPrice: 2500,
-    imgs: ["https://i.ibb.co/twqL6rXr/Kera-1.jpg", "https://i.ibb.co/wZqBpG4D/Kera-2.jpg", "https://i.ibb.co/ymsSK9P8/Kera-3.jpg"], desc: "",
-    specs: { Dimension: "H-12 inches, W-6 inches", Material: "Handmade coconut paper, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 32, name: "Jui", cat: "Standard", material: "Raw cotton fabric, Base: Teak", price: 1000, originalPrice: 2500,
-    imgs: ["https://i.ibb.co/PsckVpLd/Jui-1.jpg", "https://i.ibb.co/gZy4FnJ0/Jui-2.jpg", "https://i.ibb.co/7JcVTGFb/Jui-3.jpg"], desc: "",
-    specs: { Dimension: "H-12 inches, W-6 inches", Material: "Raw cotton fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 31, name: "Hamsa", cat: "Designer", material: "Raw cotton fabric, Base: Teak, rose wood finish", price: 3500, originalPrice: 8750,
-    imgs: ["https://i.ibb.co/5WnqQ5Fn/Hamsa-1.jpg", "https://i.ibb.co/ycMBLzmc/Hamsa-2.jpg", "https://i.ibb.co/hxt8pYvn/Hamsa-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-12 inches", Material: "Raw cotton fabric, Base: Teak, rose wood finish", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 30, name: "Kana", cat: "Designer", material: "Golden shiny fabric, Base: Teak", price: 3500, originalPrice: 8750,
-    imgs: ["https://i.ibb.co/yFDWQH5j/KANA-1.jpg", "https://i.ibb.co/fY8qqrJN/KANA-2.jpg", "https://i.ibb.co/rGXVdr9K/KANA-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-12 inches", Material: "Golden shiny fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 29, name: "Madhurya", cat: "Designer", material: "Lemon grass paper, Base: Terracotta", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/LDqQxvnr/Madhurya-1.jpg", "https://i.ibb.co/p6fhgdD6/Madhurya-2.jpg", "https://i.ibb.co/jjNbmXgk/Madhurya-3.jpg"], desc: "",
-    specs: { Dimension: "H-15 inches, W-17 inches", Material: "Lemon grass paper, Base: Terracotta", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 28, name: "Indra", cat: "Designer", material: "Embroidery Fabric, Base: Nilambur Teak, Rose wood finish", price: 7000, originalPrice: 17500,
-    imgs: ["https://i.ibb.co/prvKhjjt/INDRA-1.jpg", "https://i.ibb.co/WNb5Qzvp/INDRA-2.jpg", "https://i.ibb.co/67JFDgDR/INDRA-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-12 inches", Material: "Embroidery Fabric, Base: Nilambur Teak, Rose wood finish", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 1, name: "Suvarna", cat: "Designer", material: "Coconut paper, Coffee wood, White wood", price: 4800, originalPrice: 12000,
-    imgs: ["https://i.ibb.co/SX358TQC/Suvarna-1.jpg", "https://i.ibb.co/ZpnYqbkg/Suvarna-2.jpg", "https://i.ibb.co/jkQCQT13/Suvarna-3.jpg"], desc: "",
-    specs: { Dimension: "H-20 inches, W-10 inches", Material: "Coconut paper, Coffee wood, White wood", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 2, name: "Nancy Pearl", cat: "Standard", material: "Self embroidery fabric, Base: Teak", price: 1000, originalPrice: 2500,
-    imgs: ["https://i.ibb.co/cS4Bt6fQ/Nancy-Pearl-1.jpg", "https://i.ibb.co/1GDxZDFT/Nancy-Pearl-2.jpg", "https://i.ibb.co/99HXhM6B/Nancy-Pearl-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-6 inches", Material: "Self embroidery fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 3, name: "Red Palm", cat: "Standard", material: "Polyester, Base: Teak", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/wNh9MWPc/Red-Palm-1.jpg", "https://i.ibb.co/vxprv8Mp/Red-Palm-2.jpg", "https://i.ibb.co/0Tm10C3/Red-Palm-3.jpg"], desc: "",
-    specs: { Dimension: "H-26 inches, W-6 inches", Material: "Polyester, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 4, name: "Madhuri", cat: "Designer", material: "Lemongrass Paper, Base: Terracotta", price: 1600, originalPrice: 4000,
-    imgs: ["https://i.ibb.co/H3qD8RD/Madhuri-1.jpg", "https://i.ibb.co/Kxw6MGYx/Madhuri-2.jpg", "https://i.ibb.co/j9xqWchQ/Madhuri-3.jpg"], desc: "",
-    specs: { Dimension: "H-15 inches, W-17 inches", Material: "Lemongrass Paper, Base: Terracotta", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 5, name: "Niranjana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Coffee wood + Teak", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/BHYSx74d/Niranjana-1.jpg", "https://i.ibb.co/pjCkNWWM/Niranjana-2.jpg", "https://i.ibb.co/60ncDGrd/Niranjana-3.jpg"], desc: "",
-    specs: { Dimension: "H-12 inches, W-16 inches", Material: "Netted Stretchable Fabric, Base: Coffee wood + Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 6, name: "Megha", cat: "Standard", material: "White Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/27t7RpCw/Megha-1.jpg", "https://i.ibb.co/RkJ30r2b/Megha-2.jpg", "https://i.ibb.co/R4yr5D3k/Megha-3.jpg"], desc: "",
-    specs: { Dimension: "H-44 inches, W-6inches", Material: "White Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 7, name: "Shakthi", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/JWyg5BpD/Shakthi-1.jpg", "https://i.ibb.co/YFkktHpd/Shakthi-2.jpg", "https://i.ibb.co/1fHm0Kgj/Shakthi-3.jpg"], desc: "",
-    specs: { Dimension: "H-36 inches, W-6 inches", Material: "Printed Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 8, name: "Kamala", cat: "Designer", material: "Cotton Fabric, Base: Teak", price: 1600, originalPrice: 4000,
-    imgs: ["https://i.ibb.co/kVCNxzTR/Kamala-1.jpg", "https://i.ibb.co/SDzMs9pQ/Kamala-2.jpg", "https://i.ibb.co/DfpfW1np/Kamala-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-8 inches", Material: "Cotton Fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 9, name: "Meconopsis", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/v4S7vWjg/Meconopsis-1.jpg", "https://i.ibb.co/Q3XQL2p8/Meconopsis-2.jpg", "https://i.ibb.co/ynjknG08/Meconopsis-3.jpg"], desc: "",
-    specs: { Dimension: "H-37 inches, W-6 inches", Material: "Printed Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 10, name: "Kamakshi", cat: "Designer", material: "Original Kancheepuram Silk, Base: Teak", price: 7000, originalPrice: 17500,
-    imgs: ["https://i.ibb.co/ynMTrqkS/Kamakshi-1.jpg", "https://i.ibb.co/5xrBzcmG/Kamakshi-2.jpg", "https://i.ibb.co/CKTv23RK/Kamakshi-3.jpg"], desc: "",
-    specs: { Dimension: "H-22 inches, W-13 inches", Material: "Original Kancheepuram Silk, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 11, name: "Murasaki", cat: "Standard", material: "Korean Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/FkTpL6rf/Murasaki-1.jpg", "https://i.ibb.co/v66j1C64/Murasaki-2.jpg", "https://i.ibb.co/S4dC9kmm/Murasaki-3.jpg"], desc: "",
-    specs: { Dimension: "H-40 inches, W-6 inches", Material: "Korean Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 12, name: "Basjoo", cat: "Standard", material: "Banana Paper, Base: Teak, Brass Pipe", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/pr2h1HrY/Basjoo-1.jpg", "https://i.ibb.co/5W0X80fJ/Basjoo-2.jpg", "https://i.ibb.co/Y72G6nDF/Basjoo-3.jpg"], desc: "",
-    specs: { Dimension: "H-17 inches, W-6 inches", Material: "Banana Paper, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 13, name: "Kuruvi", cat: "Designer", material: "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", price: 3600, originalPrice: 9000,
-    imgs: ["https://i.ibb.co/XrgddnXs/Kuruvi-1.jpg", "https://i.ibb.co/39fggXKH/Kuruvi-2.jpg", "https://i.ibb.co/JWq1YTXS/Kuruvi-3.jpg"], desc: "",
-    specs: { Dimension: "H-17 inches, W-8 inches", Material: "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 14, name: "Pana", cat: "Standard", material: "White Cotton Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/0pjtSKfY/Pana-1.jpg", "https://i.ibb.co/f55FJvW/Pana-2.jpg", "https://i.ibb.co/fVcn1T5L/Pana-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-6 inches", Material: "White Cotton Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 15, name: "Aranya", cat: "Standard", material: "Embroidery Fabric, Base: Coffee Wood + Teak", price: 2600, originalPrice: 6500,
-    imgs: ["https://i.ibb.co/twnhLXQW/Aranya-1.jpg", "https://i.ibb.co/FkSmLyFS/Aranya-2.jpg", "https://i.ibb.co/xqX8RgJS/Aranya-3.jpg"], desc: "",
-    specs: { Dimension: "H-31 inches, W-12 inches", Material: "Embroidery Fabric, Base: Coffee Wood + Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 16, name: "The Maharani", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 7600, originalPrice: 19000,
-    imgs: ["https://i.ibb.co/RXvYqrJ/The-Maharani-1.jpg", "https://i.ibb.co/ycZWBR4D/The-Maharani-2.jpg", "https://i.ibb.co/zH5vJjNd/The-Maharani-3.jpg"], desc: "",
-    specs: { Dimension: "H-28 inches, W-12 inches", Material: "Embroidery Fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 17, name: "Amore", cat: "Standard", material: "Embroidery Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/j9BtpZd6/Amore-1.jpg", "https://i.ibb.co/6cBZskz9/Amore-2.jpg", "https://i.ibb.co/SwxsybG7/Amore-3.jpg"], desc: "",
-    specs: { Dimension: "H-40 inches, W-6inches", Material: "Embroidery Fabric, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 18, name: "Klee", cat: "Standard", material: "Embroidery Fabric, Base: Teak + Brass Pipe", price: 1800, originalPrice: 4500,
-    imgs: ["https://i.ibb.co/TDmSmDQb/Klee-1.jpg", "https://i.ibb.co/v4KHsF5j/Klee-2.jpg", "https://i.ibb.co/KcJjsBfB/Klee-3.jpg"], desc: "",
-    specs: { Dimension: "H-41 inches, W-6 inches", Material: "Embroidery Fabric, Base: Teak + Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 19, name: "Kinu", cat: "Standard", material: "Raw Silk, Base: Teak", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/WN1j0Tg4/Kinu-1.jpg", "https://i.ibb.co/TxLG2ktS/Kinu-2.jpg", "https://i.ibb.co/zH58bQSj/Kinu-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-12 inches", Material: "Raw Silk, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 20, name: "Yoddha", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 4200, originalPrice: 10500,
-    imgs: ["https://i.ibb.co/W4jYfrKj/Yoddha-1.jpg", "https://i.ibb.co/gKnhf72/Yoddha-2.jpg", "https://i.ibb.co/vxPM3jyV/Yoddha-3.jpg"], desc: "",
-    specs: { Dimension: "H-16 inches, W-12 inches", Material: "Embroidery Fabric, Base: Teak", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 21, name: "Hilma", cat: "Standard", material: "Printed Fabric, Base: FRP- Oil Paint", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/RpVQXkrq/Hilma-1.jpg", "https://i.ibb.co/VcfkbYKB/Hilma-2.jpg", "https://i.ibb.co/PsPbHXzM/Hilma-3.jpg"], desc: "",
-    specs: { Dimension: "H-25 inches, W-7 inches", Material: "Printed Fabric, Base: FRP- Oil Paint", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 22, name: "Black Cherry", cat: "Designer", material: "Jute Fabric, Base: FRP- Oil paint", price: 4600, originalPrice: 11500,
-    imgs: ["https://i.ibb.co/k2pMhDpn/Black-Cherry-1.jpg", "https://i.ibb.co/BKt8HMNm/Black-Cherry-2.jpg", "https://i.ibb.co/Y7VfCYP8/Black-Cherry-3.jpg"], desc: "",
-    specs: { Dimension: "H-26 inches, W-12 inches", Material: "Jute Fabric, Base: FRP- Oil paint", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 23, name: "Keeffe", cat: "Standard", material: "Printed Fabric, Base: Terracotta", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/wr07WXyb/Keeffe-1.jpg", "https://i.ibb.co/RpVj1TNJ/Keeffe-2.jpg", "https://i.ibb.co/DPQx6rxJ/Keeffe-3.jpg"], desc: "",
-    specs: { Dimension: "H-31 inches, W-7 inches", Material: "Printed Fabric, Base: Terracotta", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 24, name: "Caihou", cat: "Standard", material: "Handmade Paper, Base: Teak, Brass Pipe", price: 1200, originalPrice: 3000,
-    imgs: ["https://i.ibb.co/XxKWmQT6/Caihou-1.jpg", "https://i.ibb.co/tTqQ6F10/Caihou-2.jpg", "https://i.ibb.co/DPwQjLmz/Caihou-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-7 inches", Material: "Handmade Paper, Base: Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 25, name: "Kanchana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", price: 2200, originalPrice: 5500,
-    imgs: ["https://i.ibb.co/VYF4S07t/Kanchana-1.jpg", "https://i.ibb.co/3yTgHvqd/Kanchana-2.jpg", "https://i.ibb.co/j9jDFV3V/Kanchana-3.jpg"], desc: "",
-    specs: { Dimension: "H-11 inches, W-8 inches", Material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 26, name: "Olivia", cat: "Designer", material: "Banana Paper", price: 1200, originalPrice: 3000,
-    imgs: ["https://i.ibb.co/sJ92QQjx/Olivia-1.jpg", "https://i.ibb.co/4yQBr8Q/Olivia-2.jpg", "https://i.ibb.co/XZjf2RFd/Olivia-3.jpg"], desc: "",
-    specs: { Dimension: "H-18 inches, W-7 inches", Material: "Banana Paper", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  },
-  { 
-    id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null,
-    imgs: ["https://i.ibb.co/qqt36Ww/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], desc: "",
-    specs: { Dimension: "H-26 inches, W-12 inches", Material: "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical Fitting": "E27 holder threaded bulb", "Wire Length": "1.5m", Delivery: DELIVERY_TEXT }
-  }
-];
+        const PRODUCTS = [
+          { id: 35, name: "Arati", cat: "Standard", material: "Handmade Banana paper, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/XxYkVX9y/Arati-1.jpg", "https://i.ibb.co/1YPrHrYv/Arati-2.jpg", "https://i.ibb.co/5JTYD3V/Arati-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Handmade Banana paper, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 34, name: "Lima", cat: "Standard", material: "Handmade lemongrass paper, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/TqqtrJzT/Lima-1.jpg", "https://i.ibb.co/Vpq1Qy41/Lima-2.jpg", "https://i.ibb.co/wZyRy6Xw/Lima-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Handmade lemongrass paper, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 33, name: "Kera", cat: "Standard", material: "Handmade coconut paper, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/twqL6rXr/Kera-1.jpg", "https://i.ibb.co/wZqBpG4D/Kera-2.jpg", "https://i.ibb.co/ymsSK9P8/Kera-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Handmade coconut paper, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 32, name: "Jui", cat: "Standard", material: "Raw cotton fabric, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/PsckVpLd/Jui-1.jpg", "https://i.ibb.co/gZy4FnJ0/Jui-2.jpg", "https://i.ibb.co/7JcVTGFb/Jui-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Raw cotton fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 31, name: "Hamsa", cat: "Designer", material: "Raw cotton fabric, Base: Teak, rose wood finish", price: 3500, originalPrice: 8750, imgs: ["https://i.ibb.co/5WnqQ5Fn/Hamsa-1.jpg", "https://i.ibb.co/ycMBLzmc/Hamsa-2.jpg", "https://i.ibb.co/hxt8pYvn/Hamsa-3.jpg"], specs: { "Dimension": "H-18 inches, W-12 inches", "Material": "Raw cotton fabric, Base: Teak, rose wood finish", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 30, name: "Kana", cat: "Designer", material: "Golden shiny fabric, Base: Teak", price: 3500, originalPrice: 8750, imgs: ["https://i.ibb.co/yFDWQH5j/KANA-1.jpg", "https://i.ibb.co/fY8qqrJN/KANA-2.jpg", "https://i.ibb.co/rGXVdr9K/KANA-3.jpg"], specs: { "Dimension": "H-18 inches, W-12 inches", "Material": "Golden shiny fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 29, name: "Madhurya", cat: "Designer", material: "Lemon grass paper, Base: Terracotta", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/LDqQxvnr/Madhurya-1.jpg", "https://i.ibb.co/p6fhgdD6/Madhurya-2.jpg", "https://i.ibb.co/jjNbmXgk/Madhurya-3.jpg"], specs: { "Dimension": "H-15 inches, W-17 inches", "Material": "Lemon grass paper, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 28, name: "Indra", cat: "Designer", material: "Embroidery Fabric, Base: Nilambur Teak, Rose wood finish", price: 7000, originalPrice: 17500, imgs: ["https://i.ibb.co/prvKhjjt/INDRA-1.jpg", "https://i.ibb.co/WNb5Qzvp/INDRA-2.jpg", "https://i.ibb.co/67JFDgDR/INDRA-3.jpg"], specs: { "Dimension": "H-18 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Nilambur Teak, Rose wood finish", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 1, name: "Suvarna", cat: "Designer", material: "Coconut paper, Coffee wood, White wood", price: 4800, originalPrice: 12000, imgs: ["https://i.ibb.co/SX358TQC/Suvarna-1.jpg", "https://i.ibb.co/ZpnYqbkg/Suvarna-2.jpg", "https://i.ibb.co/jkQCQT13/Suvarna-3.jpg"], specs: { "Dimension": "H-20 inches, W-10 inches", "Material": "Coconut paper, Coffee wood, White wood", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 2, name: "Nancy Pearl", cat: "Standard", material: "Self embroidery fabric, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/cS4Bt6fQ/Nancy-Pearl-1.jpg", "https://i.ibb.co/1GDxZDFT/Nancy-Pearl-2.jpg", "https://i.ibb.co/99HXhM6B/Nancy-Pearl-3.jpg"], specs: { "Dimension": "H-11 inches, W-6 inches", "Material": "Self embroidery fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 3, name: "Red Palm", cat: "Standard", material: "Polyester, Base: Teak", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/wNh9MWPc/Red-Palm-1.jpg", "https://i.ibb.co/vxprv8Mp/Red-Palm-2.jpg", "https://i.ibb.co/0Tm10C3/Red-Palm-3.jpg"], specs: { "Dimension": "H-26 inches, W-6 inches", "Material": "Polyester, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 4, name: "Madhuri", cat: "Designer", material: "Lemongrass Paper, Base: Terracotta", price: 1600, originalPrice: 4000, imgs: ["https://i.ibb.co/H3qD8RD/Madhuri-1.jpg", "https://i.ibb.co/Kxw6MGYx/Madhuri-2.jpg", "https://i.ibb.co/j9xqWchQ/Madhuri-3.jpg"], specs: { "Dimension": "H-15 inches, W-17 inches", "Material": "Lemongrass Paper, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 5, name: "Niranjana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Coffee wood + Teak", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/BHYSx74d/Niranjana-1.jpg", "https://i.ibb.co/pjCkNWWM/Niranjana-2.jpg", "https://i.ibb.co/60ncDGrd/Niranjana-3.jpg"], specs: { "Dimension": "H-12 inches, W-16 inches", "Material": "Netted Stretchable Fabric, Base: Coffee wood + Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 6, name: "Megha", cat: "Standard", material: "White Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/27t7RpCw/Megha-1.jpg", "https://i.ibb.co/RkJ30r2b/Megha-2.jpg", "https://i.ibb.co/R4yr5D3k/Megha-3.jpg"], specs: { "Dimension": "H-44 inches, W-6inches", "Material": "White Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 7, name: "Shakthi", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/JWyg5BpD/Shakthi-1.jpg", "https://i.ibb.co/YFkktHpd/Shakthi-2.jpg", "https://i.ibb.co/1fHm0Kgj/Shakthi-3.jpg"], specs: { "Dimension": "H-36 inches, W-6 inches", "Material": "Printed Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 8, name: "Kamala", cat: "Designer", material: "Cotton Fabric, Base: Teak", price: 1600, originalPrice: 4000, imgs: ["https://i.ibb.co/kVCNxzTR/Kamala-1.jpg", "https://i.ibb.co/SDzMs9pQ/Kamala-2.jpg", "https://i.ibb.co/DfpfW1np/Kamala-3.jpg"], specs: { "Dimension": "H-11 inches, W-8 inches", "Material": "Cotton Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 9, name: "Meconopsis", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/v4S7vWjg/Meconopsis-1.jpg", "https://i.ibb.co/Q3XQL2p8/Meconopsis-2.jpg", "https://i.ibb.co/ynjknG08/Meconopsis-3.jpg"], specs: { "Dimension": "H-37 inches, W-6 inches", "Material": "Printed Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 10, name: "Kamakshi", cat: "Designer", material: "Original Kancheepuram Silk, Base: Teak", price: 7000, originalPrice: 17500, imgs: ["https://i.ibb.co/ynMTrqkS/Kamakshi-1.jpg", "https://i.ibb.co/5xrBzcmG/Kamakshi-2.jpg", "https://i.ibb.co/CKTv23RK/Kamakshi-3.jpg"], specs: { "Dimension": "H-22 inches, W-13 inches", "Material": "Original Kancheepuram Silk, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 11, name: "Murasaki", cat: "Standard", material: "Korean Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/FkTpL6rf/Murasaki-1.jpg", "https://i.ibb.co/v66j1C64/Murasaki-2.jpg", "https://i.ibb.co/S4dC9kmm/Murasaki-3.jpg"], specs: { "Dimension": "H-40 inches, W-6 inches", "Material": "Korean Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 12, name: "Basjoo", cat: "Standard", material: "Banana Paper, Base: Teak, Brass Pipe", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/pr2h1HrY/Basjoo-1.jpg", "https://i.ibb.co/5W0X80fJ/Basjoo-2.jpg", "https://i.ibb.co/Y72G6nDF/Basjoo-3.jpg"], specs: { "Dimension": "H-17 inches, W-6 inches", "Material": "Banana Paper, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 13, name: "Kuruvi", cat: "Designer", material: "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", price: 3600, originalPrice: 9000, imgs: ["https://i.ibb.co/XrgddnXs/Kuruvi-1.jpg", "https://i.ibb.co/39fggXKH/Kuruvi-2.jpg", "https://i.ibb.co/JWq1YTXS/Kuruvi-3.jpg"], specs: { "Dimension": "H-17 inches, W-8 inches", "Material": "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 14, name: "Pana", cat: "Standard", material: "White Cotton Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/0pjtSKfY/Pana-1.jpg", "https://i.ibb.co/f55FJvW/Pana-2.jpg", "https://i.ibb.co/fVcn1T5L/Pana-3.jpg"], specs: { "Dimension": "H-18 inches, W-6 inches", "Material": "White Cotton Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 15, name: "Aranya", cat: "Standard", material: "Embroidery Fabric, Base: Coffee Wood + Teak", price: 2600, originalPrice: 6500, imgs: ["https://i.ibb.co/twnhLXQW/Aranya-1.jpg", "https://i.ibb.co/FkSmLyFS/Aranya-2.jpg", "https://i.ibb.co/xqX8RgJS/Aranya-3.jpg"], specs: { "Dimension": "H-31 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Coffee Wood + Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 16, name: "The Maharani", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 7600, originalPrice: 19000, imgs: ["https://i.ibb.co/RXvYqrJ/The-Maharani-1.jpg", "https://i.ibb.co/ycZWBR4D/The-Maharani-2.jpg", "https://i.ibb.co/zH5vJjNd/The-Maharani-3.jpg"], specs: { "Dimension": "H-28 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 17, name: "Amore", cat: "Standard", material: "Embroidery Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/j9BtpZd6/Amore-1.jpg", "https://i.ibb.co/6cBZskz9/Amore-2.jpg", "https://i.ibb.co/SwxsybG7/Amore-3.jpg"], specs: { "Dimension": "H-40 inches, W-6inches", "Material": "Embroidery Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 18, name: "Klee", cat: "Standard", material: "Embroidery Fabric, Base: Teak + Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/TDmSmDQb/Klee-1.jpg", "https://i.ibb.co/v4KHsF5j/Klee-2.jpg", "https://i.ibb.co/KcJjsBfB/Klee-3.jpg"], specs: { "Dimension": "H-41 inches, W-6 inches", "Material": "Embroidery Fabric, Base: Teak + Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 19, name: "Kinu", cat: "Standard", material: "Raw Silk, Base: Teak", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/WN1j0Tg4/Kinu-1.jpg", "https://i.ibb.co/TxLG2ktS/Kinu-2.jpg", "https://i.ibb.co/zH58bQSj/Kinu-3.jpg"], specs: { "Dimension": "H-11 inches, W-12 inches", "Material": "Raw Silk, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 20, name: "Yoddha", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 4200, originalPrice: 10500, imgs: ["https://i.ibb.co/W4jYfrKj/Yoddha-1.jpg", "https://i.ibb.co/gKnhf72/Yoddha-2.jpg", "https://i.ibb.co/vxPM3jyV/Yoddha-3.jpg"], specs: { "Dimension": "H-16 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 21, name: "Hilma", cat: "Standard", material: "Printed Fabric, Base: FRP- Oil Paint", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/RpVQXkrq/Hilma-1.jpg", "https://i.ibb.co/VcfkbYKB/Hilma-2.jpg", "https://i.ibb.co/PsPbHXzM/Hilma-3.jpg"], specs: { "Dimension": "H-25 inches, W-7 inches", "Material": "Printed Fabric, Base: FRP- Oil Paint", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 22, name: "Black Cherry", cat: "Designer", material: "Jute Fabric, Base: FRP- Oil paint", price: 4600, originalPrice: 11500, imgs: ["https://i.ibb.co/k2pMhDpn/Black-Cherry-1.jpg", "https://i.ibb.co/BKt8HMNm/Black-Cherry-2.jpg", "https://i.ibb.co/Y7VfCYP8/Black-Cherry-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "Jute Fabric, Base: FRP- Oil paint", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 23, name: "Keeffe", cat: "Standard", material: "Printed Fabric, Base: Terracotta", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/wr07WXyb/Keeffe-1.jpg", "https://i.ibb.co/RpVj1TNJ/Keeffe-2.jpg", "https://i.ibb.co/DPQx6rxJ/Keeffe-3.jpg"], specs: { "Dimension": "H-31 inches, W-7 inches", "Material": "Printed Fabric, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 24, name: "Caihou", cat: "Standard", material: "Handmade Paper, Base: Teak, Brass Pipe", price: 1200, originalPrice: 3000, imgs: ["https://i.ibb.co/XxKWmQT6/Caihou-1.jpg", "https://i.ibb.co/tTqQ6F10/Caihou-2.jpg", "https://i.ibb.co/DPwQjLmz/Caihou-3.jpg"], specs: { "Dimension": "H-18 inches, W-7 inches", "Material": "Handmade Paper, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 25, name: "Kanchana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/VYF4S07t/Kanchana-1.jpg", "https://i.ibb.co/3yTgHvqd/Kanchana-2.jpg", "https://i.ibb.co/j9jDFV3V/Kanchana-3.jpg"], specs: { "Dimension": "H-11 inches, W-8 inches", "Material": "Netted Stretchable Fabric, Base: Royal Jasmine Stem", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 26, name: "Olivia", cat: "Designer", material: "Banana Paper", price: 1200, originalPrice: 3000, imgs: ["https://i.ibb.co/sJ92QQjx/Olivia-1.jpg", "https://i.ibb.co/4yQBr8Q/Olivia-2.jpg", "https://i.ibb.co/XZjf2RFd/Olivia-3.jpg"], specs: { "Dimension": "H-18 inches, W-7 inches", "Material": "Banana Paper", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null, imgs: ["https://i.ibb.co/qqt36Ww/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } }
+        ];
 
+        // --- Global Router & History Management ---
+        let heroCarouselInterval;
 
-/* ================================================================
-   2. VIEW SWITCHING & HISTORY API
-   ================================================================ */
+        window.navigate = function(view, params = {}) {
+            clearInterval(heroCarouselInterval);
+            const currentState = history.state || { view: 'home' };
+            history.replaceState({ ...currentState, scrollY: window.scrollY }, '', '');
+            const newState = { view, ...params };
+            history.pushState(newState, '', '');
+            renderView(newState);
+            window.scrollTo(0, 0);
+            updateActiveNav(newState);
+        }
 
+        window.addEventListener('popstate', (e) => {
+            clearInterval(heroCarouselInterval);
+            const state = e.state || { view: 'home' };
+            renderView(state);
+            if (state.scrollY !== undefined) {
+                setTimeout(() => window.scrollTo(0, state.scrollY), 0);
+            }
+            updateActiveNav(state);
+        });
 
-// Pure view switching logic (doesn't touch browser history)
-function switchView(name, productId, filter = 'all', scrollId = null) {
-  document.body.dataset.activeView = name;
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.classList.toggle('is-active', a.dataset.viewLink === name);
-  });
-  window.scrollTo(0, 0);
-  
-  if (name === 'collection') {
-    // Apply filter
-    document.querySelectorAll('.collection-tab').forEach(btn => {
-      btn.classList.toggle('is-active', btn.dataset.filter === filter);
-    });
-    productGrid.querySelectorAll('.product-card').forEach(c => {
-      const show = filter === 'all' || c.dataset.category === filter;
-      c.style.display = show ? '' : 'none';
-    });
-    revealProductCards();
-  }
-  if (name === 'object' && productId) {
-    renderProduct(productId);
-  }
-  if (name === 'home') {
-    setTimeout(() => {
-      if (pinScrollTrigger) pinScrollTrigger.refresh();
-      setupPinScroll();
-    }, 50);
-  }
-}
+        function updateActiveNav(state) {
+            const navLinks = document.querySelectorAll('#mainNav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            if (state.view === 'home') navLinks[0].classList.add('active');
+            else if (state.view === 'products') {
+                if (state.filter === 'standard') navLinks[2].classList.add('active');
+                else if (state.filter === 'designer') navLinks[3].classList.add('active');
+                else navLinks[1].classList.add('active');
+            }
+        }
 
+        function renderView(state) {
+            const app = document.getElementById('app');
+            app.innerHTML = ''; 
+            if (state.view === 'home') renderHome();
+            else if (state.view === 'products') renderProducts(state.filter || 'all');
+            else if (state.view === 'product') renderProductDetail(state.id);
+            else if (state.view === 'terms') renderTerms();
+        }
 
-// Active view change triggered by clicking links
-function setView(name, productId = null, filter = 'all') {
-  switchView(name, productId, filter);
-  // Push state to browser history so the back button works
-  const state = { view: name, productId: productId, filter: filter };
-  // Include product ID in URL if applicable
-  const url = productId ? `#object-${productId}` : `#${name}`;
-  try {
-    history.pushState(state, "", url);
-  } catch (e) {
-    console.warn("History pushState failed, continuing without URL update.");
-  }
-}
+        // --- PAGE 1: HOME ---
+        function renderHome() {
+            const app = document.getElementById('app');
+            
+            // Shuffle 3 Designer and 3 Standard products for the carousel
+            const featuredDesigners = PRODUCTS.filter(p => p.cat === 'Designer').slice(0, 3);
+            const featuredStandards = PRODUCTS.filter(p => p.cat === 'Standard').slice(0, 3);
+            let featuredProducts = [...featuredDesigners, ...featuredStandards];
+            
+            // Simple shuffle array
+            for (let i = featuredProducts.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [featuredProducts[i], featuredProducts[j]] = [featuredProducts[j], featuredProducts[i]];
+            }
 
+            app.innerHTML = `
+                <section class="hero">
+                  <div class="hero-slider" id="heroSlider">
+                    
+                    <!-- Slide 1 -->
+                    <div class="slide is-active" data-slide="0">
+                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/42ff0d90-f09f-49a3-a92f-3d66c08005e8.png?auth_key=1888501082-1377e97d630c4d9b84dfd76231738ae6-0-4f1d0a35b0a22bfa7320ea21f7f72900')"></div>
+                      <div class="slide-overlay"></div>
+                      <div class="slide-content">
+                        <div class="slide-eyebrow">About Mora</div>
+                        <h1 class="slide-title">Four generations of <em>craftsmanship</em></h1>
+                        <p class="slide-sub">Since 1972, MORA has preserved four generations of rare Indian craftsmanship, creating sculptural pieces where heritage meets refined luxury.</p>
+                      </div>
+                    </div>
 
-// Listen to browser back/forward button presses
-window.addEventListener('popstate', (event) => {
-  if (event.state) {
-    // Revert to the previous view without pushing a new history entry
-    switchView(event.state.view, event.state.productId, event.state.filter || 'all');
-  } else {
-    // Fallback if state is lost (e.g., initial entry)
-    switchView('home', null, 'all');
-  }
-});
+                    <!-- Slide 2 -->
+                    <div class="slide" data-slide="1">
+                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a')"></div>
+                      <div class="slide-overlay"></div>
+                      <div class="slide-content">
+                        <div class="slide-eyebrow">Our legacy</div>
+                        <h1 class="slide-title">The Attukal <em>legacy</em></h1>
+                        <p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p>
+                      </div>
+                    </div>
 
+                    <!-- Slide 3 -->
+                    <div class="slide" data-slide="2">
+                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046')"></div>
+                      <div class="slide-overlay"></div>
+                      <div class="slide-content">
+                        <div class="slide-eyebrow">Material</div>
+                        <h1 class="slide-title">Pieces of <em>rare character</em></h1>
+                        <p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p>
+                      </div>
+                    </div>
 
-// Initialize baseline history state on load
-try {
-  // Check if URL has a specific hash to load the correct view directly
-  const hash = window.location.hash;
-  if (hash.startsWith('#object-')) {
-    const id = parseInt(hash.replace('#object-', ''));
-    const p = PRODUCTS.find(x => x.id === id);
-    if (p) {
-      switchView('object', id);
-      history.replaceState({ view: 'object', productId: id, filter: 'all' }, "", hash);
-    } else {
-      switchView('home', null, 'all');
-      history.replaceState({ view: 'home', productId: null, filter: 'all' }, "", "#home");
-    }
-  } else if (hash === '#collection') {
-    switchView('collection', null, 'all');
-    history.replaceState({ view: 'collection', productId: null, filter: 'all' }, "", "#collection");
-  } else {
-    switchView('home', null, 'all');
-    history.replaceState({ view: 'home', productId: null, filter: 'all' }, "", "#home");
-  }
-} catch (e) {
-  console.warn("History replaceState failed, continuing without URL update.");
-  switchView('home', null, 'all');
-}
+                    <!-- Slide 4 -->
+                    <div class="slide" data-slide="3">
+                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353')"></div>
+                      <div class="slide-overlay"></div>
+                      <div class="slide-content">
+                        <div class="slide-eyebrow">Designer products</div>
+                        <h1 class="slide-title">Born from <em>heritage</em></h1>
+                        <p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p>
+                      </div>
+                    </div>
 
+                    <!-- Slide 5 -->
+                    <div class="slide" data-slide="4">
+                      <div class="slide-bg" style="background-image:url('https://z-cdn-media.chatglm.cn/files/1a134b4b-82a1-471a-918a-da0dde6abce4.jpeg?auth_key=1888508696-61bbe2b7fc014ee7962ddb83608b59eb-0-67bc3da828b1471391b911cb4fd898e9')"></div>
+                      <div class="slide-overlay"></div>
+                      <div class="slide-content">
+                        <div class="slide-eyebrow">Cash on delivery</div>
+                        <h1 class="slide-title">Delivered with <em>care</em></h1>
+                        <p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on delivery.</p>
+                      </div>
+                    </div>
 
-// Global click listener for SPA navigation
-document.addEventListener('click', (e) => {
-  // Ignore clicks inside the terms modal or lightbox
-  if (e.target.closest('#termsModal') || e.target.closest('#lightbox')) return;
+                  </div>
+                  
+                  <!-- Hero Controls (Dots, Counter, Arrows) -->
+                  <div class="hero-controls">
+                    <div class="hero-counter"><strong id="heroCurrent">01</strong> &nbsp;/&nbsp; 05</div>
+                    <div class="hero-dots" id="heroDots">
+                      <button class="hero-dot is-active" data-dot="0"></button>
+                      <button class="hero-dot" data-dot="1"></button>
+                      <button class="hero-dot" data-dot="2"></button>
+                      <button class="hero-dot" data-dot="3"></button>
+                      <button class="hero-dot" data-dot="4"></button>
+                    </div>
+                    <div class="hero-arrows">
+                      <button class="hero-arrow" id="heroPrev" aria-label="Previous slide">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+                      </button>
+                      <button class="hero-arrow" id="heroNext" aria-label="Next slide">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                </section>
 
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Featured masterpieces</h2>
+                        <a class="featured-header-link" onclick="window.navigate('products', {filter: 'all'})">View all products 
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="product-carousel-container">
+                        <div class="product-carousel">
+                            ${featuredProducts.map(p => `
+                                <div class="product-card" onclick="window.navigate('product', {id: ${p.id}})">
+                                    <div class="product-card-img" style="background-image: url('${p.imgs[0]}')"></div>
+                                    <div class="product-card-info">
+                                        <span class="product-category-tag">${p.cat}</span>
+                                        <h3>${p.name}</h3>
+                                        <div class="price-container">
+                                            ${p.originalPrice ? `<span class="actual-price">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                                            <span class="discount-price">₹${p.price.toLocaleString('en-IN')}</span>
+                                        </div>
+                                        <div class="material-info"><strong>Material:</strong> ${p.material}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
 
-  // Handle UI Back Button click deterministically
-  if (e.target.closest('#backBtn')) {
-    e.preventDefault();
-    const currentView = document.body.dataset.activeView;
-    if (currentView === 'object') {
-        const hash = window.location.hash;
-        const productId = hash.startsWith('#object-') ? parseInt(hash.replace('#object-', '')) : null;
-        
-        // fallback if hash is missing for some reason
-        const currentName = document.getElementById('crumbName').textContent;
-        const p = productId ? PRODUCTS.find(x => x.id === productId) : PRODUCTS.find(x => x.name === currentName);
-        
-        const cat = p ? p.cat : 'all';
-        setView('collection', null, cat);
-        
-        // Scroll to the exact same product
-        setTimeout(() => {
-            if (p) {
-                const card = document.querySelector(`.product-card[data-product-id="${p.id}"]`);
-                if (card) {
-                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    card.classList.add('is-highlighted');
-                    setTimeout(() => { 
-                        card.classList.remove('is-highlighted'); 
-                    }, 2000);
+                <div class="history-section">
+                    <div class="history-image"></div>
+                    <div class="history-text">
+                        <div class="eyebrow" style="color: var(--text-mute);">Our legacy</div>
+                        <h2>Preserving the art of a legacy.</h2>
+                        <p>Founded in 1972 in Attukal, Trivandrum, Kerala, MORA emerged at a turning point in Indian history. The traditional handicraft sector, once rich and vibrant, was declining due to colonial exploitation and post independence industrialization. In this environment, M.R. Krishnan, a national & state award winning artisan, established MORA not just as a business, but as a living tribute to India’s artistic and spiritual heritage.</p>
+                        <p>Rooted in a proud four generation legacy of rare sculptural craftsmanship, MORA represents the seamless blend of age old tradition and refined artistry. Our master artisans shape each creation by hand, preserving techniques passed down through generations to produce timeless, museum worthy masterpieces. MORA is dedicated to safeguarding and celebrating the rich heritage of Indian craftsmanship.</p>
+                    </div>
+                </div>
+            `;
+            initHeroCarousel();
+        }
+
+        function initHeroCarousel() {
+            const slides = document.querySelectorAll('#heroSlider .slide');
+            const dots = document.querySelectorAll('#heroDots .hero-dot');
+            const counter = document.getElementById('heroCurrent');
+            const prevBtn = document.getElementById('heroPrev');
+            const nextBtn = document.getElementById('heroNext');
+            
+            let current = 0;
+            const total = slides.length;
+            let slideInterval;
+
+            function updateSlidePosition() {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('is-active', i === current);
+                });
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('is-active', i === current);
+                });
+                if (counter) {
+                    counter.textContent = String(current + 1).padStart(2, '0');
                 }
             }
-        }, 600); // Wait for cards to render and reveal
-    } else if (currentView === 'collection') {
-        // If on collection, go to home
-        setView('home');
-    } else {
-        // Fallback
-        setView('home');
-    }
-    return;
-  }
 
+            function nextSlide() {
+                current = (current + 1) % total;
+                updateSlidePosition();
+            }
 
-  const link = e.target.closest('[data-view-link]');
-  if (link) {
-    e.preventDefault();
-    setView(link.dataset.viewLink);
-    return;
-  }
-  
-  const card = e.target.closest('.product-card, .obj-card');
-  if (card) {
-    e.preventDefault();
-    setView('object', card.dataset.productId);
-  }
-});
+            function prevSlide() {
+                current = (current - 1 + total) % total;
+                updateSlidePosition();
+            }
 
+            function goToSlide(index) {
+                current = index;
+                updateSlidePosition();
+                resetInterval();
+            }
 
-/* ================================================================
-   3. HERO SLIDER
-   ================================================================ */
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.hero-dot');
-const heroCurrentEl = document.getElementById('heroCurrent');
-let currentSlide = 0;
-let slideTimer = null;
-const SLIDE_DURATION = 7200;
+            function resetInterval() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 5000);
+            }
 
+            if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
+            if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
+            
+            if (dots.length > 0) {
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => goToSlide(index));
+                });
+            }
 
-function activateSlide(idx) {
-  if (idx === currentSlide && slides[idx].classList.contains('is-active')) return;
-  slides.forEach(s => {
-    s.classList.remove('is-active');
-    gsap.set(s.querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub'), {
-      opacity: 0, y: 40, clearProps: 'transition'
-    });
-  });
-  const next = slides[idx];
-  next.classList.add('is-active');
-  const beats = next.querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub');
-  gsap.killTweensOf(beats);
-  gsap.timeline({ delay: 0.3 })
-    .to(beats[0], { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-    .to(beats[1], { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.45')
-    .to(beats[2], { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
-  currentSlide = idx;
-  dots.forEach((d, di) => d.classList.toggle('is-active', di === idx));
-  heroCurrentEl.textContent = String(idx + 1).padStart(2, '0');
-}
+            resetInterval();
+        }
 
+        // --- PAGE 2: PRODUCTS ---
+        function renderProducts(filter) {
+            const app = document.getElementById('app');
+            const filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat.toLowerCase() === filter);
+            
+            app.innerHTML = `
+                <div class="page-header">
+                    <h1>Lampshades</h1>
+                    <p>Explore our curated range of handcrafted lampshades, blending age-old tradition with refined artistry.</p>
+                </div>
+                <div class="filters">
+                    <button class="filter-btn ${filter === 'all' ? 'active' : ''}" onclick="window.navigate('products', {filter: 'all'})">All products</button>
+                    <button class="filter-btn ${filter === 'standard' ? 'active' : ''}" onclick="window.navigate('products', {filter: 'standard'})">Standard</button>
+                    <button class="filter-btn ${filter === 'designer' ? 'active' : ''}" onclick="window.navigate('products', {filter: 'designer'})">Designer</button>
+                </div>
+                <div class="products-grid">
+                    ${filtered.map(p => `
+                        <div class="product-card" onclick="window.navigate('product', {id: ${p.id}})">
+                            <div class="product-card-img" style="background-image: url('${p.imgs[0]}')"></div>
+                            <div class="product-card-info">
+                                <span class="product-category-tag">${p.cat}</span>
+                                <h3>${p.name}</h3>
+                                <div class="price-container">
+                                    ${p.originalPrice ? `<span class="actual-price">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                                    <span class="discount-price">₹${p.price.toLocaleString('en-IN')}</span>
+                                </div>
+                                <div class="material-info"><strong>Material:</strong> ${p.material}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
 
-function nextSlide() { activateSlide((currentSlide + 1) % slides.length); }
-function prevSlide() { activateSlide((currentSlide - 1 + slides.length) % slides.length); }
-function startTimer() { stopTimer(); slideTimer = setInterval(nextSlide, SLIDE_DURATION); }
-function stopTimer() { if (slideTimer) clearInterval(slideTimer); }
+        // --- PAGE 3: PRODUCT DETAIL ---
+        function renderProductDetail(id) {
+            const p = PRODUCTS.find(prod => prod.id == id);
+            const app = document.getElementById('app');
+            if (!p) { app.innerHTML = '<h1 style="text-align:center; padding:50px;">Product not found</h1>'; return; }
 
+            const waLink = `https://wa.me/911234567890?text=I%20want%20to%20order%20${encodeURIComponent(p.name)}`;
+            
+            // 4th image added dynamically to all products
+            const allProductImages = [...p.imgs, "https://z-cdn-media.chatglm.cn/files/c4e4aa21-f86e-4e18-b813-a0c01c4b9a7e.jpg?auth_key=1890250423-818c3e1d509b416096797aad85942eee-0-a8c12d6dde8d9903af2ea449e84bf4ea"];
 
-dots.forEach((d, di) => d.addEventListener('click', () => { activateSlide(di); startTimer(); }));
-document.getElementById('heroNext').addEventListener('click', () => { nextSlide(); startTimer(); });
-document.getElementById('heroPrev').addEventListener('click', () => { prevSlide(); startTimer(); });
+            app.innerHTML = `
+                <div class="pd-top-bar">
+                    <a class="back-btn" onclick="history.back()">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <span class="pd-back-text" onclick="history.back()">Back to products</span>
+                </div>
+                <div class="product-detail-container">
+                    <div class="pd-gallery">
+                        <div class="pd-main-image" id="mainImage" style="background-image: url('${allProductImages[0]}');"></div>
+                        <div class="pd-thumbnails">
+                            ${allProductImages.map((img, index) => `
+                                <div class="pd-thumbnail index===0?'active':''"style="background-image:url('{img}');" onclick="changeMainImage(this, '${img}')"></div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="pd-info">
+                        <div class="eyebrow" style="color: var(--text-mute); font-weight: 400;">${p.cat} series</div>
+                        <h1>${p.name}</h1>
+                        <div class="pd-price-container">
+                            ${p.originalPrice ? `<span class="pd-actual-price">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                            <span class="pd-discount-price">₹${p.price.toLocaleString('en-IN')}</span>
+                        </div>
+                        ${p.originalPrice ? `<div class="pd-offer-badge">Flat 60% off - Introductory offer</div>` : ''}
+                        <div class="pd-subtext">Tax included | Cash on delivery</div>
+                        
+                        <a href="${waLink}" target="_blank" class="add-to-order">Order on WhatsApp</a>
+                        
+                        <div class="pd-details">
+                            <h3>Product details</h3>
+                            ${Object.entries(p.specs).map(([key, value]) => {
+                                if (key === 'Delivery') {
+                                    return `<div class="pd-delivery-box"><strong>Delivery:</strong> ${value}</div>`;
+                                } else {
+                                    return `<div class="pd-spec-row"><div class="pd-spec-label">key</div><divclass="pd-spec-value">{value}</div></div>`;
+                                }
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
+        function changeMainImage(element, newImageUrl) {
+            document.getElementById('mainImage').style.backgroundImage = `url('${newImageUrl}')`;
+            document.querySelectorAll('.pd-thumbnail').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
 
-const heroEl = document.querySelector('.hero');
-heroEl.addEventListener('mouseenter', stopTimer);
-heroEl.addEventListener('mouseleave', startTimer);
+        // --- PAGE 4: TERMS ---
+        function renderTerms() {
+            const terms = [
+                { title: "1. Product information", text: "Each lampshade is individually handcrafted using carefully selected materials. As a result, minor variations in colour, texture, grain, shape, finish and dimensions may occur. These natural variations are part of the character and uniqueness of a handmade product and should not be considered defects. Product colours may also appear slightly different depending on lighting conditions, photography and individual screen settings." },
+                { title: "2. Handmade product disclaimer", text: "Our products are handmade and not mass-produced. Minor variations, natural marks, surface irregularities and differences in texture may occur due to the nature of the materials and traditional craftsmanship. Such variations are not considered manufacturing defects." },
+                { title: "3. Material warranty", text: "The materials used in our lampshades are selected for their intended application and quality. However, natural materials such as wood, paper, fabric and other organic materials can change over time due to humidity, temperature, sunlight and environmental conditions. Material ageing, fading, discolouration, natural cracking, shrinkage or expansion caused by environmental conditions is not covered under warranty. Unless specifically mentioned on the individual product page, the product does not carry a lifetime or unconditional material warranty." },
+                { title: "4. Electrical safety", text: "Where a lampshade is supplied with electrical components, customers must use the product only with the recommended electrical fittings, bulb type and maximum wattage specified by the manufacturer. Customers must: Use the recommended bulb type and wattage. Ensure adequate ventilation around the bulb. Keep the lampshade away from water and excessive moisture. Keep flammable materials away from the lamp. Switch off and unplug the lamp when not in use or when unattended. Stop using the product if the wire, holder, switch or any electrical component appears damaged. Have electrical installation or repair work carried out by a qualified electrician where required." },
+                { title: "5. Short circuit, electrical failure & fire", text: "The product should be used strictly according to the supplied instructions and recommended electrical specifications. We are not responsible for damage, injury, fire, short circuit, electrical failure or consequential loss resulting from: Incorrect installation or wiring. Use of an incorrect or higher-wattage bulb. Use of incompatible electrical components. Voltage fluctuations, power surges or external electrical faults. Modification, alteration or repair by an unauthorised person. Improper handling, storage or installation. Use of the product in unsuitable environments. Negligence, misuse or failure to follow safety instructions. In the event of any unusual heat, burning smell, sparks, smoke or electrical malfunction, immediately switch off and disconnect the product from the power supply and discontinue use. Important: A lampshade should never be left switched on while unattended or while the customer is away from the premises." },
+                { title: "6. Product inspection", text: "Every product is carefully inspected before dispatch. Electrical components, where applicable, are also checked prior to shipment. Customers are requested to inspect the package and product immediately upon delivery. If the package or product is found to be damaged, the product should be returned immediately to the delivery agent and the issue must be reported to our customer service team immediately, along with photographs or other supporting evidence where possible. Once the product has been accepted and the delivery is completed, damage claims may be subject to verification and applicable return or replacement terms." },
+                { title: "7. Packaging", text: "Every product is carefully packed using protective packaging appropriate to its size, material and design. Because lampshades can be delicate and sculptural, protective packaging may include multiple layers of cushioning and structural support. Customers are advised to retain the original packaging until the product has been inspected and accepted." },
+                { title: "8. Transit damage", text: "If the product arrives visibly damaged, customers should: Photograph the outer packaging before opening it. Photograph the damaged product and packaging from multiple angles. Record an unboxing video wherever possible. Contact us as soon as possible with the order details and photographs/videos. Claims without adequate evidence may be difficult to verify. Transit-damage claims will be reviewed based on the condition of the product, packaging and available evidence." },
+                { title: "9. Delivery", text: "Delivery timelines vary depending on the customer's location, product availability and shipping conditions. The estimated delivery period provided at the time of purchase is an estimate and may be affected by: Courier delays. Weather conditions. Transport disruptions. Public holidays. Remote-location delivery. Address-related issues. Events outside our reasonable control. Delivery dates are therefore not guaranteed unless specifically confirmed in writing." },
+                { title: "10. Delivery address", text: "Customers are responsible for providing a complete and accurate delivery address and contact number. Additional delivery charges may apply if: The address is changed after dispatch. The courier has to make a second delivery attempt due to customer unavailability. The address is incorrect or incomplete. The location requires special or additional transportation." },
+                { title: "11. Cash on delivery", text: "For Cash on Delivery orders, the customer must make the full payment to the authorised delivery agent at the time of delivery. Customers should not make additional payments to unauthorised individuals claiming to represent the company." },
+                { title: "12. Returns & exchanges", text: "Because our lampshades are handcrafted and made in limited quantities, returns and exchanges may be subject to specific conditions. Returns will generally not be accepted for: Change of mind. Incorrect size selection by the customer. Colour preference after purchase. Minor natural variations in handmade materials. Customised or specially commissioned products. Damage caused after delivery. Where a product is found to have a manufacturing defect or arrives damaged in transit, the matter will be reviewed and an appropriate resolution may be offered." },
+                { title: "13. Cancellation", text: "Order cancellation requests must be made before the product is dispatched. Once a customised, made-to-order or specially prepared product has entered production, cancellation may not be possible." },
+                { title: "14. Installation & assembly", text: "Where installation or electrical connection is required, customers should use a qualified electrician or appropriate professional. The company is not responsible for damage or injury resulting from incorrect installation, unauthorised modification or improper electrical connection." },
+                { title: "15. Product care", text: "To maintain the appearance and longevity of your lampshade: Keep it away from direct and prolonged sunlight. Keep it away from water and excessive humidity. Do not use harsh chemicals or abrasive cleaning products. Do not pull or place excessive pressure on the shade. Clean gently using a soft, dry cloth or the care method recommended for the specific material. Use only the recommended bulb and wattage." },
+                { title: "16. Warranty", text: "Where a specific warranty period is offered, the warranty covers manufacturing defects under normal intended use during the stated warranty period. The warranty does not cover: Accidental damage. Improper installation. Electrical faults caused by external sources. Short circuits caused by incorrect wiring or use. Fire or heat damage resulting from improper use. Water or moisture damage. Normal wear and tear. Natural ageing of materials. Damage caused by modification or repair. Damage caused by unsuitable bulbs or excessive wattage. Warranty claims are subject to inspection and verification." },
+                { title: "17. Limitation of liability", text: "To the extent permitted by applicable law, the company shall not be responsible for indirect, incidental or consequential loss arising from misuse, improper installation, unauthorised modification, electrical faults outside the product's control or failure to follow the supplied safety and care instructions. Nothing in this policy is intended to exclude or restrict any consumer rights or remedies that cannot legally be excluded under applicable Indian law." },
+                { title: "18. Customer responsibility", text: "By purchasing and using the product, customers agree to follow the product's installation, electrical safety, usage and care instructions. Customers should contact us before installation if they have any questions regarding compatibility, electrical specifications or product use." },
+                { title: "19. Force majeure", text: "We shall not be liable for delays or inability to fulfil an order caused by circumstances beyond our reasonable control, including natural disasters, extreme weather, strikes, transport disruptions, government restrictions, accidents, civil disturbances or other unforeseen events." },
+                { title: "20. Policy updates", text: "We reserve the right to update these terms and policies from time to time. The version published on our website at the time of purchase will generally apply to that order, subject to applicable law." },
+                { title: "21. Customer support", text: "For questions regarding an order, delivery, product care, warranty or damage claim, customers should contact us through the official contact details provided on our website. Please retain your order confirmation/invoice as proof of purchase for any warranty or service request." }
+            ];
 
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="terms-container">
+                    <div class="eyebrow" style="margin-bottom: 30px; color: var(--text-soft);">Legal</div>
+                    <h1>Terms & policies</h1>
+                    ${terms.map(t => `
+                        <div class="terms-section">
+                            <h2>${t.title}</h2>
+                            <p>${t.text}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
 
-/* ================================================================
-   4. FEATURED — horizontal pin scroll
-   ================================================================ */
-const pinTrack = document.getElementById('pinTrack');
-const pinViewport = document.getElementById('pinViewport');
-const pinFill = document.getElementById('pinFill');
-
-
-function renderFeatured() {
-  const featured = PRODUCTS.slice(0, 8);
-  pinTrack.innerHTML = featured.map(p => {
-    const priceHtml = p.originalPrice 
-      ? `<span class="original-price">₹ ${p.originalPrice.toLocaleString('en-IN')}</span><span class="price">₹ ${p.price.toLocaleString('en-IN')}</span>`
-      : `<span class="price">₹ ${p.price.toLocaleString('en-IN')}</span>`;
-      
-    return `
-      <article class="obj-card" data-product-id="${p.id}">
-        <div class="obj-card-img"><img src="${p.imgs[0]}" alt="${p.name}" loading="lazy"></div>
-        <div class="obj-card-info">
-          <div>
-            <div class="obj-card-cat" style="font-family:'Poppins',sans-serif;font-weight:300;font-size:13px;color:var(--text-soft);margin-bottom:0.4rem;text-transform:none;">${p.material}</div>
-            <div class="obj-card-name">${p.name}</div>
-          </div>
-          <div class="obj-card-meta">
-            ${priceHtml}
-          </div>
-        </div>
-      </article>
-    `;
-  }).join('');
-}
-
-
-let pinScrollTrigger = null;
-function setupPinScroll() {
-  if (window.innerWidth < 900 || window.matchMedia('(pointer: coarse)').matches) {
-    pinViewport.style.height = '';
-    if (pinScrollTrigger) { pinScrollTrigger.kill(); pinScrollTrigger = null; }
-    gsap.set(pinTrack, { x: 0 });
-    return;
-  }
-  if (pinScrollTrigger) pinScrollTrigger.kill();
-  const trackWidth = () => pinTrack.scrollWidth - window.innerWidth + 48;
-  pinViewport.style.height = (trackWidth() + window.innerHeight) + 'px';
-  let skewTimeout = null;
-  pinScrollTrigger = gsap.to(pinTrack, {
-    x: () => -trackWidth(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: pinViewport,
-      start: 'top top',
-      end: () => `+=${trackWidth()}`,
-      scrub: 1,
-      onUpdate: (self) => {
-        const p = self.progress;
-        pinFill.style.width = (p * 100) + '%';
-        const v = self.getVelocity();
-        const skew = Math.max(-10, Math.min(10, v * 0.002));
-        pinTrack.querySelectorAll('.obj-card').forEach(c => {
-          c.style.transform = `skewX(${skew}deg)`;
+        // --- Initialization ---
+        window.addEventListener('load', () => {
+            const initialState = { view: 'home' };
+            history.replaceState(initialState, '', '');
+            renderView(initialState);
+            updateActiveNav(initialState);
         });
-        clearTimeout(skewTimeout);
-        skewTimeout = setTimeout(() => {
-          pinTrack.querySelectorAll('.obj-card').forEach(c => {
-            c.style.transform = 'skewX(0deg)';
-          });
-        }, 200);
-      },
-      onLeaveBack: () => {
-        gsap.set(pinTrack, { x: 0 });
-        pinFill.style.width = '0%';
-      }
-    }
-  });
-}
-
-
-/* ================================================================
-   5. COLLECTION GRID & TABS
-   ================================================================ */
-const productGrid = document.getElementById('productGrid');
-
-
-function renderCollection() {
-  productGrid.innerHTML = PRODUCTS.map(p => {
-    const priceHtml = p.originalPrice 
-      ? `<span class="price-original">₹ ${p.originalPrice.toLocaleString('en-IN')}</span> ₹ ${p.price.toLocaleString('en-IN')}`
-      : `₹ ${p.price.toLocaleString('en-IN')}`;
-      
-    return `
-      <article class="product-card" data-product-id="${p.id}" data-category="${p.cat}">
-        <div class="product-card-img">
-          <span class="product-card-num">CAT-${String(p.id).padStart(3, '0')}</span>
-          <img src="${p.imgs[0]}" alt="${p.name}" loading="lazy">
-        </div>
-        <div class="product-card-info">
-          <h3 class="product-card-name">${p.name}</h3>
-          <div class="product-card-material">${p.material}</div>
-          <div class="product-card-price">${priceHtml}</div>
-        </div>
-      </article>
-    `;
-  }).join('');
-}
-
-
-function revealProductCards() {
-  const cards = productGrid.querySelectorAll('.product-card');
-  cards.forEach((c, i) => {
-    c.classList.remove('is-revealed');
-    setTimeout(() => c.classList.add('is-revealed'), 40 + i * 35);
-  });
-}
-
-
-document.querySelectorAll('.collection-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const f = btn.dataset.filter;
-    setView('collection', null, f);
-  });
-});
-
-
-/* ================================================================
-   6. DYNAMIC PRODUCT DETAIL
-   ================================================================ */
-
-
-function renderProduct(productId) {
-  const p = PRODUCTS.find(x => x.id == productId);
-  if (!p) return;
-  
-  const num = String(p.id).padStart(3, '0');
-  
-  document.getElementById('crumbName').textContent = p.name;
-  document.getElementById('crumbCategory').textContent = p.cat;
-  document.getElementById('prodEyebrow').textContent = `${p.cat} · CAT-${num}`;
-  document.getElementById('prodName').innerHTML = p.name; 
-  
-  // Render Price with Strike-through
-  const priceContainer = document.getElementById('prodPriceContainer');
-  if (p.originalPrice) {
-    priceContainer.innerHTML = `
-      <span class="currency">INR</span>
-      <span class="original-amount">₹ ${p.originalPrice.toLocaleString('en-IN')}</span>
-      <span class="amount" id="prodPrice">₹ ${p.price.toLocaleString('en-IN')}</span>
-    `;
-  } else {
-    priceContainer.innerHTML = `
-      <span class="currency">INR</span>
-      <span class="amount" id="prodPrice">₹ ${p.price.toLocaleString('en-IN')}</span>
-    `;
-  }
-
-
-  // Render Offer Text (Flat 60% Off - Introductory Offer)
-  const offerEl = document.getElementById('prodOffer');
-  if (p.id !== 27 && p.originalPrice) {
-      offerEl.innerHTML = "Flat 60% Off - Introductory Offer";
-      offerEl.style.display = "block";
-  } else {
-      offerEl.innerHTML = "";
-      offerEl.style.display = "none";
-  }
-  
-  // Render Description (Hide if empty to save space)
-  const ledeEl = document.getElementById('prodLede');
-  if (p.desc && p.desc.trim() !== '') {
-    ledeEl.textContent = p.desc;
-    ledeEl.style.display = 'block';
-  } else {
-    ledeEl.textContent = '';
-    ledeEl.style.display = 'none';
-  }
-
-
-  // Dynamically Render Specs Table
-  const specsList = document.getElementById('specsList');
-  if (p.specs) {
-    let specsHtml = '';
-    for (const [key, value] of Object.entries(p.specs)) {
-      specsHtml += `<div class="spec-row"><div class="spec-label">${key}</div><div class="spec-value">${value}</div></div>`;
-    }
-    specsList.innerHTML = specsHtml;
-  } else {
-    specsList.innerHTML = '';
-  }
-  
-  const waLink = document.getElementById('addToOrderLink');
-  waLink.href = `https://wa.me/918073191006?text=I%20would%20like%20to%20order%20the%20${encodeURIComponent(p.name)}%20(₹%20${p.price.toLocaleString('en-IN')})`;
-  
-  // Render Gallery with multiple images
-  const thumbs = document.getElementById('galleryThumbs');
-  thumbs.innerHTML = p.imgs.map((src, i) => `
-    <button class="gallery-thumb ${i === 0 ? 'is-active' : ''}" data-idx="${i}">
-      <img src="${src}" alt="View ${i+1}">
-    </button>
-  `).join('');
-  
-  document.getElementById('galleryMainImg').src = p.imgs[0];
-  document.getElementById('galleryTotal').textContent = String(p.imgs.length).padStart(2, '0');
-  document.getElementById('galleryCurrent').textContent = '01';
-  
-  initGalleryClicks();
-}
-
-
-function initGalleryClicks() {
-  const thumbs = document.querySelectorAll('#view-object .gallery-thumb');
-  const mainImg = document.getElementById('galleryMainImg');
-  const main = document.getElementById('galleryMain');
-  const currentEl = document.getElementById('galleryCurrent');
-  const seeds = Array.from(thumbs).map(t => t.querySelector('img').src);
-
-
-  thumbs.forEach((t, idx) => {
-    t.onclick = () => {
-      thumbs.forEach(th => th.classList.remove('is-active'));
-      t.classList.add('is-active');
-      main.classList.add('changing');
-      setTimeout(() => {
-        mainImg.src = seeds[idx];
-        main.classList.remove('changing');
-      }, 300);
-      currentEl.textContent = String(idx + 1).padStart(2, '0');
-    };
-  });
-}
-
-
-/* ================================================================
-   7. LIGHTBOX / ZOOM LOGIC
-   ================================================================ */
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const lightboxClose = document.getElementById('lightboxClose');
-const galleryMainEl = document.getElementById('galleryMain');
-let lbScale = 1;
-let lbPosX = 0;
-let lbPosY = 0;
-let isDragging = false;
-let startDragX = 0;
-let startDragY = 0;
-
-
-function updateLightboxTransform() {
-  lightboxImg.style.transform = `translate(${lbPosX}px, ${lbPosY}px) scale(${lbScale})`;
-}
-
-
-function openLightbox() {
-  const mainImg = document.getElementById('galleryMainImg');
-  if (!mainImg.src) return;
-  lightboxImg.src = mainImg.src;
-  lbScale = 1;
-  lbPosX = 0;
-  lbPosY = 0;
-  updateLightboxTransform();
-  lightbox.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-}
-
-
-function closeLightbox() {
-  lightbox.classList.remove('is-open');
-  document.body.style.overflow = '';
-}
-
-
-galleryMainEl.addEventListener('click', openLightbox);
-lightboxClose.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox || e.target.id === 'lightboxContent') {
-    closeLightbox();
-  }
-});
-
-
-lightbox.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  const delta = e.deltaY * -0.002;
-  lbScale += delta;
-  if (lbScale < 1) lbScale = 1;
-  if (lbScale > 5) lbScale = 5;
-  if (lbScale === 1) { lbPosX = 0; lbPosY = 0; }
-  updateLightboxTransform();
-});
-
-
-lightboxImg.addEventListener('mousedown', (e) => {
-  if (lbScale > 1) {
-    isDragging = true;
-    startDragX = e.clientX - lbPosX;
-    startDragY = e.clientY - lbPosY;
-    lightbox.classList.add('is-grabbing');
-  }
-});
-
-
-window.addEventListener('mousemove', (e) => {
-  if (isDragging) {
-    lbPosX = e.clientX - startDragX;
-    lbPosY = e.clientY - startDragY;
-    updateLightboxTransform();
-  }
-});
-
-
-window.addEventListener('mouseup', () => {
-  isDragging = false;
-  lightbox.classList.remove('is-grabbing');
-});
-
-
-/* ================================================================
-   8. TERMS MODAL LOGIC
-   ================================================================ */
-const termsModal = document.getElementById('termsModal');
-const termsClose = document.getElementById('termsClose');
-const termsLink = document.getElementById('termsLink');
-
-
-function openTermsModal(e) {
-  e.preventDefault();
-  termsModal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-  termsModal.scrollTop = 0;
-}
-
-
-function closeTermsModal() {
-  termsModal.classList.remove('is-open');
-  if (!lightbox.classList.contains('is-open')) {
-    document.body.style.overflow = '';
-  }
-}
-
-
-termsLink.addEventListener('click', openTermsModal);
-termsClose.addEventListener('click', closeTermsModal);
-termsModal.addEventListener('click', (e) => {
-  if (e.target === termsModal) {
-    closeTermsModal();
-  }
-});
-
-
-/* ================================================================
-   9. GLOBAL KEYBOARD EVENTS
-   ================================================================ */
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    if (lightbox.classList.contains('is-open')) {
-      closeLightbox();
-    } else if (termsModal.classList.contains('is-open')) {
-      closeTermsModal();
-    }
-  }
-});
-
-
-/* ================================================================
-   10. REVEAL ON SCROLL
-   ================================================================ */
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('is-in');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
-
-
-function observeReveals() {
-  document.querySelectorAll('.reveal').forEach(el => {
-    if (!el.classList.contains('is-in')) revealObserver.observe(el);
-  });
-}
-
-
-/* ================================================================
-   11. INIT
-   ================================================================ */
-function init() {
-  gsap.set(slides[0].querySelectorAll('.slide-eyebrow, .slide-title, .slide-sub'), { opacity: 0, y: 40 });
-  gsap.timeline({ delay: 0.4 })
-    .to(slides[0].querySelector('.slide-eyebrow'), { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-    .to(slides[0].querySelector('.slide-title'), { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.45')
-    .to(slides[0].querySelector('.slide-sub'), { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
-
-
-  startTimer();
-  renderFeatured();
-  renderCollection();
-  observeReveals();
-  setTimeout(setupPinScroll, 100);
-
-
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      if (pinScrollTrigger) pinScrollTrigger.refresh();
-      setupPinScroll();
-    }, 200);
-  });
-}
-
-
-if (document.readyState === 'complete') init();
-else window.addEventListener('load', init);
-</script>
-
-
+    </script>
 </body>
 </html>
 ```
