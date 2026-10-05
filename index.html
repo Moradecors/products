@@ -107,6 +107,36 @@
         nav a.active, .filter-btn.active { color: var(--accent-2); }
         nav a.active::after, .filter-btn.active::after { width: 100%; }
 
+        /* Ad Banner Styles - Seamless Loop */
+        .ad-banner {
+            background-color: var(--accent-2);
+            color: rgba(255, 255, 255, 0.9); /* 90% opacity white text */
+            overflow: hidden;
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: 400; /* Regular font weight */
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .ad-track {
+            display: flex;
+            width: max-content;
+            animation: ad-marquee 25s linear infinite;
+        }
+        .ad-group {
+            display: flex;
+            flex-shrink: 0;
+        }
+        .ad-group span {
+            padding: 0 20px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        @keyframes ad-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         .menu-toggle {
             display: none; background: transparent; border: none; cursor: pointer; padding: 5px;
             color: var(--text); flex-shrink: 0; align-items: center; justify-content: center;
@@ -304,6 +334,24 @@
         </button>
     </header>
 
+    <!-- Animated Ad Banner -->
+    <div class="ad-banner">
+        <div class="ad-track">
+            <div class="ad-group">
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+            </div>
+            <div class="ad-group" aria-hidden="true">
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
     <div id="menuOverlay" class="menu-overlay" onclick="closeMobileMenu()"></div>
 
     <div id="mobileMenu" class="mobile-menu">
@@ -382,18 +430,19 @@
           { id: 12, name: "Basjoo", cat: "Standard", material: "Banana Paper, Base: Teak, Brass Pipe", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/pr2h1HrY/Basjoo-1.jpg", "https://i.ibb.co/5W0X80fJ/Basjoo-2.jpg", "https://i.ibb.co/Y72G6nDF/Basjoo-3.jpg"], specs: { "Dimension": "H-17 inches, W-6 inches", "Material": "Banana Paper, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 13, name: "Kuruvi", cat: "Designer", material: "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", price: 3600, originalPrice: 9000, imgs: ["https://i.ibb.co/XrgddnXs/Kuruvi-1.jpg", "https://i.ibb.co/39fggXKH/Kuruvi-2.jpg", "https://i.ibb.co/JWq1YTXS/Kuruvi-3.jpg"], specs: { "Dimension": "H-17 inches, W-8 inches", "Material": "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 14, name: "Pana", cat: "Standard", material: "White Cotton Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/0pjtSKfY/Pana-1.jpg", "https://i.ibb.co/f55FJvW/Pana-2.jpg", "https://i.ibb.co/fVcn1T5L/Pana-3.jpg"], specs: { "Dimension": "H-18 inches, W-6 inches", "Material": "White Cotton Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 15, name: "Aranya", cat: "Standard", material: "Embroidery Fabric, Base: Coffee Wood + Teak", price: 2600, originalPrice: 6500, imgs: ["https://i.ibb.co/27XD4k1x/Aranya-1.jpg", "https://i.ibb.co/FkSmLyFS/Aranya-2.jpg", "https://i.ibb.co/xqX8RgJS/Aranya-3.jpg"], specs: { "Dimension": "H-31 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Coffee Wood + Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 15, name: "Aranya", cat: "Standard", material: "Embroidery Fabric, Base: Coffee Wood + Teak", price: 2600, originalPrice: 6500, imgs: ["https://i.ibb.co/twnhLXQW/Aranya-1.jpg", "https://i.ibb.co/FkSmLyFS/Aranya-2.jpg", "https://i.ibb.co/xqX8RgJS/Aranya-3.jpg"], specs: { "Dimension": "H-31 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Coffee Wood + Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 16, name: "The Maharani", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 7600, originalPrice: 19000, imgs: ["https://i.ibb.co/RXvYqrJ/The-Maharani-1.jpg", "https://i.ibb.co/ycZWBR4D/The-Maharani-2.jpg", "https://i.ibb.co/zH5vJjNd/The-Maharani-3.jpg"], specs: { "Dimension": "H-28 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 17, name: "Amore", cat: "Standard", material: "Embroidery Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/j9BtpZd6/Amore-1.jpg", "https://i.ibb.co/6cBZskz9/Amore-2.jpg", "https://i.ibb.co/SwxsybG7/Amore-3.jpg"], specs: { "Dimension": "H-40 inches, W-6inches", "Material": "Embroidery Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 18, name: "Klee", cat: "Standard", material: "Embroidery Fabric, Base: Teak + Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/TDmSmDQb/Klee-1.jpg", "https://i.ibb.co/v4KHsF5j/Klee-2.jpg", "https://i.ibb.co/KcJjsBfB/Klee-3.jpg"], specs: { "Dimension": "H-41 inches, W-6 inches", "Material": "Embroidery Fabric, Base: Teak + Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 19, name: "Kinu", cat: "Standard", material: "Raw Silk, Base: Teak", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/sJ1V5SrY/Kinu-1.jpg", "https://i.ibb.co/TxLG2ktS/Kinu-2.jpg", "https://i.ibb.co/zH58bQSj/Kinu-3.jpg"], specs: { "Dimension": "H-11 inches, W-12 inches", "Material": "Raw Silk, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 19, name: "Kinu", cat: "Standard", material: "Raw Silk, Base: Teak", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/WN1j0Tg4/Kinu-1.jpg", "https://i.ibb.co/TxLG2ktS/Kinu-2.jpg", "https://i.ibb.co/zH58bQSj/Kinu-3.jpg"], specs: { "Dimension": "H-11 inches, W-12 inches", "Material": "Raw Silk, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 20, name: "Yoddha", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 4200, originalPrice: 10500, imgs: ["https://i.ibb.co/W4jYfrKj/Yoddha-1.jpg", "https://i.ibb.co/gKnhf72/Yoddha-2.jpg", "https://i.ibb.co/vxPM3jyV/Yoddha-3.jpg"], specs: { "Dimension": "H-16 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 21, name: "Hilma", cat: "Standard", material: "Printed Fabric, Base: FRP- Oil Paint", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/RpVQXkrq/Hilma-1.jpg", "https://i.ibb.co/VcfkbYKB/Hilma-2.jpg", "https://i.ibb.co/PsPbHXzM/Hilma-3.jpg"], specs: { "Dimension": "H-25 inches, W-7 inches", "Material": "Printed Fabric, Base: FRP- Oil Paint", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 22, name: "Black Cherry", cat: "Designer", material: "Jute Fabric, Base: FRP- Oil paint", price: 4600, originalPrice: 11500, imgs: ["https://i.ibb.co/SD5pW9RR/Black-Cherry-1.jpg", "https://i.ibb.co/BKt8HMNm/Black-Cherry-2.jpg", "https://i.ibb.co/Y7VfCYP8/Black-Cherry-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "Jute Fabric, Base: FRP- Oil paint", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 23, name: "Keeffe", cat: "Standard", material: "Printed Fabric, Base: Terracotta", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/nMJF4nJx/Keeffe-1.jpg", "https://i.ibb.co/RpVj1TNJ/Keeffe-2.jpg", "https://i.ibb.co/DPQx6rxJ/Keeffe-3.jpg"], specs: { "Dimension": "H-31 inches, W-7 inches", "Material": "Printed Fabric, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 22, name: "Black Cherry", cat: "Designer", material: "Jute Fabric, Base: FRP- Oil paint", price: 4600, originalPrice: 11500, imgs: ["https://i.ibb.co/k2pMhDpn/Black-Cherry-1.jpg", "https://i.ibb.co/BKt8HMNm/Black-Cherry-2.jpg", "https://i.ibb.co/Y7VfCYP8/Black-Cherry-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "Jute Fabric, Base: FRP- Oil paint", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 23, name: "Keeffe", cat: "Standard", material: "Printed Fabric, Base: Terracotta", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/wr07WXyb/Keeffe-1.jpg", "https://i.ibb.co/RpVj1TNJ/Keeffe-2.jpg", "https://i.ibb.co/DPQx6rxJ/Keeffe-3.jpg"], specs: { "Dimension": "H-31 inches, W-7 inches", "Material": "Printed Fabric, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 24, name: "Caihou", cat: "Standard", material: "Handmade Paper, Base: Teak, Brass Pipe", price: 1200, originalPrice: 3000, imgs: ["https://i.ibb.co/XxKWmQT6/Caihou-1.jpg", "https://i.ibb.co/tTqQ6F10/Caihou-2.jpg", "https://i.ibb.co/DPwQjLmz/Caihou-3.jpg"], specs: { "Dimension": "H-18 inches, W-7 inches", "Material": "Handmade Paper, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
           { id: 25, name: "Kanchana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/VYF4S07t/Kanchana-1.jpg", "https://i.ibb.co/3yTgHvqd/Kanchana-2.jpg", "https://i.ibb.co/j9jDFV3V/Kanchana-3.jpg"], specs: { "Dimension": "H-11 inches, W-8 inches", "Material": "Netted Stretchable Fabric, Base: Royal Jasmine Stem", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null, imgs: ["https://i.ibb.co/N222z4wv/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } }
+          { id: 26, name: "Olivia", cat: "Designer", material: "Banana Paper", price: 1200, originalPrice: 3000, imgs: ["https://i.ibb.co/sJ92QQjx/Olivia-1.jpg", "https://i.ibb.co/4yQBr8Q/Olivia-2.jpg", "https://i.ibb.co/XZjf2RFd/Olivia-3.jpg"], specs: { "Dimension": "H-18 inches, W-7 inches", "Material": "Banana Paper", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
+          { id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null, imgs: ["https://i.ibb.co/qqt36Ww/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } }
         ];
 
         function openMobileMenu() {
@@ -485,7 +534,6 @@
                     '<div class="slide" data-slide="1"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Our legacy</div><h1 class="slide-title">The Attukal <em>legacy</em></h1><p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p></div></div>' +
                     '<div class="slide" data-slide="2"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Material</div><h1 class="slide-title">Pieces of <em>rare character</em></h1><p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p></div></div>' +
                     '<div class="slide" data-slide="3"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Designer products</div><h1 class="slide-title">Born from <em>heritage</em></h1><p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p></div></div>' +
-                    // Updated 5th Slide image with provided URL
                     '<div class="slide" data-slide="4"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/faeea79c-bff6-44a0-8e45-f1512bafe0c6.jpg?auth_key=1890669000-da8ed20d26e3432580ee5c3676e87d51-0-6bfa12bea507f6d7124a4264bed07007\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Cash on delivery</div><h1 class="slide-title">Delivered with <em>care</em></h1><p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on delivery.</p></div></div>' +
                   '</div>' +
                   '<div class="hero-controls">' +
@@ -627,7 +675,7 @@
                         '<div class="pd-price-container">' + priceContainerHtml + '</div>' +
                         offerBadgeHtml +
                         '<div class="pd-subtext">Tax included | Cash on delivery</div>' +
-                        '<a href="' + waLink + '" target="_blank" class="add-to-order">Order on WhatsApp</a>' +
+                        '<a href="' + waLink + '" target="_blank" class="add-to-order" style="background: #25D366;">Order on WhatsApp</a>' +
                         '<div class="pd-details">' +
                             '<h3>Product details</h3>' +
                             specsHtml +
